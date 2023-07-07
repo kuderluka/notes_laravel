@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/categories', function () {
+    return view('list', [
+        'heading' => 'Categories',
+        'entries' => Category::all()
+    ]);
+});
+
+Route::get('/users', function () {
+    return view('list', [
+        'heading' => 'Users',
+        'entries' => User::all()
+    ]);
+});
+
