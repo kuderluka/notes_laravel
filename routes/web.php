@@ -29,9 +29,13 @@ Route::get('/users/create', [UserController::class, 'create']);
 Route::get('/categories/create', [CategoryController::class, 'create']);
 Route::get('/notes/create', [NoteController::class, 'create']);
 
-Route::get('/users/{user}', [UserController::class, 'updateForm']);
-Route::get('/categories/{category}', [CategoryController::class, 'updateForm']);
-Route::get('/notes/{note}', [NoteController::class, 'updateForm']);
+Route::post('/users', [UserController::class, 'store']);
+Route::post('/categories', [CategoryController::class, 'store']);
+Route::post('/notes', [NoteController::class, 'store']);
+
+Route::get('/users/{user}', [UserController::class, 'edit']);
+Route::get('/categories/{category}', [CategoryController::class, 'edit']);
+Route::get('/notes/{note}', [NoteController::class, 'edit']);
 
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
