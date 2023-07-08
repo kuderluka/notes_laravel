@@ -3,7 +3,7 @@
         @csrf
         <h1 class="mt-4"> Enter information about a user </h1>
 
-        <input type="hidden" id="id" name="id" value="">
+        <input type="hidden" id="id" name="id" value="{{old('id')}}">
 
         <div class="mb-3">
             <label for="username" class="form-label"> Name (Between 5 and 20 numbers or letters) </label>
