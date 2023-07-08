@@ -10,12 +10,13 @@
 
 <body>
 <div class="container">
+    <br>
     <div class="d-flex justify-content-between align-items-center header">
-        <h1>Notes</h1>
+        <h1>notes_laravel</h1>
         <div>
-            <button class="btn btn-primary button">Button 1</button>
-            <button class="btn btn-primary button">Button 2</button>
-            <button class="btn btn-primary button">Button 3</button>
+            <a href="/users" class="btn btn-primary button">Users</a>
+            <a href="/categories" class="btn btn-primary button">Categories</a>
+            <a href="/notes" class="btn btn-primary button">Notes</a>
         </div>
     </div>
     <br>
