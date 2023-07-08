@@ -1,9 +1,13 @@
-<div class="row">
-    <div class="col">{{$entry->users}}</div>
-    <div class="col">{{$entry->title}}</div>
-    <div class="col">{{$entry->color}}</div>
-    <div class="col">
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-danger">Delete</button>
-    </div>
-</div>
+<tr>
+    <td>{{$entry->title}}</td>
+    <td>{{$entry->color}}</td>
+    <td>
+        <a href="/categories/{{$entry->id}}" class="btn btn-primary">Edit</a>
+
+        <form method="POST" action="/categories/{{$entry->id}}">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger">Delete</button>
+        </form>
+    </td>
+</tr>
