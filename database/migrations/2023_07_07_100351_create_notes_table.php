@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notes', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 36)->primary();
             $table->string('user');
             $table->string('category');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('content');
             $table->integer('priority');
             $table->string('deadline');
