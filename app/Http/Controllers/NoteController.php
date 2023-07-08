@@ -21,7 +21,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function updateForm(Note $note): string
+    public function edit(Note $note): string
     {
         return view('edit', [
             'heading' => 'notes',

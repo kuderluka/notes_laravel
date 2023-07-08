@@ -21,7 +21,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function updateForm(Category $category): string
+    public function edit(Category $category): string
     {
         return view('edit', [
             'heading' => 'categories',
