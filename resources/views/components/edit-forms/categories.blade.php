@@ -1,13 +1,13 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a category </h1> <br>
 
-    <form action="/update/category" method="POST">
+    <form action="/categories" method="POST">
         @csrf
         @if($editing)
             @method('PUT')
             @php
                 echo ('<input type="hidden" id="id" name="id" value="' . $entry->id .'">');
-                $checkedEntries = App\Models\Category->users();
+                $checkedEntries = $entry->users;
             @endphp
         @else
             @php
@@ -40,7 +40,7 @@
         </div>
 
         <input type="submit" text="Save category" class="btn btn-primary">
-        <button type="button" class="btn btn-secondary" onclick="location.href='/display/category';">Go Back</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/categories';">Go Back</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/';">Home</button>
     </form>
 </div>
