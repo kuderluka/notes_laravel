@@ -33,6 +33,10 @@ Route::post('/users', [UserController::class, 'store']);
 Route::post('/categories', [CategoryController::class, 'store']);
 Route::post('/notes', [NoteController::class, 'store']);
 
+Route::put('/users', [UserController::class, 'update']);
+Route::put('/categories', [CategoryController::class, 'update']);
+Route::put('/notes', [NoteController::class, 'update']);
+
 Route::get('/users/{user}', [UserController::class, 'edit']);
 Route::get('/categories/{category}', [CategoryController::class, 'edit']);
 Route::get('/notes/{note}', [NoteController::class, 'edit']);
