@@ -2,7 +2,7 @@
     <td>{{$entry->username}}</td>
     <td>{{$entry->email}}</td>
     <td>{{$entry->password}}</td>
-    <td>{{$entry->image}}</td>
+    <td> <img src="{{asset('storage/' . $entry->image)}}" height="100"></td>
     <td>
         <a href="/users/{{$entry->id}}" class="btn btn-primary">Edit</a>
 
