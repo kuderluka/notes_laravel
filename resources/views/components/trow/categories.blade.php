@@ -1,4 +1,14 @@
 <tr>
+    <td>
+        @php
+            foreach($entry->users as $user) {
+                echo $user['username'];
+        @endphp
+            <br>
+        @php
+            }
+        @endphp
+    </td>
     <td>{{$entry->title}}</td>
     <td>{{$entry->color}}</td>
     <td>
