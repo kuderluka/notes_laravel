@@ -23,7 +23,8 @@ class UserController extends Controller
     {
         return view('edit', [
             'heading' => 'users',
-            'entry' => []
+            'entry' => [],
+            'editing' => FALSE
         ]);
     }
 
@@ -31,7 +32,8 @@ class UserController extends Controller
     {
         return view('edit', [
             'heading' => 'users',
-            'entry' => $user
+            'entry' => $user,
+            'editing' => TRUE
         ]);
     }
 
