@@ -11,8 +11,18 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function users(): HasMany
+    public $incrementing = false;
+    public $keyType = 'string';
+
+    protected $fillable = [
+        'id',
+        'title',
+        'color'
+    ];
+
+    public function users()
     {
-        return $this->hasMany(User::class);
+        //return $this->belongsToMany(User::class, 'category_user', 'category_id', 'user_id');
+        return $this->belongsToMany(User::class);
     }
 }

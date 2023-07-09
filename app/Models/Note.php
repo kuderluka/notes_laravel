@@ -9,6 +9,9 @@ class Note extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+    public $keyType = 'string';
+
     public function user()
     {
         return $this->belongsTo(User::class);
