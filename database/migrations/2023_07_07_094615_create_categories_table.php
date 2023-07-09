@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->string('id', 36)->primary();
+            $table->string('user');
             $table->string('title')->unique();
             $table->string('color');
             $table->timestamps();
+            $table->foreign('user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

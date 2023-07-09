@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->string('id', 36)->primary();
-            $table->string('user');
-            $table->string('category');
+            $table->string('user', 36);
+            $table->string('category', 36);
             $table->string('title')->unique();
             $table->string('content');
             $table->integer('priority');
             $table->string('deadline');
             $table->timestamps();
+            $table->foreign('user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
