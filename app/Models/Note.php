@@ -11,6 +11,16 @@ class Note extends Model
 
     public $incrementing = false;
     public $keyType = 'string';
+    protected $fillable = [
+        'id',
+        'title',
+        'user',
+        'category',
+        'content',
+        'priority',
+        'deadline',
+        'tags'
+    ];
 
     public function user()
     {
