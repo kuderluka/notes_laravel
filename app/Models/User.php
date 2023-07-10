@@ -23,20 +23,13 @@ class User extends Model
         'image',
     ];
 
-    public function note()
-    {
-        return $this->hasOne(Note::class, 'user', 'id');
-    }
-
     public function notes()
     {
-        return $this->hasMany(Note::class, 'user', 'id');
+        return $this->hasMany(Note::class);
     }
-
     public function categories()
     {
-        //return $this->belongsToMany(Category::class,'category_user','user_id', 'category_id');
-        return $this->belongsToMany(Category::class);
+        return $this->hasMany(Category::class);
     }
 }
 
