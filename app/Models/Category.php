@@ -22,7 +22,11 @@ class Category extends Model
 
     public function users()
     {
-        //return $this->belongsToMany(User::class, 'category_user', 'category_id', 'user_id');
         return $this->belongsToMany(User::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
     }
 }
