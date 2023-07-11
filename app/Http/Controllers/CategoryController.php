@@ -3,21 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
-    public function index() {
+    /**
+     * Returns the default view
+     *
+     * @return string
+     */
+    public function index():string
+    {
         return view('list', [
             'heading' => 'categories',
             'entries' => Category::all()
         ]);
     }
 
-    public function create()
+    /**
+     * Returns the create view
+     *
+     * @return string
+     */
+    public function create():string
     {
         return view('edit', [
             'heading' => 'categories',
@@ -26,7 +36,13 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function edit(Category $category)
+    /**
+     * Returns the edit view
+     *
+     * @param Category $category
+     * @return string
+     */
+    public function edit(Category $category): string
     {
         return view('edit', [
             'heading' => 'categories',
@@ -35,7 +51,13 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    /**
+     * Updates the entry in the database and redirects
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function update(Request $request): string
     {
         $validated = $request->validate([
             'id' => 'required',
@@ -55,7 +77,13 @@ class CategoryController extends Controller
         return redirect('/categories')->with('message', 'Category updated successfully');
     }
 
-    public function store(Request $request)
+    /**
+     * Stores a new entry to the database and redirects
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function store(Request $request): string
     {
         $validated = $request->validate([
             'users' => 'required',
@@ -70,6 +98,12 @@ class CategoryController extends Controller
         return redirect('/categories')->with('message', 'Category created successfully');
     }
 
+    /**
+     * Deletes the given category
+     *
+     * @param Category $category
+     * @return string
+     */
     public function destroy(Category $category): string
     {
         $category->delete();

@@ -2,24 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Note;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class NoteController extends Controller
 {
-    public function index() {
+    /**
+     * Returns the default view
+     *
+     * @return string
+     */
+    public function index(): string
+    {
         return view('list', [
             'heading' => 'notes',
             'entries' => Note::all()
         ]);
     }
 
-    public function create()
+    /**
+     * Returns the create view
+     *
+     * @return string
+     */
+    public function create(): string
     {
         return view('edit', [
             'heading' => 'notes',
@@ -28,7 +36,13 @@ class NoteController extends Controller
         ]);
     }
 
-    public function edit(Note $note)
+    /**
+     * Returns the edit view
+     *
+     * @param Note $note
+     * @return string
+     */
+    public function edit(Note $note): string
     {
         return view('edit', [
             'heading' => 'notes',
@@ -37,7 +51,13 @@ class NoteController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    /**
+     * Updates the entry in the database and redirects
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function update(Request $request): string
     {
         $validated = $request->validate([
             'id' => 'required',
@@ -54,8 +74,14 @@ class NoteController extends Controller
         return redirect('/notes')->with('message', 'Note updated successfully');
     }
 
-    public function store(Request $request) {
-
+    /**
+     * Stores a new entry to the database and redirects
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function store(Request $request): string
+    {
         $validated = $request->validate([
             'user' => 'required',
             'category' => 'required',
@@ -69,6 +95,8 @@ class NoteController extends Controller
         $validated['id'] = (string) Str::orderedUuid();
         $note = Note::create($validated);
 
+        return redirect('/notes')->with('message', 'Note created successfully');
+
         //Ni slo ne glede na to kaj sem poskusil zato sm kr brute forcu
         //$note->user()->attach($request->user);
         //$note->category()->attach($request->category);
@@ -78,11 +106,15 @@ class NoteController extends Controller
 
         //$user->notes()->save($note);
         //$category->notes()->save($note);
-
-        return redirect('/notes')->with('message', 'Note created successfully');
     }
 
-    public function destroy(Note $note)
+    /**
+     * Deletes the given note
+     *
+     * @param Note $note
+     * @return string
+     */
+    public function destroy(Note $note): string
     {
         $note->delete();
         return redirect('/notes')->with('message', 'Note deleted successfully');

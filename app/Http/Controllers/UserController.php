@@ -6,12 +6,16 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
-use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index()
+    /**
+     * Returns the default view
+     *
+     * @return string
+     */
+    public function index(): string
     {
         return view('list', [
             'heading' => 'users',
@@ -19,7 +23,12 @@ class UserController extends Controller
         ]);
     }
 
-    public function create()
+    /**
+     * Returns the create view
+     *
+     * @return string
+     */
+    public function create(): string
     {
         return view('edit', [
             'heading' => 'users',
@@ -28,7 +37,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(User $user)
+    /**
+     * Returns the edit view
+     *
+     * @param User $user
+     * @return string
+     */
+    public function edit(User $user): string
     {
         return view('edit', [
             'heading' => 'users',
@@ -37,7 +52,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    /**
+     * Updates the entry in the database and redirects
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function update(Request $request): string
     {
         File::delete(public_path() . '/storage/' . $request->oldImage);
 
@@ -45,6 +66,7 @@ class UserController extends Controller
             $request['image'] = 'submitted';
         }
 
+        //TODO: Add custom validation rules
         $validated = $request->validate([
             'id' => 'required',
             'username' => 'required',
@@ -58,7 +80,14 @@ class UserController extends Controller
         return redirect('/users')->with('message', 'User updated successfully');
     }
 
-    public function store(Request $request) {
+    /**
+     * Stores a new entry to the database and redirects
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function store(Request $request): string
+    {
         if($request->hasFile('image')) {
             $request['image'] = 'submitted';
         }
@@ -77,6 +106,12 @@ class UserController extends Controller
         return redirect('/users')->with('message', 'User created successfully');
     }
 
+    /**
+     * Deletes the given user and it's associated image
+     *
+     * @param User $user
+     * @return string
+     */
     public function destroy(User $user): string
     {
         File::delete(public_path() . '/storage/' . $user->image);
