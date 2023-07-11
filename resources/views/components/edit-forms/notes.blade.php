@@ -8,7 +8,8 @@
             @php
                 $editing = TRUE;
                 echo ('<input type="hidden" id="id" name="id" value="' . $entry->id .'">');
-                $checked = $entry->user;
+                $checkedUser = \App\Models\User::find($entry->user);
+                $checkedCategory = \App\Models\Category::find($entry->category);
             @endphp
         @else
             @php
@@ -19,7 +20,7 @@
 
         <div class="mb-3">
             <label> Choose the user by checking the circle in front of their name: </label> <br>
-            <x-radio type="user" property="username" :entries="App\Models\User::all()" :checked="$checked" />
+            <x-radio type="user" property="username" :entries="App\Models\User::all()" :checked="$checkedUser" />
             @error('user')
             <p>{{$message}}</p>
             @enderror
@@ -27,7 +28,7 @@
 
         <div class="mb-3">
             <label> Choose the category by checking the circle in front of it's title: </label> <br>
-            <x-radio type="category" property="title" :entries="App\Models\Category::all()" :checked="$checked" />
+            <x-radio type="category" property="title" :entries="App\Models\Category::all()" :checked="$checkedCategory" />
             @error('category')
             <p>{{$message}}</p>
             @enderror
