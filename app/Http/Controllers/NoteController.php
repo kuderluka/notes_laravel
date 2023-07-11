@@ -28,7 +28,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function edit(Note $note): string
+    public function edit(Note $note)
     {
         return view('edit', [
             'heading' => 'notes',
@@ -39,7 +39,19 @@ class NoteController extends Controller
 
     public function update(Request $request)
     {
+        $validated = $request->validate([
+            'id' => 'required',
+            'user' => 'required',
+            'category' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'priority' => 'required',
+            'deadline' => 'required',
+            'tags' => 'required'
+        ]);
 
+        Note::where('id', $validated['id'])->update($validated);
+        return redirect('/notes')->with('message', 'Note updated successfully');
     }
 
     public function store(Request $request) {
