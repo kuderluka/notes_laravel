@@ -5,7 +5,7 @@
     <td>{{$entry->content}}</td>
     <td>{{$entry->priority}}</td>
     <td>{{$entry->deadline}}</td>
-    <td>{{$entry->tag}}</td>
+    <td>{{$entry->tags}}</td>
     <td>
         <a href="/notes/{{$entry->id}}" class="btn btn-primary">Edit</a>
 
