@@ -62,13 +62,13 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'id' => 'required',
             'users' => 'required',
-            'title' => ['required', Rule::unique('categories', 'title')],
+            'title' => ['required', Rule::unique('categories', 'title')->ignore($request->id), 'min:3', 'max:30'],
             'color' => 'required'
         ]);
 
         unset($validated['users']);
 
-        //To ne dela ce uporabim: ??????
+        //To ne dela ce uporabim:
         //$category = Category::where('id', $validated['id'])->update($validated);
         Category::where('id', $validated['id'])->update($validated);
         $category = Category::find($request->id);
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'users' => 'required',
-            'title' => ['required', Rule::unique('categories', 'title')],
+            'title' => ['required', Rule::unique('categories', 'title'), 'min:3', 'max:30'],
             'color' => 'required'
         ]);
         $validated['id'] = (string) Str::orderedUuid();

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -25,9 +28,9 @@ class NoteController extends Controller
     /**
      * Returns the create view
      *
-     * @return string
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
-    public function create(): string
+    public function create()
     {
         return view('edit', [
             'heading' => 'notes',
@@ -63,11 +66,11 @@ class NoteController extends Controller
             'id' => 'required',
             'user' => 'required',
             'category' => 'required',
-            'title' => 'required',
-            'content' => 'required',
-            'priority' => 'required',
+            'title' => ['required', Rule::unique('notes' , 'title')->ignore($request->id), 'min:5', 'max:30'],
+            'content' => ['required', 'max:500'],
+            'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
-            'tags' => 'required'
+            'tags' => ['required', 'max:200']
         ]);
 
         Note::where('id', $validated['id'])->update($validated);
@@ -85,11 +88,11 @@ class NoteController extends Controller
         $validated = $request->validate([
             'user' => 'required',
             'category' => 'required',
-            'title' => ['required', Rule::unique('notes' , 'title')],
-            'content' => 'required',
-            'priority' => 'required',
+            'title' => ['required', Rule::unique('notes' , 'title'), 'min:3', 'max:50'],
+            'content' => ['required', 'max:500'],
+            'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
-            'tags' => 'required'
+            'tags' => ['required', 'max:200']
         ]);
 
         $validated['id'] = (string) Str::orderedUuid();

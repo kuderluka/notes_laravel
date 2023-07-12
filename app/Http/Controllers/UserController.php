@@ -69,10 +69,10 @@ class UserController extends Controller
         //TODO: Add custom validation rules
         $validated = $request->validate([
             'id' => 'required',
-            'username' => 'required',
-            'password' => 'required',
+            'username' => ['required', 'min:5', 'max:20'],
+            'password' => ['required', 'min:5'],
             'email' => ['required', 'email'],
-            'image' => 'required'
+            'image' => ['required', 'image']
         ]);
 
         $validated['image'] = $request->file('image')->store('images', 'public');
@@ -93,10 +93,10 @@ class UserController extends Controller
         }
 
         $validated = $request->validate([
-            'username' => ['required', Rule::unique('users', 'username')],
-            'password' => 'required',
+            'username' => ['required', Rule::unique('users', 'username'), 'min:5', 'max:20'],
+            'password' => ['required', 'min:5'],
             'email' => ['required', 'email' , Rule::unique('users', 'email')],
-            'image' => 'required'
+            'image' => ['required', 'image']
         ]);
 
         $validated['image'] = $request->file('image')->store('images', 'public');
