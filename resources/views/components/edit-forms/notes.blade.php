@@ -14,7 +14,8 @@
         @else
             @php
                 $editing = FALSE;
-                $checked = new \App\Models\Note();
+                $checkedUser = new \App\Models\User();
+                $checkedCategory = new \App\Models\Category();
             @endphp
         @endif
 
@@ -67,7 +68,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="tags" class="form-label"> Tags (Below 500 characters and seperated with ", ") </label>
+            <label for="tags" class="form-label"> Tags (Less than 200 characters) </label>
             <input type="text" class="form-control" name="tags" value="{{($editing ? $entry->tags : old('tags'))}}">
             @error('tags')
             <p>{{$message}}</p>
