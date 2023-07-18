@@ -96,9 +96,10 @@ class NoteController extends Controller
         ]);
 
         $validated['id'] = (string) Str::orderedUuid();
-        $note = Note::create($validated);
+        Note::create($validated);
 
         return redirect('/notes')->with('message', 'Note created successfully');
+
 
         //Ni slo ne glede na to kaj sem poskusil zato sm kr brute forcu
         //$note->user()->attach($request->user);
@@ -106,9 +107,22 @@ class NoteController extends Controller
 
         //$user = User::find($request->user);
         //$category = Category::find($request->category);
-
         //$user->notes()->save($note);
         //$category->notes()->save($note);
+
+        /*
+         *  $note = new Note();
+            $note->id = (string) Str::orderedUuid();
+            $note->title = $validated['title'];
+            $note->content = $validated['content'];
+            $note->priority = $validated['priority'];
+            $note->deadline = $validated['deadline'];
+            $note->tags = $validated['tags'];
+
+            $note->user()->associate($request->user);
+            $note->category()->associate($request->category);
+            $note->save();
+         */
     }
 
     /**

@@ -13,9 +13,9 @@ class Note extends Model
     public $keyType = 'string';
     protected $fillable = [
         'id',
-        'title',
         'user',
         'category',
+        'title',
         'content',
         'priority',
         'deadline',

@@ -66,12 +66,11 @@ class CategoryController extends Controller
             'color' => 'required'
         ]);
 
+        //'users' are removed from $validated as it is not needed and was only used to simplify validating a field in the checkbox is checked
         unset($validated['users']);
 
-        //To ne dela ce uporabim:
-        //$category = Category::where('id', $validated['id'])->update($validated);
-        Category::where('id', $validated['id'])->update($validated);
         $category = Category::find($request->id);
+        $category->update($validated);
 
         $category->users()->sync($request->users);
         return redirect('/categories')->with('message', 'Category updated successfully');
