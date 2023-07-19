@@ -1,6 +1,4 @@
 @extends('layout')
-
-
 @section('content')
     <x-navigation :heading="$heading"></x-navigation>
 
