@@ -58,7 +58,7 @@ class UserController extends Controller
      * @param Request $request
      * @return string
      */
-    public function update(Request $request): string
+    public function update(Request $request)
     {
         File::delete(public_path() . '/storage/' . $request->oldImage);
 
@@ -86,7 +86,7 @@ class UserController extends Controller
      * @param Request $request
      * @return string
      */
-    public function store(Request $request): string
+    public function store(Request $request)
     {
         if($request->hasFile('image')) {
             $request['image'] = 'submitted';
@@ -112,7 +112,7 @@ class UserController extends Controller
      * @param User $user
      * @return string
      */
-    public function destroy(User $user): string
+    public function destroy(User $user)
     {
         File::delete(public_path() . '/storage/' . $user->image);
         $user->delete();

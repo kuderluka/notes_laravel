@@ -57,7 +57,7 @@ class CategoryController extends Controller
      * @param Request $request
      * @return string
      */
-    public function update(Request $request): string
+    public function update(Request $request)
     {
         $validated = $request->validate([
             'id' => 'required',
@@ -82,7 +82,7 @@ class CategoryController extends Controller
      * @param Request $request
      * @return string
      */
-    public function store(Request $request): string
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'users' => 'required',
@@ -103,7 +103,7 @@ class CategoryController extends Controller
      * @param Category $category
      * @return string
      */
-    public function destroy(Category $category): string
+    public function destroy(Category $category)
     {
         $category->delete();
         return redirect('/categories')->with('message', 'Category deleted successfully');

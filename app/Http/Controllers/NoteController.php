@@ -60,7 +60,7 @@ class NoteController extends Controller
      * @param Request $request
      * @return string
      */
-    public function update(Request $request): string
+    public function update(Request $request)
     {
         $validated = $request->validate([
             'id' => 'required',
@@ -83,7 +83,7 @@ class NoteController extends Controller
      * @param Request $request
      * @return string
      */
-    public function store(Request $request): string
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'user' => 'required',
@@ -131,7 +131,7 @@ class NoteController extends Controller
      * @param Note $note
      * @return string
      */
-    public function destroy(Note $note): string
+    public function destroy(Note $note)
     {
         $note->delete();
         return redirect('/notes')->with('message', 'Note deleted successfully');
