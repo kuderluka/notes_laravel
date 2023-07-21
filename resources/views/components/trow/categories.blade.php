@@ -1,13 +1,9 @@
 <tr>
     <td>
-        @php
-            foreach($entry->users as $user) {
-                echo $user['username'];
-        @endphp
+        @foreach($entry->users as $user)
+            {{$user['username']}}
             <br>
-        @php
-            }
-        @endphp
+        @endforeach
     </td>
     <td>{{$entry->title}}</td>
     <td>{{$entry->color}}</td>
