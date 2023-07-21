@@ -19,33 +19,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Open the default ciews
-Route::get('/', function () { return view('index'); });
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/notes', [NoteController::class, 'index']);
+Route::get('/', function () { return view('index'); })->name('/');
 
-//Open the create view
-Route::get('/users/create', [UserController::class, 'create']);
-Route::get('/categories/create', [CategoryController::class, 'create']);
-Route::get('/notes/create', [NoteController::class, 'create']);
+Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('create', [UserController::class, 'create'])->name('create');
+    Route::put('store', [UserController::class, 'update'])->name('store');
+    Route::post('store', [UserController::class, 'store'])->name('store');
+    Route::get('{user}', [UserController::class, 'edit'])->name('update');
+    Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
+});
 
-//Directs to the method that creates a new database entry
-Route::post('/users', [UserController::class, 'store']);
-Route::post('/categories', [CategoryController::class, 'store']);
-Route::post('/notes', [NoteController::class, 'store']);
+Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
+    Route::get('create', [CategoryController::class, 'create'])->name('create');
+    Route::put('store', [CategoryController::class, 'update'])->name('store');
+    Route::post('store', [CategoryController::class, 'store'])->name('store');
+    Route::get('{category}', [CategoryController::class, 'edit'])->name('update');
+    Route::delete('{category}', [CategoryController::class, 'destroy'])->name('destroy');
+});
 
-//Opens the edit view
-Route::get('/users/{user}', [UserController::class, 'edit']);
-Route::get('/categories/{category}', [CategoryController::class, 'edit']);
-Route::get('/notes/{note}', [NoteController::class, 'edit']);
-
-//Directs to the method that updates an existing entry
-Route::put('/users', [UserController::class, 'update']);
-Route::put('/categories', [CategoryController::class, 'update']);
-Route::put('/notes', [NoteController::class, 'update']);
-
-//Directs to the method that deletes an entry
-Route::delete('/users/{user}', [UserController::class, 'destroy']);
-Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-Route::delete('/notes/{note}', [NoteController::class, 'destroy']);
+Route::group(['prefix' => 'notes', 'as' => 'notes.'], function () {
+    Route::get('/', [NoteController::class, 'index'])->name('index');
+    Route::get('create', [NoteController::class, 'create'])->name('create');
+    Route::put('store', [NoteController::class, 'update'])->name('store');
+    Route::post('store', [NoteController::class, 'store'])->name('store');
+    Route::get('{note}', [NoteController::class, 'edit'])->name('update');
+    Route::delete('{note}', [NoteController::class, 'destroy'])->name('destroy');
+});
