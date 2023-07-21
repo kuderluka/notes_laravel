@@ -31,8 +31,7 @@ class CategoryController extends Controller
     {
         return view('edit', [
             'heading' => 'categories',
-            'entry' => [],
-            'editing' => FALSE
+            'entry' => NULL,
         ]);
     }
 
@@ -47,7 +46,6 @@ class CategoryController extends Controller
         return view('edit', [
             'heading' => 'categories',
             'entry' => $category,
-            'editing' => TRUE
         ]);
     }
 

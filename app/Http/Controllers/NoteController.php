@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -34,8 +36,7 @@ class NoteController extends Controller
     {
         return view('edit', [
             'heading' => 'notes',
-            'entry' => [],
-            'editing' => FALSE
+            'entry' => NULL,
         ]);
     }
 
@@ -50,7 +51,6 @@ class NoteController extends Controller
         return view('edit', [
             'heading' => 'notes',
             'entry' => $note,
-            'editing' => TRUE
         ]);
     }
 
@@ -64,8 +64,8 @@ class NoteController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required',
-            'user' => 'required',
-            'category' => 'required',
+            'user_id' => 'required',
+            'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title')->ignore($request->id), 'min:5', 'max:30'],
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
@@ -86,8 +86,8 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user' => 'required',
-            'category' => 'required',
+            'user_id' => 'required',
+            'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title'), 'min:3', 'max:50'],
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
@@ -96,7 +96,13 @@ class NoteController extends Controller
         ]);
 
         $validated['id'] = (string) Str::orderedUuid();
-        Note::create($validated);
+        $note = Note::create($validated);
+        $user = User::find($request->user_id);
+        $category = Category::find($request->category_id);
+
+        $note->user()->associate($user);
+        $note->category()->associate($category);
+        $note->save();
 
         return redirect(route('notes.index'))->with('message', 'Note created successfully');
     }
