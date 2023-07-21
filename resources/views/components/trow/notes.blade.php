@@ -1,6 +1,6 @@
 <tr>
-    <td>{{App\Models\User::find($entry->user)->username}}</td>
-    <td>{{App\Models\Category::find($entry->category)->title}}</td>
+    <td>{{$entry->user->username}}</td>
+    <td>{{$entry->category->title}}</td>
     <td>{{$entry->title}}</td>
     <td>{{$entry->content}}</td>
     <td>{{$entry->priority}}</td>
