@@ -37,7 +37,7 @@
 
         <div class="mb-3">
             <label for="title" class="form-label"> Title (Between 3 and 50 characters) </label>
-            <input type="text" class="form-control" name="title" value="{{($editing ? $entry->title : old('title'))}}">
+            <input type="text" class="form-control" name="title" value="{{old('title', $entry?->title)}}">
             @error('title')
             <p>{{$message}}</p>
             @enderror
@@ -45,7 +45,7 @@
 
         <div class="mb-3">
             <label for="content" class="form-label"> Content (Less than 500 characters) </label>
-            <input type="text" class="form-control" name="content" value="{{($editing ? $entry->content : old('content'))}}">
+            <input type="text" class="form-control" name="content" value="{{old('content', $entry?->content)}}">
             @error('content')
             <p>{{$message}}</p>
             @enderror
@@ -53,7 +53,7 @@
 
         <div class="mb-3">
             <label for="priority" class="form-label"> Priority (Whole numbers between 1 and 5) </label>
-            <input type="number" min="1" max="5" class="form-control" name="priority" value="{{($editing ? $entry->priority : old('priority'))}}">
+            <input type="number" min="1" max="5" class="form-control" name="priority" value="{{old('priority', $entry?->priority)}}">
             @error('priority')
             <p>{{$message}}</p>
             @enderror
@@ -61,7 +61,7 @@
 
         <div class="mb-3">
             <label for="deadline" class="form-label"> Deadline </label>
-            <input type="datetime-local" class="form-control" name="deadline" value="{{($editing ? $entry->deadline : old('deadline'))}}">
+            <input type="datetime-local" class="form-control" name="deadline" value="{{old('deadline', $entry?->deadline)}}">
             @error('deadline')
             <p>{{$message}}</p>
             @enderror
@@ -69,15 +69,15 @@
 
         <div class="mb-3">
             <label for="tags" class="form-label"> Tags (Less than 200 characters) </label>
-            <input type="text" class="form-control" name="tags" value="{{($editing ? $entry->tags : old('tags'))}}">
+            <input type="text" class="form-control" name="tags" value="{{old('tags', $entry?->tags)}}">
             @error('tags')
             <p>{{$message}}</p>
             @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Save Note</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('notes.index')}}';">Go Back</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('/')}}';">Home</button>
+        <a href="{{ route('notes.index') }}" class="btn btn-secondary">Go Back</a>
+        <a href="{{ route('/') }}" class="btn btn-secondary">Home</a>
     </form>
 </div>
 
