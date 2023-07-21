@@ -13,8 +13,8 @@ class Note extends Model
     public $keyType = 'string';
     protected $fillable = [
         'id',
-        'user',
-        'category',
+        'user_id',
+        'category_id',
         'title',
         'content',
         'priority',
