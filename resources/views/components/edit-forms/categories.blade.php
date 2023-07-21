@@ -3,21 +3,16 @@
 
     <form action="{{route('categories.store')}}" method="POST">
         @csrf
-        @if($editing)
+        @if($entry != NULL)
             @method('PUT')
             @php
                 echo ('<input type="hidden" id="id" name="id" value="' . $entry->id .'">');
-                $checkedEntries = $entry->users;
-            @endphp
-        @else
-            @php
-                $checkedEntries = [];
             @endphp
         @endif
 
         <div class="mb-3">
             <label> Choose users by checking the box in front of their name: </label> <br>
-            <x-checkbox name="users" property="username" :entries="App\Models\User::all()" :checkedEntries="$checkedEntries" />
+            <x-checkbox name="users" property="username" :entries="App\Models\User::all()" :checkedEntries="$entry?->users" />
             @error('users')
             <p>{{$message}}</p>
             @enderror
