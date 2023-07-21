@@ -4,9 +4,9 @@
     <td>{{$entry->password}}</td>
     <td> <img src="{{asset('storage/' . $entry->image)}}" height="100"></td>
     <td>
-        <a href="/users/{{$entry->id}}" class="btn btn-primary">Edit</a>
+        <a href="{{route('users.destroy', ['user' => $entry])}}" class="btn btn-primary">Edit</a>
 
-        <form method="POST" action="/users/{{$entry->id}}">
+        <form method="POST" action="{{route('users.destroy', ['user' => $entry])}}">
         @csrf
         @method('DELETE')
         <button class="btn btn-danger">Delete</button>

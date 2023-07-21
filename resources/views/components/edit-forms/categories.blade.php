@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a category </h1> <br>
 
-    <form action="/categories" method="POST">
+    <form action="{{route('categories.store')}}" method="POST">
         @csrf
         @if($editing)
             @method('PUT')
@@ -40,7 +40,7 @@
         </div>
 
         <input type="submit" text="Save category" class="btn btn-primary">
-        <button type="button" class="btn btn-secondary" onclick="location.href='/categories';">Go Back</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/';">Home</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('categories.index')}}';">Go Back</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('/')}}';">Home</button>
     </form>
 </div>

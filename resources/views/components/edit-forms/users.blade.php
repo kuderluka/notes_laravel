@@ -1,8 +1,9 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a user </h1>
 
-    <form action="/users" method="POST" enctype="multipart/form-data">
+    <form action="{{route('users.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
+
         @if($entry != NULL)
             @method('PUT')
             @php
@@ -50,7 +51,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Save User</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/users';">Go Back</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/';">Home</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('users.index')}}';">Go Back</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('/')}}';">Home</button>
     </form>
 </div>

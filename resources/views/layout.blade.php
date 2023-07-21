@@ -14,9 +14,9 @@
     <div class="d-flex justify-content-between align-items-center header">
         <h1>notes_laravel</h1>
         <div>
-            <a href="/users" class="btn btn-primary button">Users</a>
-            <a href="/categories" class="btn btn-primary button">Categories</a>
-            <a href="/notes" class="btn btn-primary button">Notes</a>
+            <a href="{{route('users.index')}}" class="btn btn-primary button">Users</a>
+            <a href="{{route('categories.index')}}" class="btn btn-primary button">Categories</a>
+            <a href="{{route('notes.index')}}" class="btn btn-primary button">Notes</a>
         </div>
     </div>
     <br>

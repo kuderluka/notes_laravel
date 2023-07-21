@@ -15,7 +15,7 @@ class UserController extends Controller
      *
      * @return string
      */
-    public function index(): string
+    public function index()
     {
         return view('list', [
             'heading' => 'users',
@@ -28,7 +28,7 @@ class UserController extends Controller
      *
      * @return string
      */
-    public function create(): string
+    public function create()
     {
         return view('edit', [
             'heading' => 'users',
@@ -43,7 +43,7 @@ class UserController extends Controller
      * @param User $user
      * @return string
      */
-    public function edit(User $user): string
+    public function edit(User $user)
     {
         return view('edit', [
             'heading' => 'users',
@@ -77,7 +77,7 @@ class UserController extends Controller
 
         $validated['image'] = $request->file('image')->store('images', 'public');
         User::where('id', $validated['id'])->update($validated);
-        return redirect('/users')->with('message', 'User updated successfully');
+        return redirect(route('users.index'))->with('message', 'User updated successfully');
     }
 
     /**
@@ -103,7 +103,7 @@ class UserController extends Controller
         $validated['id'] = (string) Str::orderedUuid();
 
         User::create($validated);
-        return redirect('/users')->with('message', 'User created successfully');
+        return redirect(route('users.index'))->with('message', 'User created successfully');
     }
 
     /**
@@ -116,6 +116,6 @@ class UserController extends Controller
     {
         File::delete(public_path() . '/storage/' . $user->image);
         $user->delete();
-        return redirect('/users')->with('message', 'User deleted successfully');
+        return redirect(route('users.index'))->with('message', 'User deleted successfully');
     }
 }

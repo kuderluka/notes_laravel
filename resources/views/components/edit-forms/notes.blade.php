@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a note </h1>
 
-    <form action="/notes" method="POST" enctype="multipart/form-data">
+    <form action="{{route('notes.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         @if($entry != NULL)
             @method('PUT')
@@ -76,8 +76,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Save Note</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/notes';">Go Back</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/';">Home</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('notes.index')}}';">Go Back</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='{{route('/')}}';">Home</button>
     </form>
 </div>
 

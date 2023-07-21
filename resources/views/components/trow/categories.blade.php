@@ -12,9 +12,9 @@
     <td>{{$entry->title}}</td>
     <td>{{$entry->color}}</td>
     <td>
-        <a href="/categories/{{$entry->id}}" class="btn btn-primary">Edit</a>
+        <a href="{{route('categories.update', ['category' => $entry])}}" class="btn btn-primary">Edit</a>
 
-        <form method="POST" action="/categories/{{$entry->id}}">
+        <form method="POST" action="{{route('categories.destroy', ['category' => $entry])}}">
             @csrf
             @method('DELETE')
             <button class="btn btn-danger">Delete</button>

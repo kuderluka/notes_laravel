@@ -14,7 +14,7 @@ class CategoryController extends Controller
      *
      * @return string
      */
-    public function index():string
+    public function index()
     {
         return view('list', [
             'heading' => 'categories',
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      *
      * @return string
      */
-    public function create():string
+    public function create()
     {
         return view('edit', [
             'heading' => 'categories',
@@ -42,7 +42,7 @@ class CategoryController extends Controller
      * @param Category $category
      * @return string
      */
-    public function edit(Category $category): string
+    public function edit(Category $category)
     {
         return view('edit', [
             'heading' => 'categories',
@@ -73,7 +73,7 @@ class CategoryController extends Controller
         $category->update($validated);
 
         $category->users()->sync($request->users);
-        return redirect('/categories')->with('message', 'Category updated successfully');
+        return redirect(route('categories.index'))->with('message', 'Category updated successfully');
     }
 
     /**
@@ -94,7 +94,7 @@ class CategoryController extends Controller
 
         $category = Category::create($validated);
         $category->users()->attach($request->users);
-        return redirect('/categories')->with('message', 'Category created successfully');
+        return redirect(route('categories.index'))->with('message', 'Category created successfully');
     }
 
     /**
@@ -106,6 +106,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect('/categories')->with('message', 'Category deleted successfully');
+        return redirect(route('categories.index'))->with('message', 'Category deleted successfully');
     }
 }

@@ -17,7 +17,7 @@ class NoteController extends Controller
      *
      * @return string
      */
-    public function index(): string
+    public function index()
     {
         return view('list', [
             'heading' => 'notes',
@@ -45,7 +45,7 @@ class NoteController extends Controller
      * @param Note $note
      * @return string
      */
-    public function edit(Note $note): string
+    public function edit(Note $note)
     {
         return view('edit', [
             'heading' => 'notes',
@@ -74,7 +74,7 @@ class NoteController extends Controller
         ]);
 
         Note::where('id', $validated['id'])->update($validated);
-        return redirect('/notes')->with('message', 'Note updated successfully');
+        return redirect(route('notes.index'))->with('message', 'Note updated successfully');
     }
 
     /**
@@ -98,31 +98,7 @@ class NoteController extends Controller
         $validated['id'] = (string) Str::orderedUuid();
         Note::create($validated);
 
-        return redirect('/notes')->with('message', 'Note created successfully');
-
-
-        //Ni slo ne glede na to kaj sem poskusil zato sm kr brute forcu
-        //$note->user()->attach($request->user);
-        //$note->category()->attach($request->category);
-
-        //$user = User::find($request->user);
-        //$category = Category::find($request->category);
-        //$user->notes()->save($note);
-        //$category->notes()->save($note);
-
-        /*
-         *  $note = new Note();
-            $note->id = (string) Str::orderedUuid();
-            $note->title = $validated['title'];
-            $note->content = $validated['content'];
-            $note->priority = $validated['priority'];
-            $note->deadline = $validated['deadline'];
-            $note->tags = $validated['tags'];
-
-            $note->user()->associate($request->user);
-            $note->category()->associate($request->category);
-            $note->save();
-         */
+        return redirect(route('notes.index'))->with('message', 'Note created successfully');
     }
 
     /**
@@ -134,6 +110,6 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         $note->delete();
-        return redirect('/notes')->with('message', 'Note deleted successfully');
+        return redirect(route('notes.index'))->with('message', 'Note deleted successfully');
     }
 }
