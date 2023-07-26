@@ -7,7 +7,7 @@
     <td>{{$entry->deadline}}</td>
     <td>{{$entry->tags}}</td>
     <td>
-        <a href="{{route('notes.destroy', ['note' => $entry])}}" class="btn btn-primary">Edit</a>
+        <a href="{{route('notes.edit', ['note' => $entry])}}" class="btn btn-primary">Edit</a>
 
         <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('notes.destroy', ['note' => $entry])}}">
             @csrf
