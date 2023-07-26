@@ -13,7 +13,7 @@
         <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('categories.destroy', ['category' => $entry])}}">
             @csrf
             @method('DELETE')
-            <a class="btn btn-danger">Delete</a>
+            <button class="btn btn-danger">Delete</button>
         </form>
     </td>
 </tr>

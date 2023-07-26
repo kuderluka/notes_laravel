@@ -6,7 +6,7 @@
     <td>
         <a href="{{route('users.destroy', ['user' => $entry])}}" class="btn btn-primary">Edit</a>
 
-        <form method="POST" action="{{route('users.destroy', ['user' => $entry])}}">
+        <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('users.destroy', ['user' => $entry])}}">
         @csrf
         @method('DELETE')
         <button class="btn btn-danger">Delete</button>
