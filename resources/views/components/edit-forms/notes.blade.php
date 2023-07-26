@@ -68,7 +68,7 @@
 
         <button type="submit" class="btn btn-primary">Save Note</button>
         <a href="{{ route('notes.index') }}" class="btn btn-secondary">Go Back</a>
-        <a href="{{ route('/') }}" class="btn btn-secondary">Home</a>
+        <a href="{{ route('index') }}" class="btn btn-secondary">Home</a>
     </form>
 </div>
 

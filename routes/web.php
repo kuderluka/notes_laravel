@@ -19,14 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('index'); })->name('/');
+Route::get('/', function () { return view('index'); })->name('index');
 
 Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('create', [UserController::class, 'create'])->name('create');
     Route::put('store', [UserController::class, 'update'])->name('store');
     Route::post('store', [UserController::class, 'store'])->name('store');
-    Route::get('{user}', [UserController::class, 'edit'])->name('update');
+    Route::get('{user}', [UserController::class, 'edit'])->name('edit');
     Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
 });
 
@@ -35,7 +35,7 @@ Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
     Route::get('create', [CategoryController::class, 'create'])->name('create');
     Route::put('store', [CategoryController::class, 'update'])->name('store');
     Route::post('store', [CategoryController::class, 'store'])->name('store');
-    Route::get('{category}', [CategoryController::class, 'edit'])->name('update');
+    Route::get('{category}', [CategoryController::class, 'edit'])->name('edit');
     Route::delete('{category}', [CategoryController::class, 'destroy'])->name('destroy');
 });
 
@@ -44,6 +44,6 @@ Route::group(['prefix' => 'notes', 'as' => 'notes.'], function () {
     Route::get('create', [NoteController::class, 'create'])->name('create');
     Route::put('store', [NoteController::class, 'update'])->name('store');
     Route::post('store', [NoteController::class, 'store'])->name('store');
-    Route::get('{note}', [NoteController::class, 'edit'])->name('update');
+    Route::get('{note}', [NoteController::class, 'edit'])->name('edit');
     Route::delete('{note}', [NoteController::class, 'destroy'])->name('destroy');
 });
