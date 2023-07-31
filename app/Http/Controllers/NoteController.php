@@ -23,7 +23,7 @@ class NoteController extends Controller
     {
         return view('list', [
             'heading' => 'notes',
-            'entries' => Note::all()
+            'entries' => Note::latest()->filter(request(['search']))->get()
         ]);
     }
 
