@@ -22,6 +22,18 @@ class Note extends Model
         'tags'
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['search'] ?? false) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('content', 'like', '%' . request('search') . '%')
+                ->orWhere('priority', 'like', '%' . request('search') . '%')
+                ->orWhere('deadline', 'like', '%' . request('search') . '%')
+                ->orWhere('tags', 'like', '%' . request('search') . '%')
+            ;
+        }
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
