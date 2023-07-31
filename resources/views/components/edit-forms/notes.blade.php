@@ -66,9 +66,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Save Note</button>
-        <a href="{{ route('notes.index') }}" class="btn btn-secondary">Go Back</a>
-        <a href="{{ route('index') }}" class="btn btn-secondary">Home</a>
+        <x-buttons path="notes.index" type="Note" ></x-buttons>
     </form>
 </div>
 

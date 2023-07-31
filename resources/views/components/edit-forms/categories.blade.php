@@ -34,8 +34,6 @@
             @enderror
         </div>
 
-        <input type="submit" text="Save category" class="btn btn-primary">
-        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Go Back</a>
-        <a href="{{ route('index') }}" class="btn btn-secondary">Home</a>
+        <x-buttons path="categories.index" type="Category" ></x-buttons>
     </form>
 </div>

@@ -44,8 +44,6 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Save User</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">Go Back</a>
-        <a href="{{ route('index') }}" class="btn btn-secondary">Home</a>
+        <x-buttons path="users.index" type="User" ></x-buttons>
     </form>
 </div>
