@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         return view('list', [
             'heading' => 'users',
-            'entries' => User::all()
+            'entries' => User::latest()->paginate(3)
         ]);
     }
 
