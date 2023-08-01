@@ -15,4 +15,8 @@
             </tbody>
         </table>
     @endif
+
+    {{$entries->links()}}
+
 @endsection
+
