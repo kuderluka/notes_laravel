@@ -30,6 +30,8 @@ class Note extends Model
                 ->orWhere('priority', 'like', '%' . request('search') . '%')
                 ->orWhere('deadline', 'like', '%' . request('search') . '%')
                 ->orWhere('tags', 'like', '%' . request('search') . '%')
+                ->orWhere('username', 'like', '%' . request('search') . '%')
+                ->orWhere('category_id', 'like', '%' . request('search') . '%')
             ;
         }
     }
