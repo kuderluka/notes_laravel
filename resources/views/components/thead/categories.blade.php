@@ -1,7 +1,7 @@
 <thead>
 <tr>
-    <th>Users</th>
-    <th>Title</th>
-    <th>Color</th>
+    <th>@sortablelink('users', 'Users')</th>
+    <th>@sortablelink('title', 'Title')</th>
+    <th>@sortablelink('color', 'Color')</th>
 </tr>
 </thead>
