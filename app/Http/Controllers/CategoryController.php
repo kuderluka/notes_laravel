@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -18,7 +19,7 @@ class CategoryController extends Controller
     {
         return view('list', [
             'heading' => 'categories',
-            'entries' => Category::all()
+            'entries' => Category::sortable()->get()
         ]);
     }
 
