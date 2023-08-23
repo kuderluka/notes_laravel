@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -21,9 +22,11 @@ class NoteController extends Controller
      */
     public function index()
     {
+        //dd(DB::table('notes')->join('users', 'notes.user_id', '=', 'users.id')->select('notes.*', 'users.username as username')->filter(request(['search']))->get());
+
         return view('list', [
             'heading' => 'notes',
-            'entries' => Note::all()
+            'entries' => Note::latest()->filter(request(['search']))->get()
         ]);
     }
 
