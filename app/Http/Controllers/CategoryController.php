@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         return view('list', [
             'heading' => 'categories',
-            'entries' => Category::latest()->filter(request(['search']))->get()
+            'entries' => Category::latest()->filter(request(['search']))->paginate(2)
         ]);
     }
 

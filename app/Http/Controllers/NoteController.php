@@ -26,7 +26,7 @@ class NoteController extends Controller
 
         return view('list', [
             'heading' => 'notes',
-            'entries' => Note::latest()->filter(request(['search']))->get()
+            'entries' => Note::latest()->filter(request(['search']))->paginate(2)
         ]);
     }
 

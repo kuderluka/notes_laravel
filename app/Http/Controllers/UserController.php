@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         return view('list', [
             'heading' => 'users',
-            'entries' => User::latest()->filter(request(['search']))->get()
+            'entries' => User::latest()->filter(request(['search']))->paginate(2)
         ]);
     }
 
@@ -64,7 +64,6 @@ class UserController extends Controller
             $request['image'] = 'submitted';
         }
 
-        //TODO: Add custom validation rules
         $validated = $request->validate([
             'id' => 'required',
             'username' => ['required', 'min:5', 'max:20'],
