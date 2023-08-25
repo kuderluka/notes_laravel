@@ -22,11 +22,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //dd(DB::table('notes')->join('users', 'notes.user_id', '=', 'users.id')->select('notes.*', 'users.username as username')->filter(request(['search']))->get());
-
         return view('list', [
             'heading' => 'notes',
-            'entries' => Note::latest()->filter(request(['search']))->paginate(2)
+            'entries' => Note::sortable()->filter(request(['search']))->paginate(2)
         ]);
     }
 

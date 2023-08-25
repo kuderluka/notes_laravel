@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         return view('list', [
             'heading' => 'users',
-            'entries' => User::latest()->filter(request(['search']))->paginate(2)
+            'entries' => User::sortable()->filter(request(['search']))->paginate(2)
         ]);
     }
 

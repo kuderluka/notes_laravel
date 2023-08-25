@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -13,13 +12,14 @@ class CategoryController extends Controller
     /**
      * Returns the default view
      *
+     *
      * @return string
      */
     public function index()
     {
         return view('list', [
             'heading' => 'categories',
-            'entries' => Category::latest()->filter(request(['search']))->paginate(2)
+            'entries' => Category::sortable()->filter(request(['search']))->paginate(2)
         ]);
     }
 
