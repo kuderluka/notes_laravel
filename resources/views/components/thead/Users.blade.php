@@ -1,8 +1,8 @@
 <thead>
 <tr>
-    <th>Name</th>
-    <th>E-mail</th>
-    <th>Password</th>
-    <th>Profile picture</th>
+    <th>@sortablelink('username', 'Username')</th>
+    <th>@sortablelink('email', 'E-mail')</th>
+    <th>@sortablelink('password', 'Password')</th>
+    <th>@sortablelink('image', 'Profile picture')</th>
 </tr>
 </thead>

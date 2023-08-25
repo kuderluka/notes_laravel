@@ -5,17 +5,24 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Model
 {
     use HasFactory;
+    use Sortable;
 
     public $incrementing = false;
     public $keyType = 'string';
 
     protected $fillable = [
+        'username',
+        'email',
+        'password',
+        'image'
+    ];
+
+    public $sortable = [
         'id',
         'username',
         'email',
