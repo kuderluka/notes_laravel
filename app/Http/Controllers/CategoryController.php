@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         return view('list', [
             'heading' => 'categories',
-            'entries' => Category::sortable()->get()
+            'entries' => Category::latest()->filter(request(['search']))->get()
         ]);
     }
 

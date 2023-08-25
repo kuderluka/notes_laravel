@@ -27,6 +27,14 @@ class Category extends Model
         'color'
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['search'] ?? false) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('color', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

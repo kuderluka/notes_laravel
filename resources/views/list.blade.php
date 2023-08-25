@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
     <x-navigation :heading="$heading"></x-navigation>
+    <x-search :type="$heading" />
 
     @if(count($entries) == 0)
         <p>No {{$heading}} found!</p>
@@ -14,4 +15,8 @@
             </tbody>
         </table>
     @endif
+
+    {{$entries->links()}}
+
 @endsection
+

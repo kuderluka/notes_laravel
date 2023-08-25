@@ -30,6 +30,14 @@ class User extends Model
         'image'
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['search'] ?? false) {
+            $query->where('username', 'like', '%' . request('search') . '%')
+                ->orWhere('email', 'like', '%' . request('search') . '%');
+        }
+    }
+
     public function notes()
     {
         return $this->hasMany(Note::class);
