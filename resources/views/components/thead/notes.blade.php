@@ -1,12 +1,12 @@
 <thead>
 <tr>
-    <th>User</th>
-    <th>Category</th>
-    <th>Title</th>
-    <th>Content</th>
-    <th>Priority</th>
-    <th>Deadline</th>
-    <th>Tags</th>
+    <th>@sortablelink('user_id', 'User')</th>
+    <th>@sortablelink('category_id', 'Category')</th>
+    <th>@sortablelink('title', 'Title')</th>
+    <th>@sortablelink('content', 'Content')</th>
+    <th>@sortablelink('priority', 'Priority')</th>
+    <th>@sortablelink('deadline', 'Deadline')</th>
+    <th>@sortablelink('tags', 'Tags')</th>
 </tr>
 </thead>
 
