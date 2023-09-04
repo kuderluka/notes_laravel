@@ -11,10 +11,16 @@
         @endif
 
         <div class="mb-3">
-            <label> Choose users by checking the box in front of their name: </label> <br>
-            <x-checkbox name="users" property="username" :entries="App\Models\User::all()" :checkedEntries="$entry?->users" />
+            <label>Choose users from the dropdown:</label><br>
+            <select class="select2" name="users[]" multiple="multiple" style="width: 100%;">
+                @foreach(App\Models\User::all() as $user)
+                    <option value="{{ $user->id }}" @if(in_array($user->id, old('users', $entry ? $entry->users->pluck('id')->toArray() : []))) selected @endif>
+                        {{ $user->username }}
+                    </option>
+                @endforeach
+            </select>
             @error('users')
-            <p>{{$message}}</p>
+            <p>{{ $message }}</p>
             @enderror
         </div>
 
@@ -37,3 +43,10 @@
         <x-buttons path="categories.index" type="Category" ></x-buttons>
     </form>
 </div>
+
+<script>
+    // Initialize the Select2 plugin
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>

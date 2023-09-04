@@ -11,17 +11,25 @@
         @endif
 
         <div class="mb-3">
-            <label> Choose the user by checking the circle in front of their name: </label> <br>
-            <x-radio type="user_id" property="username" :entries="App\Models\User::all()" :checked="$entry?->user" />
-            @error('user')
+            <label>Choose the user:</label> <br>
+            <select class="form-control select2" name="user_id" id="user_id">
+                @foreach(App\Models\User::all() as $user)
+                    <option value="{{ $user->id }}" @if(old('user_id', $entry?->user_id) == $user->id) selected @endif>{{ $user->username }}</option>
+                @endforeach
+            </select>
+            @error('user_id')
             <p>{{$message}}</p>
             @enderror
         </div>
 
         <div class="mb-3">
-            <label> Choose the category by checking the circle in front of it's title: </label> <br>
-            <x-radio type="category_id" property="title" :entries="App\Models\Category::all()" :checked="$entry?->category" />
-            @error('category')
+            <label>Choose the category:</label> <br>
+            <select class="form-control select2" name="category_id" id="category_id">
+                @foreach(App\Models\Category::all() as $category)
+                    <option value="{{ $category->id }}" @if(old('category_id', $entry?->category_id) == $category->id) selected @endif>{{ $category->title }}</option>
+                @endforeach
+            </select>
+            @error('category_id')
             <p>{{$message}}</p>
             @enderror
         </div>
@@ -69,4 +77,10 @@
         <x-buttons path="notes.index" type="Note" ></x-buttons>
     </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 
