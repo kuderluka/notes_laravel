@@ -26,7 +26,8 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
     Route::get('create', [UserController::class, 'create'])->name('create');
     Route::put('store', [UserController::class, 'update'])->name('store');
     Route::post('store', [UserController::class, 'store'])->name('store');
-    Route::get('{user}', [UserController::class, 'edit'])->name('edit');
+    Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit');
+    Route::get('{user}', [UserController::class, 'show'])->name('show');
     Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
 });
 
