@@ -51,6 +51,19 @@ class UserController extends Controller
     }
 
     /**
+     * Returns a single users view
+     *
+     * @param User $user
+     * @return string
+     */
+    public function show(User $user)
+    {
+        return view('show', [
+            'entry' => $user,
+        ]);
+    }
+
+    /**
      * Updates the entry in the database and redirects
      *
      * @param Request $request

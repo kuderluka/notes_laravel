@@ -16,6 +16,7 @@ class User extends Model
     public $keyType = 'string';
 
     protected $fillable = [
+        'id',
         'username',
         'email',
         'password',
@@ -44,7 +45,7 @@ class User extends Model
     }
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 }
 

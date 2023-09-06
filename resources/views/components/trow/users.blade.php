@@ -1,8 +1,8 @@
 <tr>
-    <td>{{$entry->username}}</td>
+    <td><a href="{{route('users.show', ['user' => $entry])}}">{{$entry->username}}</a></td>
     <td>{{$entry->email}}</td>
     <td>{{$entry->password}}</td>
-    <td> <img src="{{asset('storage/' . $entry->image)}}" height="100"></td>
+    <td> <img src="{{asset('storage/' . $entry->image)}}" height="100" alt="The image is missing"></td>
     <td>
         <a href="{{route('users.edit', ['user' => $entry])}}" class="btn btn-primary">Edit</a>
 

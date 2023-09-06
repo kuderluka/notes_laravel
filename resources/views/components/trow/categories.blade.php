@@ -1,11 +1,11 @@
 <tr>
+    <td>{{$entry->title}}</td>
     <td>
         @foreach($entry->users as $user)
             {{$user['username']}}
             <br>
         @endforeach
     </td>
-    <td>{{$entry->title}}</td>
     <td>{{$entry->color}}</td>
     <td>
         <a href="{{route('categories.edit', ['category' => $entry])}}" class="btn btn-primary">Edit</a>
