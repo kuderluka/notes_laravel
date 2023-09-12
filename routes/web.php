@@ -25,12 +25,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('guest')->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -51,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
     Route::put('/note/store', [NoteController::class, 'update'])->name('note.store');
     Route::get('/note/edit/{note}', [NoteController::class, 'edit'])->name('note.edit');
-    Route::delete('/category/destroy/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
+    Route::delete('/note/destroy/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 });
 
 require __DIR__.'/auth.php';
