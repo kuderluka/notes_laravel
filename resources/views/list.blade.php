@@ -10,7 +10,7 @@
             <x-dynamic-component :component="'thead.' . $heading" />
             <tbody>
             @foreach($entries as $entry)
-                <x-dynamic-component :component="'trow.' . $heading" :entry="$entry"/>
+                <x-dynamic-component :component="'trow.' . $heading" :entry="$entry" :editable="FALSE"/>
             @endforeach
             </tbody>
         </table>

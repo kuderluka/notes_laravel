@@ -6,4 +6,15 @@
     <td>{{$entry->priority}}</td>
     <td>{{$entry->deadline}}</td>
     <td>{{$entry->tags}}</td>
+    @if($editable)
+        <td>
+            <a href="{{route('note.edit', ['note' => $entry])}}" class="btn btn-primary">Edit</a>
+
+            <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('note.destroy', ['note' => $entry])}}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    @endif
 </tr>

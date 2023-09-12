@@ -8,9 +8,9 @@
     </td>
     <td>{{$entry->color}}</td>
     <td>
-        <a href="{{route('categories.edit', ['category' => $entry])}}" class="btn btn-primary">Edit</a>
+        <a href="{{route('category.edit', ['category' => $entry])}}" class="btn btn-primary">Edit</a>
 
-        <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('categories.destroy', ['category' => $entry])}}">
+        <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('category.destroy', ['category' => $entry])}}">
             @csrf
             @method('DELETE')
             <button class="btn btn-danger">Delete</button>

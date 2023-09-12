@@ -20,7 +20,7 @@
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     <a href="{{ route('public.data') }}" class="btn btn-primary button">View public notes</a>
                     @auth
-                        <a href="{{ route('user.show', ['user' => Auth::user()]) }}" class="btn btn-primary button">My work</a>
+                        <a href="{{ route('user.show') }}" class="btn btn-primary button">My work</a>
                         <a href="{{ url('/dashboard') }}" class="btn btn-primary button">Dashboard</a>
                     @else
 
