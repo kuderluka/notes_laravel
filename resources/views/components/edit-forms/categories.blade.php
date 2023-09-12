@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a category </h1> <br>
 
-    <form action="{{route('categories.store')}}" method="POST">
+    <form action="{{route('category.store')}}" method="POST">
         @csrf
         @if($entry != NULL)
             @method('PUT')

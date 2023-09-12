@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a note </h1>
 
-    <form action="{{route('notes.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('note.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         @if($entry != NULL)
             @method('PUT')
