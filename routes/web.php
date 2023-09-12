@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () { return view('index'); })->name('index');
 
+Route::get('/public', [NoteController::class, 'index'])->name('public.data');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -27,8 +29,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
-
-    Route::get('/public', [NoteController::class, 'index'])->name('public.data');
 });
 
 Route::middleware('auth')->group(function () {
@@ -36,16 +36,22 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/public', [NoteController::class, 'index'])->name('public.data');
-    Route::get('{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user', function () {
+        $user = auth()->user();
+        return view('show', compact('user'));
+    })->name('user.show');
 
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('/category/store', [CategoryController::class, 'update'])->name('category.store');
+    Route::get('/category/edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::delete('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
     Route::post('/note/store', [NoteController::class, 'store'])->name('note.store');
-
-
+    Route::put('/note/store', [NoteController::class, 'update'])->name('note.store');
+    Route::get('/note/edit/{note}', [NoteController::class, 'edit'])->name('note.edit');
+    Route::delete('/category/destroy/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 });
 
 require __DIR__.'/auth.php';
