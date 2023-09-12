@@ -3,6 +3,11 @@
 @section('content')
     <div>
         <br>
-        <h3 class="text-center">Welcome, please navigate using buttons in the top right corner</h3>
+        @auth
+            <h3 class="text-center">You are logged in!</h3>
+        @endauth
+        @guest
+            <h3 class="text-center">Please log in to manage your profile</h3>
+        @endguest
     </div>
 @endsection
