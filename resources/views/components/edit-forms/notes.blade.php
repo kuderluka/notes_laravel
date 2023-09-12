@@ -74,6 +74,17 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label> Choose the visibility: </label> <br>
+            <select class="form-control select2" name="public" id="public">
+                <option value="1"> Public </option>
+                <option value="0"> Private </option>
+            </select>
+            @error('public')
+            <p>{{$message}}</p>
+            @enderror
+        </div>
+
         <x-buttons path="notes.index" type="Note" ></x-buttons>
     </form>
 </div>

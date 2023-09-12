@@ -21,7 +21,7 @@
                     <a href="{{ route('public.data') }}" class="btn btn-primary button">View public notes</a>
                     @auth
                         <a href="{{ route('user.show') }}" class="btn btn-primary button">My work</a>
-                        <a href="{{ url('/dashboard') }}" class="btn btn-primary button">Dashboard</a>
+                        <a href="{{ route('profile.edit') }}" class="btn btn-primary button">Profile</a>
                     @else
 
                         <a href="{{ route('login') }}" class="btn btn-primary button">Log in</a>

@@ -6,6 +6,13 @@
     <td>{{$entry->priority}}</td>
     <td>{{$entry->deadline}}</td>
     <td>{{$entry->tags}}</td>
+    <td>
+        @if ($entry->public == 1)
+            Yes
+        @else
+            No
+        @endif
+    </td>
     @if($editable)
         <td>
             <a href="{{route('note.edit', ['note' => $entry])}}" class="btn btn-primary">Edit</a>
