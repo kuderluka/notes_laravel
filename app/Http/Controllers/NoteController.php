@@ -75,7 +75,7 @@ class NoteController extends Controller
         ]);
 
         Note::where('id', $validated['id'])->update($validated);
-        return redirect(route('notes.index'))->with('message', 'Note updated successfully');
+        return redirect(route('user.show'))->with('message', 'Note updated successfully');
     }
 
     /**
@@ -105,7 +105,7 @@ class NoteController extends Controller
         $note->category()->associate($category);
         $note->save();
 
-        return redirect(route('notes.index'))->with('message', 'Note created successfully');
+        return redirect(route('user.show'))->with('message', 'Note created successfully');
     }
 
     /**
@@ -117,6 +117,6 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         $note->delete();
-        return redirect(route('notes.index'))->with('message', 'Note deleted successfully');
+        return redirect(route('user.show'))->with('message', 'Note deleted successfully');
     }
 }
