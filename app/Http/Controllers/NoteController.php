@@ -24,7 +24,7 @@ class NoteController extends Controller
     {
         return view('list', [
             'heading' => 'notes',
-            'entries' => Note::sortable()->filter(request(['search']))->paginate(2)
+            'entries' => Note::sortable()->filter(request(['search']))->where('public', 1)->paginate(2)
         ]);
     }
 
@@ -71,7 +71,8 @@ class NoteController extends Controller
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
-            'tags' => ['required', 'max:200']
+            'tags' => ['required', 'max:200'],
+            'public' => 'required'
         ]);
 
         Note::where('id', $validated['id'])->update($validated);
@@ -93,7 +94,8 @@ class NoteController extends Controller
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
-            'tags' => ['required', 'max:200']
+            'tags' => ['required', 'max:200'],
+            'public' => 'required'
         ]);
 
         $validated['id'] = (string) Str::orderedUuid();

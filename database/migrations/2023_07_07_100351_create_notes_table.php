@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('priority');
             $table->string('deadline');
             $table->string('tags');
+            $table->boolean('public');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
