@@ -15,7 +15,7 @@
         <div class="mb-3">
             <label>Choose the category:</label> <br>
             <select class="form-control select2" name="category_id" id="category_id">
-                @foreach(App\Models\Category::all() as $category)
+                @foreach(Auth::user()->categories as $category)
                     <option value="{{ $category->id }}" @if(old('category_id', $entry?->category_id) == $category->id) selected @endif>{{ $category->title }}</option>
                 @endforeach
             </select>
