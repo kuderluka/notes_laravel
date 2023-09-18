@@ -10,17 +10,7 @@
             @endphp
         @endif
 
-        <div class="mb-3">
-            <label>Choose the user:</label> <br>
-            <select class="form-control select2" name="user_id" id="user_id">
-                @foreach(App\Models\User::all() as $user)
-                    <option value="{{ $user->id }}" @if(old('user_id', $entry?->user_id) == $user->id) selected @endif>{{ $user->username }}</option>
-                @endforeach
-            </select>
-            @error('user_id')
-            <p>{{$message}}</p>
-            @enderror
-        </div>
+        <input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id}}">
 
         <div class="mb-3">
             <label>Choose the category:</label> <br>
