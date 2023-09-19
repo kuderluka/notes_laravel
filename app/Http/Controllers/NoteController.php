@@ -103,6 +103,7 @@ class NoteController extends Controller
         $user = User::find($request->user_id);
         $category = Category::find($request->category_id);
 
+        $category->users()->attach($user);
         $note->user()->associate($user);
         $note->category()->associate($category);
         $note->save();
