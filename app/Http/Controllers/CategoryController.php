@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -72,7 +73,7 @@ class CategoryController extends Controller
         $category->update($validated);
 
         $category->users()->sync($request->users);
-        return redirect(route('categories.index'))->with('message', 'Category updated successfully');
+        return redirect(route('user.show'))->with('message', 'Category updated successfully');
     }
 
     /**
@@ -93,7 +94,7 @@ class CategoryController extends Controller
 
         $category = Category::create($validated);
         $category->users()->attach($request->users);
-        return redirect(route('categories.index'))->with('message', 'Category created successfully');
+        return redirect(route('user.show'))->with('message', 'Category created successfully');
     }
 
     /**
@@ -104,7 +105,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect(route('categories.index'))->with('message', 'Category deleted successfully');
+        $category->users()->detach(Auth::user());
+        if($category->users->isEmpty()) {
+            $category->delete();
+        }
+        return redirect(route('user.show'))->with('message', 'Category deleted successfully');
     }
 }

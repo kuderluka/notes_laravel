@@ -21,7 +21,8 @@ class Note extends Model
         'content',
         'priority',
         'deadline',
-        'tags'
+        'tags',
+        'public'
     ];
 
     public $sortable = [
@@ -31,7 +32,8 @@ class Note extends Model
         'content',
         'priority',
         'deadline',
-        'tags'
+        'tags',
+        'public'
     ];
 
     public function scopeFilter($query, array $filters)

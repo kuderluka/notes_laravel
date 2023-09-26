@@ -7,12 +7,21 @@
     <td>{{$entry->deadline}}</td>
     <td>{{$entry->tags}}</td>
     <td>
-        <a href="{{route('notes.edit', ['note' => $entry])}}" class="btn btn-primary">Edit</a>
-
-        <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('notes.destroy', ['note' => $entry])}}">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger">Delete</button>
-        </form>
+        @if ($entry->public == 1)
+            Yes
+        @else
+            No
+        @endif
     </td>
+    @if($editable)
+        <td>
+            <a href="{{route('note.edit', ['note' => $entry])}}" class="btn btn-primary">Edit</a>
+
+            <form method="POST" onsubmit="return confirm('Are you sure?');" action="{{route('note.destroy', ['note' => $entry])}}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    @endif
 </tr>

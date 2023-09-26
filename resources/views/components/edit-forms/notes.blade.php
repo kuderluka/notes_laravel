@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a note </h1>
 
-    <form action="{{route('notes.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('note.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         @if($entry != NULL)
             @method('PUT')
@@ -10,17 +10,7 @@
             @endphp
         @endif
 
-        <div class="mb-3">
-            <label>Choose the user:</label> <br>
-            <select class="form-control select2" name="user_id" id="user_id">
-                @foreach(App\Models\User::all() as $user)
-                    <option value="{{ $user->id }}" @if(old('user_id', $entry?->user_id) == $user->id) selected @endif>{{ $user->username }}</option>
-                @endforeach
-            </select>
-            @error('user_id')
-            <p>{{$message}}</p>
-            @enderror
-        </div>
+        <input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id}}">
 
         <div class="mb-3">
             <label>Choose the category:</label> <br>
@@ -70,6 +60,17 @@
             <label for="tags" class="form-label"> Tags (Less than 200 characters) </label>
             <input type="text" class="form-control" name="tags" value="{{old('tags', $entry?->tags)}}">
             @error('tags')
+            <p>{{$message}}</p>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label> Choose the visibility: </label> <br>
+            <select class="form-control select2" name="public" id="public">
+                <option value="1"> Public </option>
+                <option value="0"> Private </option>
+            </select>
+            @error('public')
             <p>{{$message}}</p>
             @enderror
         </div>

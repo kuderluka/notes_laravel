@@ -16,9 +16,22 @@
     <div class="d-flex justify-content-between align-items-center header">
         <h1>notes_laravel</h1>
         <div>
-            <a href="{{route('users.index')}}" class="btn btn-primary button">Users</a>
-            <a href="{{route('categories.index')}}" class="btn btn-primary button">Categories</a>
-            <a href="{{route('notes.index')}}" class="btn btn-primary button">Notes</a>
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    <a href="{{ route('public.data') }}" class="btn btn-primary button">View public notes</a>
+                    @auth
+                        <a href="{{ route('user.show') }}" class="btn btn-primary button">My work</a>
+                        <a href="{{ route('profile.edit') }}" class="btn btn-primary button">Profile</a>
+                    @else
+
+                        <a href="{{ route('login') }}" class="btn btn-primary button">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn btn-primary button">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
         </div>
     </div>
     <br>

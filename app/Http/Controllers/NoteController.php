@@ -24,7 +24,7 @@ class NoteController extends Controller
     {
         return view('list', [
             'heading' => 'notes',
-            'entries' => Note::sortable()->filter(request(['search']))->paginate(2)
+            'entries' => Note::sortable()->filter(request(['search']))->where('public', 1)->paginate(2)
         ]);
     }
 
@@ -71,11 +71,12 @@ class NoteController extends Controller
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
-            'tags' => ['required', 'max:200']
+            'tags' => ['required', 'max:200'],
+            'public' => 'required'
         ]);
 
         Note::where('id', $validated['id'])->update($validated);
-        return redirect(route('notes.index'))->with('message', 'Note updated successfully');
+        return redirect(route('user.show'))->with('message', 'Note updated successfully');
     }
 
     /**
@@ -93,7 +94,8 @@ class NoteController extends Controller
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
-            'tags' => ['required', 'max:200']
+            'tags' => ['required', 'max:200'],
+            'public' => 'required'
         ]);
 
         $validated['id'] = (string) Str::orderedUuid();
@@ -101,11 +103,12 @@ class NoteController extends Controller
         $user = User::find($request->user_id);
         $category = Category::find($request->category_id);
 
+        $category->users()->attach($user);
         $note->user()->associate($user);
         $note->category()->associate($category);
         $note->save();
 
-        return redirect(route('notes.index'))->with('message', 'Note created successfully');
+        return redirect(route('user.show'))->with('message', 'Note created successfully');
     }
 
     /**
@@ -117,6 +120,6 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         $note->delete();
-        return redirect(route('notes.index'))->with('message', 'Note deleted successfully');
+        return redirect(route('user.show'))->with('message', 'Note deleted successfully');
     }
 }

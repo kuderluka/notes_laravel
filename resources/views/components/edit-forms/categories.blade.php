@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-4"> Enter information about a category </h1> <br>
 
-    <form action="{{route('categories.store')}}" method="POST">
+    <form action="{{route('category.store')}}" method="POST">
         @csrf
         @if($entry != NULL)
             @method('PUT')
@@ -10,19 +10,7 @@
             @endphp
         @endif
 
-        <div class="mb-3">
-            <label>Choose users from the dropdown:</label><br>
-            <select class="select2" name="users[]" multiple="multiple" style="width: 100%;">
-                @foreach(App\Models\User::all() as $user)
-                    <option value="{{ $user->id }}" @if(in_array($user->id, old('users', $entry ? $entry->users->pluck('id')->toArray() : []))) selected @endif>
-                        {{ $user->username }}
-                    </option>
-                @endforeach
-            </select>
-            @error('users')
-            <p>{{ $message }}</p>
-            @enderror
-        </div>
+        <input type="hidden" id="users" name="users" value="{{Auth::user()->id}}">
 
         <div class="mb-3">
             <label for="title" class="form-label"> Title (Between 3 and 50 characters) </label>
@@ -43,10 +31,3 @@
         <x-buttons path="categories.index" type="Category" ></x-buttons>
     </form>
 </div>
-
-<script>
-    // Initialize the Select2 plugin
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
