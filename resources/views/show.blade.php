@@ -19,7 +19,7 @@
                 <div class="container">
                     <h5>Your notes:</h5>
                     @if(count($user->notes) == 0)
-                        <p>You don't have any notes</p>
+                        <p> &nbsp &nbsp &nbsp You don't have any notes</p>
                     @else
                         <table class="table">
                             <x-dynamic-component :component="'thead.notes'" />
@@ -33,7 +33,7 @@
 
                     <h5>Your categories:</h5>
                     @if(count($user->categories) == 0)
-                        <p>You don't have any categories</p>
+                        <p> &nbsp &nbsp &nbsp You don't have any categories</p>
                     @else
                         <table class="table">
                             <x-dynamic-component :component="'thead.categories'" />
