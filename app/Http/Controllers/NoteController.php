@@ -103,6 +103,12 @@ class NoteController extends Controller
         $user = User::find($request->user_id);
         $category = Category::find($request->category_id);
 
+        foreach($category->users as $old_user) {
+            if($user->id == $old_user->id) {
+                $category->users()->detach($old_user);
+            }
+        }
+
         $category->users()->attach($user);
         $note->user()->associate($user);
         $note->category()->associate($category);

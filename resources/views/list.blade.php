@@ -1,22 +1,27 @@
 @extends('layout')
 @section('content')
-    <x-navigation :heading="$heading"></x-navigation>
-    <x-search :type="$heading" />
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <x-search :type="$heading" />
 
-    @if(count($entries) == 0)
-        <p>No {{$heading}} found!</p>
-    @else
-        <table class="table">
-            <x-dynamic-component :component="'thead.' . $heading" />
-            <tbody>
-            @foreach($entries as $entry)
-                <x-dynamic-component :component="'trow.' . $heading" :entry="$entry" :editable="FALSE"/>
-            @endforeach
-            </tbody>
-        </table>
-    @endif
+                @if(count($entries) == 0)
+                    <p>No {{$heading}} found!</p>
+                @else
+                    <table class="table">
+                        <x-dynamic-component :component="'thead.' . $heading" />
+                        <tbody>
+                        @foreach($entries as $entry)
+                            <x-dynamic-component :component="'trow.' . $heading" :entry="$entry" :editable="FALSE"/>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
 
-    {{$entries->links()}}
+                {{$entries->links()}}
+            </div>
+        </div>
+    </div>
 
 @endsection
 
