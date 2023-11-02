@@ -32,6 +32,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         if($request->hasFile('image')) {
             $request['image'] = 'submitted';
         }
@@ -40,7 +41,7 @@ class RegisteredUserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['required', 'image', 'max:2048'],
         ]);
 
         $user = User::create([
