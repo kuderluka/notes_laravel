@@ -44,6 +44,8 @@
             <x-input-label for="image" :value="__('Profile Image')" />
 
             <input type="file" class="form-control-file" id="image" name="image" />
+
+            <x-input-error :messages="$errors->get('image')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
