@@ -9,10 +9,10 @@
                     <p>No {{$heading}} found!</p>
                 @else
                     <table class="table">
-                        <x-dynamic-component :component="'thead.' . $heading" />
+                        <x-dynamic-component :component="'thead.' . $heading" :public="$public"/>
                         <tbody>
                         @foreach($entries as $entry)
-                            <x-dynamic-component :component="'trow.' . $heading" :entry="$entry" :editable="FALSE"/>
+                            <x-dynamic-component :component="'trow.' . $heading" :entry="$entry" :editable="FALSE" :public="$public"/>
                         @endforeach
                         </tbody>
                     </table>
