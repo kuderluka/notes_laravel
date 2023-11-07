@@ -18,31 +18,37 @@
 
                 <div class="container">
                     <h5>Your notes:</h5>
-                    @if(count($user->notes) == 0)
+                    @if(count($notes) == 0)
                         <p> &nbsp &nbsp &nbsp You don't have any notes</p>
                     @else
                         <table class="table">
                             <x-dynamic-component :component="'thead.notes'" />
                             <tbody>
-                            @foreach($user->notes as $note)
+                            @foreach($notes as $note)
                                 <x-dynamic-component :component="'trow.notes'" :entry="$note" :editable="TRUE"/>
                             @endforeach
                             </tbody>
                         </table>
+
+                        {{ $notes->links() }}
                     @endif
 
+                    <br>
+
                     <h5>Your categories:</h5>
-                    @if(count($user->categories) == 0)
+                    @if(count($categories) == 0)
                         <p> &nbsp &nbsp &nbsp You don't have any categories</p>
                     @else
                         <table class="table">
                             <x-dynamic-component :component="'thead.categories'" />
                             <tbody>
-                            @foreach($user->categories as $category)
+                            @foreach($categories as $category)
                                 <x-dynamic-component :component="'trow.categories'" :entry="$category"/>
                             @endforeach
                             </tbody>
                         </table>
+
+                        {{ $categories->links() }}
                     @endif
                 </div>
             </div>

@@ -8,9 +8,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Category;
+use App\Models\Note;
 
 class ProfileController extends Controller
 {
+    /**
+     * Display the user's work page
+     *
+     * @return View
+     */
+    public function show(): View
+    {
+        $user = auth()->user();
+        $categories = $user->categories()->paginate(2);
+        $notes = $user->notes()->paginate(2);
+
+        return view('show', [
+            'user' => $user,
+            'categories' => $categories,
+            'notes' => $notes,
+        ]);
+    }
+
     /**
      * Display the user's profile form.
      */
