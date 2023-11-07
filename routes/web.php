@@ -30,10 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/user', function () {
-        $user = auth()->user();
-        return view('show', compact('user'));
-    })->name('user.show');
+    Route::get('/user', [ProfileController::class, 'show'])->name('user.show');
 
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
