@@ -108,7 +108,8 @@ class CategoryController extends Controller
         $category->users()->detach(Auth::user());
         if($category->users->isEmpty()) {
             $category->delete();
+            return redirect(route('user.show'))->with('message', 'Category deleted successfully!');
         }
-        return redirect(route('user.show'))->with('message', 'Category deleted successfully');
+        return redirect(route('user.show'))->with('message', 'You have been removed from the category successfully!');
     }
 }
