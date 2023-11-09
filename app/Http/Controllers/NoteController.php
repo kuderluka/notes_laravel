@@ -91,7 +91,7 @@ class NoteController extends Controller
         $validated = $request->validate([
             'user_id' => 'required',
             'category_id' => 'required',
-            'title' => ['required', Rule::unique('notes' , 'title'), 'min:3', 'max:50'],
+            'title' => ['required', Rule::unique('notes' , 'title'), 'min:5', 'max:30'],
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => 'required',
