@@ -4,6 +4,13 @@
         <div class="flex justify-between h-16">
             <div class="flex">
 
+                <!-- Public data -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('public.data')" :active="request()->routeIs('public.data')">
+                        {{ __('View public notes') }}
+                    </x-nav-link>
+                </div>
+
                 <!-- My work -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('user.show')" :active="request()->routeIs('user.show')">
@@ -11,10 +18,10 @@
                     </x-nav-link>
                 </div>
 
-                <!-- Home -->
+                <!-- Profile -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                        {{ __('Home') }}
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        {{ __('Profile') }}
                     </x-nav-link>
                 </div>
 
