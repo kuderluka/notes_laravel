@@ -34,14 +34,15 @@ class RegisteredUserController extends Controller
     {
 
         if($request->hasFile('image')) {
-            $request['image'] = 'submitted';
+            $image = $request->file('image')->store('images', 'public');
+        } else {
+            $image = "/resources/images/ProfilePic.jpg";
         }
 
         $request->validate([
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'image' => ['required', 'image', 'max:2048'],
         ]);
 
         $user = User::create([
@@ -49,7 +50,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $request->file('image')->store('images', 'public')
+            'image' => $image
         ]);
 
         event(new Registered($user));
