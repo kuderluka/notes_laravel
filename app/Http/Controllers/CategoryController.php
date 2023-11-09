@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'id' => 'required',
             'users' => 'required',
-            'title' => ['required', Rule::unique('categories', 'title')->ignore($request->id), 'min:3', 'max:30'],
+            'title' => ['required', 'min:3', 'max:30'],
             'color' => 'required'
         ]);
 
@@ -86,7 +86,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'users' => 'required',
-            'title' => ['required', Rule::unique('categories', 'title'), 'min:3', 'max:30'],
+            'title' => ['required', 'min:3', 'max:30'],
             'color' => 'required'
         ]);
         $validated['id'] = (string) Str::orderedUuid();
