@@ -7,7 +7,9 @@
     <th>@sortablelink('priority', 'Priority')</th>
     <th>@sortablelink('deadline', 'Deadline')</th>
     <th>@sortablelink('tags', 'Tags')</th>
-    <th>@sortablelink('public', 'Public')</th>
+    @if($public)
+        <th>@sortablelink('public', 'Public')</th>
+    @endif
 </tr>
 </thead>
 

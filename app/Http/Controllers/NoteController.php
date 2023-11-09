@@ -20,10 +20,11 @@ class NoteController extends Controller
      *
      * @return string
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('list', [
             'heading' => 'notes',
+            'public' => $request->input('public'),
             'entries' => Note::sortable()->filter(request(['search']))->where('public', 1)->paginate(2)
         ]);
     }
