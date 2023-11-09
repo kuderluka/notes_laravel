@@ -22,11 +22,11 @@
                         <p> &nbsp &nbsp &nbsp You don't have any notes</p>
                     @else
                         <table class="table">
-                            <x-dynamic-component :component="'thead.notes'" />
+                            <x-dynamic-component :component="'thead.notes'" :public="$public"/>
                             <tbody>
-                            @foreach($notes as $note)
-                                <x-dynamic-component :component="'trow.notes'" :entry="$note" :editable="TRUE"/>
-                            @endforeach
+                                @foreach($notes as $note)
+                                    <x-dynamic-component :component="'trow.notes'" :entry="$note" :editable="TRUE" :public="$public"/>
+                                @endforeach
                             </tbody>
                         </table>
 
@@ -42,9 +42,9 @@
                         <table class="table">
                             <x-dynamic-component :component="'thead.categories'" />
                             <tbody>
-                            @foreach($categories as $category)
-                                <x-dynamic-component :component="'trow.categories'" :entry="$category"/>
-                            @endforeach
+                                @foreach($categories as $category)
+                                    <x-dynamic-component :component="'trow.categories'" :entry="$category"/>
+                                @endforeach
                             </tbody>
                         </table>
 

@@ -24,7 +24,7 @@ class NoteController extends Controller
     {
         return view('list', [
             'heading' => 'notes',
-            'public' => $request->input('public'),
+            'public' => 0,
             'entries' => Note::sortable()->filter(request(['search']))->where('public', 1)->paginate(2)
         ]);
     }

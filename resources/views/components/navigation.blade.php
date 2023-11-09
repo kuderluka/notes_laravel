@@ -7,7 +7,7 @@
                 @if (Route::has('login'))
                     <!-- Public data -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('public.data', ['public' => FALSE])" :active="request()->routeIs('public.data')">
+                        <x-nav-link :href="route('public.data')" :active="request()->routeIs('public.data')">
                             {{ __('View public notes') }}
                         </x-nav-link>
                     </div>

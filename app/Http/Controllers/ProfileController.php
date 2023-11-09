@@ -26,6 +26,7 @@ class ProfileController extends Controller
 
         return view('show', [
             'user' => $user,
+            'public' => 1,
             'categories' => $categories,
             'notes' => $notes,
         ]);
