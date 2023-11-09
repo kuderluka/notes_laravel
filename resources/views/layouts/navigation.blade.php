@@ -17,6 +17,13 @@
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
+
+                <!-- Logout -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('logout')">
+                        {{ __('Log Out') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
