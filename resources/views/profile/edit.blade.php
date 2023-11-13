@@ -11,6 +11,10 @@
                 <div class="max-w-xl">
                     @include('profile.partials.update-profile-information-form')
                 </div>
+
+                <div>
+                    <img src="@if(auth()->user()->image == "default"){{'C:\Users\lukak\Documents\GitHub\notes_laravel\resources\images\ProfilePic.jpg'}}@else{{storage_path('app/public/' . auth()->user()->image)}}@endif" alt="profile pic">
+                </div>
             </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">

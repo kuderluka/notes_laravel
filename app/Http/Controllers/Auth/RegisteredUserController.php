@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
         if($request->hasFile('image')) {
             $image = $request->file('image')->store('images', 'public');
         } else {
-            $image = "/resources/images/ProfilePic.jpg";
+            $image = "default";
         }
 
         $request->validate([
