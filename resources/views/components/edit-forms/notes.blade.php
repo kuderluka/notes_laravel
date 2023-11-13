@@ -29,26 +29,22 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="title" class="form-label"> Title (Between 3 and 50 characters) </label>
-                    <input type="text" class="form-control" name="title" value="{{old('title', $entry?->title)}}">
-                    @error('title')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-label for="title" :value="__('Title (Between 3 and 50 characters)')" />
+                    <x-text-input id="title" name="title" type="text" class="form-control" :value="old('title', $entry?->title)" />
+                    <x-input-error :messages="$errors->get('title')" />
                 </div>
 
                 <div class="mb-3">
-                    <label for="content" class="form-label"> Content (Less than 500 characters) </label>
-                    <input type="text" class="form-control" name="content" value="{{old('content', $entry?->content)}}">
-                    @error('content')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-label for="content" :value="__('Content (Less than 500 characters)')" />
+                    <x-text-input id="content" name="content" type="text" class="form-control" :value="old('content', $entry?->content)" />
+                    <x-input-error :messages="$errors->get('content')" />
                 </div>
 
                 <div class="mb-3">
-                    <label for="priority" class="form-label"> Priority (Whole numbers between 1 and 5) </label>
-                    <input type="number" min="1" max="5" class="form-control" name="priority" value="{{old('priority', $entry?->priority)}}">
+                    <x-input-label for="priority" :value="__('Priority (Whole numbers between 1 and 5)')" />
+                    <input type="number" min="1" max="5" class="form-control" name="priority" value="{{ old('priority', $entry?->priority) }}">
                     @error('priority')
-                    <p>{{$message}}</p>
+                    <p>{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -61,11 +57,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="tags" class="form-label"> Tags (Less than 200 characters) </label>
-                    <input type="text" class="form-control" name="tags" value="{{old('tags', $entry?->tags)}}">
-                    @error('tags')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-label for="tags" :value="__('Tags (Less than 200 characters)')" />
+                    <x-text-input id="tags" name="tags" type="text" class="form-control" :value="old('tags', $entry?->tags)" />
+                    <x-input-error :messages="$errors->get('tags')" />
                 </div>
 
                 <div class="mb-3">
