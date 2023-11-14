@@ -23,9 +23,7 @@
                             <option value="{{ $category->id }}" @if(old('category_id', $entry?->category_id) == $category->id) selected @endif>{{ $category->title }}</option>
                         @endforeach
                     </select>
-                    @error('category_id')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
                 </div>
 
                 <div class="mb-3">
@@ -45,19 +43,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="priority" class="form-label"> Priority (Whole numbers between 1 and 5) </label>
-                    <input type="number" min="1" max="5" class="form-control" name="priority" value="{{old('priority', $entry?->priority)}}">
-                    @error('priority')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-label for="priority" :value="__('Priority (Whole numbers between 1 and 5)')" />
+                    <input type="number" min="1" max="5" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="priority" value="{{ old('priority', $entry?->priority) }}">
+                    <x-input-error class="mt-2" :messages="$errors->get('priority')" />
                 </div>
 
                 <div class="mb-3">
                     <label for="deadline" class="form-label"> Deadline </label>
-                    <input type="datetime-local" class="form-control" name="deadline" value="{{old('deadline', $entry?->deadline)}}">
-                    @error('deadline')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <input type="datetime-local"  class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="deadline" value="{{old('deadline', $entry?->deadline)}}">
+                    <x-input-error class="mt-2" :messages="$errors->get('deadline')" />
                 </div>
 
                 <div class="mb-3">
@@ -74,9 +68,7 @@
                         <option value="1" @if(old('public', $entry?->public) == 1) selected @endif> Public </option>
                         <option value="0" @if(old('public', $entry?->public) == 0) selected @endif> Private </option>
                     </select>
-                    @error('public')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-error class="mt-2" :messages="$errors->get('public')" />
                 </div>
 
                 <x-buttons path="notes.index" type="Note" ></x-buttons>

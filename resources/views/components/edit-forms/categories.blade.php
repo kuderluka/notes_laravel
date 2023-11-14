@@ -27,9 +27,7 @@
                 <div class="mb-3">
                     <label for="color" class="form-label"> Color </label>
                     <input type="color" class="form-control" name="color" value="{{old('color', $entry?->color)}}">
-                    @error('color')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-error class="mt-2" :messages="$errors->get('color')" />
                 </div>
 
                 <x-buttons path="categories.index" type="Category" ></x-buttons>
