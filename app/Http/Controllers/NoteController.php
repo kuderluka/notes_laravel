@@ -71,7 +71,7 @@ class NoteController extends Controller
             'title' => ['required', Rule::unique('notes' , 'title')->ignore($request->id), 'min:5', 'max:30'],
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
-            'deadline' => 'required',
+            'deadline' => ['required', 'date', 'after:now'],
             'tags' => ['required', 'max:200'],
             'public' => 'required'
         ]);
@@ -94,7 +94,7 @@ class NoteController extends Controller
             'title' => ['required', Rule::unique('notes' , 'title'), 'min:5', 'max:30'],
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
-            'deadline' => 'required',
+            'deadline' => ['required', 'date', 'after:now'],
             'tags' => ['required', 'max:200'],
             'public' => 'required'
         ]);
