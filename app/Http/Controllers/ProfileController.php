@@ -21,8 +21,8 @@ class ProfileController extends Controller
     public function show(): View
     {
         $user = auth()->user();
-        $categories = $user->categories()->paginate(2);
-        $notes = $user->notes()->paginate(2);
+        $categories = $user->categories()->paginate(3);
+        $notes = $user->notes()->paginate(3);
 
         return view('show', [
             'user' => $user,
