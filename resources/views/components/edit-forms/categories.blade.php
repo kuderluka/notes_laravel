@@ -16,20 +16,16 @@
 
                 <input type="hidden" id="users" name="users" value="{{Auth::user()->id}}">
 
-                <div class="mb-3">
-                    <label for="title" class="form-label"> Title (Between 3 and 50 characters) </label>
-                    <input type="text" class="form-control" name="title" value="{{old('title', $entry?->title)}}">
-                    @error('title')
-                    <p>{{$message}}</p>
-                    @enderror
+                <div>
+                    <x-input-label for="title" :value="__('Title')" />
+                    <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $entry?->title)" required autofocus autocomplete="title" />
+                    <x-input-error class="mt-2" :messages="$errors->get('title')" />
                 </div>
 
                 <div class="mb-3">
                     <label for="color" class="form-label"> Color </label>
                     <input type="color" class="form-control" name="color" value="{{old('color', $entry?->color)}}">
-                    @error('color')
-                    <p>{{$message}}</p>
-                    @enderror
+                    <x-input-error class="mt-2" :messages="$errors->get('color')" />
                 </div>
 
                 <x-buttons path="categories.index" type="Category" ></x-buttons>
