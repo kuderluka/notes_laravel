@@ -105,7 +105,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->users()->detach(Auth::user());
+        $user = Auth::user();
+
+        foreach($user->notes as $note) {
+            if($note->category_id == $category->id) {
+                $note->delete();
+            }
+        }
+
+        $category->users()->detach($user);
         if($category->users->isEmpty()) {
             $category->delete();
             return redirect(route('user.show'))->with('message', 'Category deleted successfully!');
