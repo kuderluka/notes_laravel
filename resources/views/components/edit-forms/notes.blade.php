@@ -19,13 +19,22 @@
                 <div class="mb-3">
                     <x-input-label for="category_id" :value="__('Choose the category:')" />
                     <select class="form-control select2 w-full block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="category_id" id="category_id">
-                        @foreach(App\Models\Category::all() as $category)
-                            <option value="{{ $category->id }}" @if(old('category_id', $entry?->category_id) == $category->id) selected @endif>{{ $category->title }}</option>
-                        @endforeach
+                        <optgroup label="Your categories:">
+                            @foreach(auth()->user()->categories as $category)
+                                <option value="{{ $category->id }}" @if(old('category_id', $entry?->category_id) == $category->id) selected @endif>{{ $category->title }}</option>
+                            @endforeach
+                        </optgroup>
+
+                        <optgroup label="Public categories:">
+                            @foreach(App\Models\Category::all() as $category)
+                                @if(!auth()->user()->categories->contains($category))
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                @endif
+                            @endforeach
+                        </optgroup>
                     </select>
                     <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
                 </div>
-
 
                 <div class="mb-3">
                     <x-input-label for="title" :value="__('Title (Between 3 and 50 characters)')" />
