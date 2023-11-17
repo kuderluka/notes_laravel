@@ -4,7 +4,7 @@
     <td>{{$entry->title}}</td>
     <td>{{$entry->content}}</td>
     <td>{{$entry->priority}}</td>
-    <td>{{$entry->deadline}}</td>
+    <td>{{date('d/m/Y H:i:s',strtotime($entry->deadline))}}</td>
     <td>{{$entry->tags}}</td>
     @if($public)
         <td>
