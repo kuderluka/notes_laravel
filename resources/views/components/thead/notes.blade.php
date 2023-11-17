@@ -1,6 +1,6 @@
 <thead>
 <tr>
-    <th class="{{ request()->input('sort') === 'user_id' ? 'column_sorted' : '' }}">@sortablelink('user_id', 'User')</th>
+    <th class="{{ request()->input('sort') === 'user_id' ? 'column_sorted' : '' }}">@sortablelink('username', 'User')</th>
     <th class="{{ request()->input('sort') === 'category_id' ? 'column_sorted' : '' }}">@sortablelink('category_id', 'Category')</th>
     <th class="{{ request()->input('sort') === 'title' ? 'column_sorted' : '' }}">@sortablelink('title', 'Title')</th>
     <th class="{{ request()->input('sort') === 'content' ? 'column_sorted' : '' }}">@sortablelink('content', 'Content')</th>

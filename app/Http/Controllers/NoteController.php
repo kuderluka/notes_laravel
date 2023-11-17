@@ -22,10 +22,16 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
+        $entries = Note::join('users', 'notes.user_id', '=', 'users.id')
+            ->where('public', 1)
+            ->filter(request(['search']))
+            ->sortable()
+            ->paginate(8);
+
         return view('list', [
             'heading' => 'notes',
             'public' => 0,
-            'entries' => Note::sortable()->filter(request(['search']))->where('public', 1)->paginate(8)
+            'entries' => $entries
         ]);
     }
 
