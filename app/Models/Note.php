@@ -26,7 +26,7 @@ class Note extends Model
     ];
 
     public $sortable = [
-        'user_id',
+        'username',
         'category_id',
         'title',
         'content',
@@ -43,7 +43,8 @@ class Note extends Model
                 ->orWhere('content', 'like', '%' . request('search') . '%')
                 ->orWhere('priority', 'like', '%' . request('search') . '%')
                 ->orWhere('deadline', 'like', '%' . request('search') . '%')
-                ->orWhere('tags', 'like', '%' . request('search') . '%');
+                ->orWhere('tags', 'like', '%' . request('search') . '%')
+                ->orWhere('username', 'like', '%' . request('search') . '%');
         }
     }
 
