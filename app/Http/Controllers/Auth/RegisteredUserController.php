@@ -33,10 +33,10 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image')->store('images', 'public');
         } else {
-            $image = "default";
+            $image = 'images/ProfilePic.jpg';
         }
 
         $request->validate([
