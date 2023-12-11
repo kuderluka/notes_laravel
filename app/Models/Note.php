@@ -26,7 +26,7 @@ class Note extends Model
     ];
 
     public $sortable = [
-        'user_id',
+        'username',
         'category_id',
         'title',
         'content',
@@ -38,13 +38,12 @@ class Note extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        if($filters['search'] ?? false) {
-            $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('content', 'like', '%' . request('search') . '%')
-                ->orWhere('priority', 'like', '%' . request('search') . '%')
-                ->orWhere('deadline', 'like', '%' . request('search') . '%')
-                ->orWhere('tags', 'like', '%' . request('search') . '%');
-        }
+        $query->where('title', 'like', '%' . $filters['search'] . '%')
+            ->orWhere('content', 'like', '%' . $filters['search'] . '%')
+            ->orWhere('priority', 'like', '%' . $filters['search'] . '%')
+            ->orWhere('deadline', 'like', '%' . $filters['search'] . '%')
+            ->orWhere('tags', 'like', '%' . $filters['search'] . '%')
+            ->orWhere('username', 'like', '%' . $filters['search'] . '%');
     }
 
     public function user()
