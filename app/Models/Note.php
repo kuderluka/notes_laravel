@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Support\Carbon;
 
 class Note extends Model
 {
@@ -35,6 +36,15 @@ class Note extends Model
         'tags',
         'public'
     ];
+
+    protected $casts = [
+        'deadline' => 'datetime:d-m-Y H:i:s',
+    ];
+
+    public function getDeadlineAttribute()
+    {
+        return Carbon::parse($this->attributes['deadline'])->format('d-m-Y H:i:s');
+    }
 
     public function scopeFilter($query, array $filters)
     {
