@@ -10,6 +10,13 @@ use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
+    public function list()
+    {
+        return response()->json([
+           'categories' => Category::all(),
+        ]);
+    }
+
     /**
      * Returns the default view
      *

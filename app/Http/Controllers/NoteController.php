@@ -29,6 +29,22 @@ class NoteController extends Controller
         ]);
     }
 
+    public function getNotesByUsername(Request $request)
+    {
+        $user = User::where('username', $request->user)->first();
+
+        return response()->json([
+            'notes' => Note::where('user_id', $user->id)->get(),
+        ]);
+    }
+
+    public function getNoteById($note)
+    {
+        return response()->json([
+            'notes' => Note::find($note),
+        ]);
+    }
+
     /**
      * Returns the create view
      *
@@ -128,5 +144,13 @@ class NoteController extends Controller
     {
         $note->delete();
         return redirect(route('user.show'))->with('message', 'Note deleted successfully');
+    }
+
+    public function destroyById($id)
+    {
+        $note = Note::findOrFail($id);
+        $note->delete();
+
+        return response()->json('Note deleted.');
     }
 }
