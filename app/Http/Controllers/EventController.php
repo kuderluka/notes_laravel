@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class EventController extends Controller
 {
+    public function index() {
+        
+    }
     public static function register() {
         $client = new Client();
         $user = auth()->user();
@@ -86,6 +89,21 @@ class EventController extends Controller
             return true;
         } catch(\Exception $exception) {
             return false;
+        }
+    }
+
+    public function getEvents() {
+        $client = new Client();
+        try {
+            $response = $client->request('GET', 'http://localhost:8001/api/events', [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch(\Exception $exception) {
+            return $exception;
         }
     }
 }
