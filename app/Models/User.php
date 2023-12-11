@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory;
-    use Sortable;
-    use Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable;
 
     public $incrementing = false;
     public $keyType = 'string';
