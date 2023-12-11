@@ -71,4 +71,21 @@ class EventController extends Controller
             return false;
         }
     }
+
+    public static function logout() {
+        $client = new Client();
+
+        try {
+            $response = $client->request('POST', 'http://localhost:8001/api/logout', [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer ' . session('events-token'),
+                ]
+            ]);
+
+            return true;
+        } catch(\Exception $exception) {
+            return false;
+        }
+    }
 }
