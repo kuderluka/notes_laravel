@@ -130,4 +130,37 @@ class EventController extends Controller
             return $exception;
         }
     }
+
+    public function addAttendee(Request $request) {
+        $client = new Client();
+        $boundary = uniqid();
+        $user = auth()->user();
+
+        var_dump(session('events-token'));
+
+        try {
+            $response = $client->request('POST', 'http://localhost:8001/api/addAttendee', [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer ' . session('events-token'),
+                    'Content-Type' => 'multipart/form-data; boundary=' . $boundary,
+                ],
+                'body' => new MultipartStream([
+                    [
+                        'name' => 'email',
+                        'contents' => $user->email,
+                    ],
+                    [
+                        'name' => 'event_id',
+                        'contents' => $request->event_id,
+                    ],
+                ], $boundary)
+            ]);
+
+            return redirect(route('event.show', ['event' => $request->event_id]));
+        } catch(\Exception $exception) {
+            dd($exception);
+            return $exception;
+        }
+    }
 }

@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/note/destroy/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 
     Route::get('/events', [EventController::class, 'index'])->name('events.list');
+    Route::post('/addAttendee', [EventController::class, 'addAttendee'])->name('event.addAttendee');
     Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
 });
 
