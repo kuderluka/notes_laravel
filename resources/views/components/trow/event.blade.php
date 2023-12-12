@@ -1,4 +1,4 @@
-<article class="p-3 border mt-5 bg-gray-100 shadow sm:rounded-lg">
+<article class="p-3 border mt-2 bg-gray-100 shadow sm:rounded-lg">
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <b>Name:</b> {{ $event['name'] }}<br>

@@ -9,18 +9,36 @@ use Illuminate\Support\Facades\Hash;
 
 class EventController extends Controller
 {
-    public function index() {
+    /**
+     * Returns the default events view
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function index(Request $request) {
         return view('events', [
-            'events' => $this->getEvents()
+            'events' => $this->getEvents($request->search)
         ]);
     }
 
+    /**
+     * Returns the view of one specific event
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function show($id) {
         return view('event-show', [
             'event' => $this->getOneEvent($id)
         ]);
     }
 
+    /**
+     * Makes sure that a newly registered user is also registered in Kristjan's app and gets the token
+     *
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public static function register() {
         $client = new Client();
         $user = auth()->user();
@@ -55,6 +73,13 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Contacts Kristjan's app on login to get the token
+     *
+     * @param $user
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public static function login($user) {
         $client = new Client();
         $boundary = uniqid();
@@ -84,6 +109,12 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Makes sure the tokens on Kristjan's side are deleted when the user logs out
+     *
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public static function logout() {
         $client = new Client();
 
@@ -101,13 +132,24 @@ class EventController extends Controller
         }
     }
 
-    public function getEvents() {
+    /**
+     * Fetches all viable events
+     *
+     * @param $keyword
+     * @return \Exception|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getEvents($keyword) {
         $client = new Client();
+
         try {
             $response = $client->request('GET', 'http://localhost:8001/api/events', [
                 'headers' => [
                     'Accept' => 'application/json',
-                ]
+                ],
+                'query' => [
+                    'keyword' => $keyword,
+                ],
             ]);
 
             return json_decode($response->getBody(), true);
@@ -116,6 +158,13 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Fetches one event
+     *
+     * @param $id
+     * @return \Exception|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getOneEvent($id) {
         $client = new Client();
         try {
@@ -131,6 +180,13 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Adds the currently authenticated user as an attendee of a given event
+     *
+     * @param Request $request
+     * @return \Exception|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function addAttendee(Request $request) {
         $client = new Client();
         $boundary = uniqid();
@@ -161,6 +217,13 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Removes the currently authenticated user as an attendee of a given event
+     *
+     * @param Request $request
+     * @return \Exception|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function removeAttendee(Request $request) {
         $client = new Client();
         $boundary = uniqid();
