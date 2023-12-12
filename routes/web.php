@@ -45,7 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/note/edit/{note}', [NoteController::class, 'edit'])->name('note.edit');
     Route::delete('/note/destroy/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 
-    Route::get('/events', [EventController::class, 'getEvents'])->name('events.list');
+    Route::get('/events', [EventController::class, 'index'])->name('events.list');
+    Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
 });
 
 require __DIR__.'/auth.php';

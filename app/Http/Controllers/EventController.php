@@ -10,8 +10,17 @@ use Illuminate\Support\Facades\Hash;
 class EventController extends Controller
 {
     public function index() {
-        
+        return view('events', [
+            'events' => $this->getEvents()
+        ]);
     }
+
+    public function show($id) {
+        return view('event-show', [
+            'event' => $this->getOneEvent($id)
+        ]);
+    }
+
     public static function register() {
         $client = new Client();
         $user = auth()->user();
@@ -99,6 +108,21 @@ class EventController extends Controller
                 'headers' => [
                     'Accept' => 'application/json',
                 ]
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch(\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function getOneEvent($id) {
+        $client = new Client();
+        try {
+            $response = $client->request('GET', 'http://localhost:8001/api/event/' . $id, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ],
             ]);
 
             return json_decode($response->getBody(), true);
