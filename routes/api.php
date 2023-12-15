@@ -31,10 +31,11 @@ Route::post('/tokens/authenticate', function (LoginRequest $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/note/{user}', [NoteController::class, 'getNotesByUsername']);
-    Route::get('/note/getById/{note}', [NoteController::class, 'getNoteById']);
-    Route::post('/note/store', [NoteController::class, 'store']);
-    Route::patch('/note/store', [NoteController::class, 'update']);
-    Route::delete('/note/destroy/{note}', [NoteController::class, 'destroyById']);
-    Route::get('/category', [CategoryController::class, 'list']);
+    Route::get('/notes', [NoteController::class, 'getNotesByUsername']);
+    Route::get('/notes/{noteId}', [NoteController::class, 'getNoteById']);
+    Route::post('/notes', [NoteController::class, 'store']);
+    Route::patch('/notes/{noteId}', [NoteController::class, 'update']);
+    Route::delete('/notes/{noteId}', [NoteController::class, 'destroyById']);
+
+    Route::get('/categories', [CategoryController::class, 'list']);
 });
