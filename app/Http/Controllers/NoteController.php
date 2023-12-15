@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -29,20 +30,38 @@ class NoteController extends Controller
         ]);
     }
 
-    public function getNotesByUsername(Request $request)
+    public function getNotesByUsername()
     {
-        $user = User::where('username', $request->user)->first();
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not logged in.'], 401);
+        }
 
         return response()->json([
-            'notes' => Note::where('user_id', $user->id)->get(),
+            'notes' => User::with('notes')->find($user->id)['notes'],
         ]);
     }
 
     public function getNoteById($note)
     {
-        return response()->json([
-            'notes' => Note::find($note),
-        ]);
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not logged in.'], 401);
+        }
+
+        $note = Note::find($note);
+
+        if (!$note) {
+            return response()->json(['message' => 'Note does not exist.'], 404);
+        }
+
+        if ($note->user_id !== $user->id) {
+            return response()->json(['message' => 'Cannot access this note.'], 403);
+        }
+
+        return response()->json($note);
     }
 
     /**
@@ -78,13 +97,17 @@ class NoteController extends Controller
      * @param Request $request
      * @return string
      */
-    public function update(Request $request)
+    public function update($noteId, Request $request)
     {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not logged in.'], 401);
+        }
+
         $validated = $request->validate([
-            'id' => 'required',
-            'user_id' => 'required',
             'category_id' => 'required',
-            'title' => ['required', Rule::unique('notes' , 'title')->ignore($request->id), 'min:5', 'max:30'],
+            'title' => ['required', Rule::unique('notes' , 'title')->ignore($noteId), 'min:5', 'max:30'],
             'content' => ['required', 'max:500'],
             'priority' => ['required', 'integer', 'min:1' , 'max:5'],
             'deadline' => ['required', 'date', 'after:now'],
@@ -92,6 +115,8 @@ class NoteController extends Controller
             'public' => 'required'
         ]);
 
+        $validated['id'] = $noteId;
+        $validated['user_id'] = $user->id;
         Note::where('id', $validated['id'])->update($validated);
         return redirect(route('user.show'))->with('message', 'Note updated successfully');
     }
@@ -104,8 +129,13 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not logged in.'], 401);
+        }
+
         $validated = $request->validate([
-            'user_id' => 'required',
             'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title'), 'min:5', 'max:30'],
             'content' => ['required', 'max:500'],
@@ -116,8 +146,8 @@ class NoteController extends Controller
         ]);
 
         $validated['id'] = (string) Str::orderedUuid();
+        $validated['user_id'] = $user->id;
         $note = Note::create($validated);
-        $user = User::find($request->user_id);
         $category = Category::find($request->category_id);
 
         foreach($category->users as $old_user) {
