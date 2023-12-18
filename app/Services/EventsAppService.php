@@ -79,7 +79,6 @@ class EventsAppService {
             session(['events-token' => json_decode($response->getBody(), true)['token']]);
             return true;
         } catch(\Exception $exception) {
-            dd($exception);
             return false;
         }
     }
