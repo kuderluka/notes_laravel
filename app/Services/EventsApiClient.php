@@ -53,7 +53,7 @@ class EventsApiClient
         $boundary = uniqid();
 
         try {
-            $response = $this->client->request('POST', 'http://localhost:8001/api/addAttendee', [
+            $response = $this->client->request('POST', 'http://localhost:8001/api/events/' . $event_id . '/attendees', [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . session('events-token'),
@@ -82,7 +82,7 @@ class EventsApiClient
         $boundary = uniqid();
 
         try {
-            $response = $this->client->request('POST', 'http://localhost:8001/api/removeAttendee', [
+            $response = $this->client->request('DELETE', 'http://localhost:8001/api/events/' . $event_id . '/attendees/' . $email, [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . session('events-token'),
