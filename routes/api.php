@@ -21,12 +21,11 @@ use App\Models\User;
 Route::post('/tokens/authenticate', function (LoginRequest $request) {
     $request->authenticate();
 
-    $user = User::where('email', $request->get('email'))->first();
+    $user = User::where('email', $request->validated('email'))->first();
     $token = $user->createToken($user->username)->plainTextToken;
 
     return response()->json([
         'token' => $token,
-        'user_id' => $user->id
     ]);
 });
 
