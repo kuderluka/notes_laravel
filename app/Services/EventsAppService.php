@@ -26,7 +26,7 @@ class EventsAppService {
     public function getEvents($keyword)
     {
         try {
-            $response = $this->client->request('GET', 'http://localhost:8001/api/events', [
+            $response = $this->client->request('GET', config('events.url') . '/api/events', [
                 'headers' => [
                     'Accept' => 'application/json',
                 ],
@@ -52,7 +52,7 @@ class EventsAppService {
     public function getOneEvent($id)
     {
         try {
-            $response = $this->client->request('GET', 'http://localhost:8001/api/event/' . $id, [
+            $response = $this->client->request('GET', config('events.url') . '/api/event/' . $id, [
                 'headers' => [
                     'Accept' => 'application/json',
                 ],
@@ -76,7 +76,7 @@ class EventsAppService {
     public function addAttendee(string $email, string $event_id)
     {
         try {
-            $response = $this->client->request('POST', 'http://localhost:8001/api/events/' . $event_id . '/attendees', [
+            $response = $this->client->request('POST', config('events.url') . '/api/events/' . $event_id . '/attendees', [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . session('events-token'),
@@ -106,7 +106,7 @@ class EventsAppService {
     public function removeAttendee(string $email, string $event_id)
     {
         try {
-            $response = $this->client->request('DELETE', 'http://localhost:8001/api/events/' . $event_id . '/attendees/' . $email, [
+            $response = $this->client->request('DELETE', config('events.url') . '/api/events/' . $event_id . '/attendees/' . $email, [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . session('events-token'),
@@ -134,7 +134,7 @@ class EventsAppService {
         $user = auth()->user();
 
         try {
-            $response = $this->client->request('POST', 'http://localhost:8001/api/register', [
+            $response = $this->client->request('POST', config('events.url') . '/api/register', [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
@@ -162,7 +162,7 @@ class EventsAppService {
      */
     public function login($user) {
         try {
-            $response = $this->client->request('POST', 'http://localhost:8001/api/login', [
+            $response = $this->client->request('POST', config('events.url') . '/api/login', [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
@@ -188,7 +188,7 @@ class EventsAppService {
      */
     public function logout() {
         try {
-            $response = $this->client->request('POST', 'http://localhost:8001/api/logout', [
+            $response = $this->client->request('POST', config('events.url') . '/api/logout', [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Authorization' => 'Bearer ' . session('events-token'),
