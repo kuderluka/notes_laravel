@@ -30,8 +30,8 @@ class Category extends Model
     public function scopeFilter($query, array $filters)
     {
         if($filters['search'] ?? false) {
-            $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('color', 'like', '%' . request('search') . '%');
+            $query->where('title', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('color', 'like', '%' . $filters['search'] . '%');
         }
     }
 

@@ -25,6 +25,13 @@
                                 {{ __('Profile') }}
                             </x-nav-link>
                         </div>
+
+                        <!-- Events -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('events.list')" :active="request()->routeIs('events.list')">
+                                {{ __('Events') }}
+                            </x-nav-link>
+                        </div>
                     @else
                         <!-- Log in -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
