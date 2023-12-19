@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\EventController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\EventsAppService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +19,12 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+    protected $eventsAppService;
+
+    public function __construct(EventsAppService $eventsAppService)
+    {
+        $this->eventsAppService = $eventsAppService;
+    }
     /**
      * Display the registration view.
      */
@@ -56,6 +64,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $this->eventsAppService->register();
 
         return redirect(RouteServiceProvider::HOME);
     }

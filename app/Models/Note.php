@@ -48,12 +48,14 @@ class Note extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        $query->where('title', 'like', '%' . $filters['search'] . '%')
-            ->orWhere('content', 'like', '%' . $filters['search'] . '%')
-            ->orWhere('priority', 'like', '%' . $filters['search'] . '%')
-            ->orWhere('deadline', 'like', '%' . $filters['search'] . '%')
-            ->orWhere('tags', 'like', '%' . $filters['search'] . '%')
-            ->orWhere('username', 'like', '%' . $filters['search'] . '%');
+        if (isset($filters['search'])) {
+            $query->where('title', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('content', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('priority', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('deadline', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('tags', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('username', 'like', '%' . $filters['search'] . '%');
+        }
     }
 
     public function user()

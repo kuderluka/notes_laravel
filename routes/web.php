@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -43,6 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/note/store', [NoteController::class, 'update'])->name('note.store');
     Route::get('/note/edit/{note}', [NoteController::class, 'edit'])->name('note.edit');
     Route::delete('/note/destroy/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
+
+    Route::get('/events', [EventController::class, 'index'])->name('events.list');
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('event.show');
+    Route::post('/addAttendee', [EventController::class, 'addAttendee'])->name('event.addAttendee');
+    Route::post('/removeAttendee', [EventController::class, 'removeAttendee'])->name('event.removeAttendee');
 });
 
 require __DIR__.'/auth.php';
