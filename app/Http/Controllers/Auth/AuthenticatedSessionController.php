@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\EventController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Services\EventsAppService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,12 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
+    protected $eventsAppService;
+
+    public function __construct(EventsAppService $eventsAppService)
+    {
+        $this->eventsAppService = $eventsAppService;
+    }
     /**
      * Display the login view.
      */
@@ -30,7 +37,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        EventController::login($request);
+        $this->eventsAppService->login($request);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -40,7 +47,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        EventController::logout();
+        $this->eventsAppService->logout();
 
         Auth::guard('web')->logout();
 
