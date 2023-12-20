@@ -9,12 +9,12 @@ use GuzzleHttp\Psr7\MultipartStream;
 
 class EventsAppService {
 
-    private $client;
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
+    /**
+     * Constructor that injects the client
+     *
+     * @param Client $client
+     */
+    public function __construct(protected Client $client){}
 
     /**
      * Fetches all events

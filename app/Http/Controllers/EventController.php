@@ -8,12 +8,12 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class EventController extends Controller
 {
-    private $eventsAppService;
-
-    public function __construct(EventsAppService $eventsAppService)
-    {
-        $this->eventsAppService = $eventsAppService;
-    }
+    /**
+     * Constructor that injects the EventsAppService
+     *
+     * @param EventsAppService $eventsAppService
+     */
+    public function __construct(protected EventsAppService $eventsAppService){}
 
     /**
      * Returns the view of all events
