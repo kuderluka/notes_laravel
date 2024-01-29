@@ -11,11 +11,26 @@
                             {{ __('View public notes') }}
                         </x-nav-link>
                     </div>
+
+                    <!-- Users -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    </div>
+
                     @auth
                         <!-- My work -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-nav-link :href="route('user.show')" :active="request()->routeIs('user.show')">
                                 {{ __('My work') }}
+                            </x-nav-link>
+                        </div>
+
+                        <!-- Events -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('events.list')" :active="request()->routeIs('events.list')">
+                                {{ __('Events') }}
                             </x-nav-link>
                         </div>
 
@@ -26,12 +41,6 @@
                             </x-nav-link>
                         </div>
 
-                        <!-- Events -->
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-nav-link :href="route('events.list')" :active="request()->routeIs('events.list')">
-                                {{ __('Events') }}
-                            </x-nav-link>
-                        </div>
                     @else
                         <!-- Log in -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
