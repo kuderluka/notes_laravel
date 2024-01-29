@@ -66,6 +66,29 @@ class EventsAppService {
     }
 
     /**
+     * Returns all the events that a certain user is attending
+     *
+     * @param $id
+     * @return false|mixed
+     * @throws GuzzleException
+     */
+    public function getUsersEvents($email)
+    {
+        try {
+            $response = $this->client->request('GET', config('events.url') . '/api/attending/' . $email, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (\Exception $exception) {
+            dd($exception);
+            return false;
+        }
+    }
+
+    /**
      * Makes the api request that adds an attendee to a certain event
      *
      * @param string $email

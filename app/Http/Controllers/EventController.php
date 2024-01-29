@@ -42,6 +42,18 @@ class EventController extends Controller
     }
 
     /**
+     * Returns all the events that a certain user is attending
+     *
+     * @param $id
+     * @return false|mixed
+     * @throws GuzzleException
+     */
+    public function getUsersEvents($email)
+    {
+        return $this->eventsAppService->getUsersEvents($email);
+    }
+
+    /**
      * Adds the currently authenticated user to the list of attendees of a certain event
      *
      * @param Request $request
