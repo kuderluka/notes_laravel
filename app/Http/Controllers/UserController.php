@@ -15,4 +15,18 @@ class UserController extends Controller
             'entries' => User::sortable()->paginate(8)
         ]);
     }
+
+    /**
+     * Returns the view of a certain users profile
+     *
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function show(User $user)
+    {
+        return view('user-show', [
+            'user' => $user,
+            'notes' => $user->notes()->paginate(3)
+        ]);
+    }
 }
