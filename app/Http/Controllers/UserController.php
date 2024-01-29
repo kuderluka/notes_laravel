@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         return view('user-show', [
             'user' => $user,
-            'notes' => $user->notes()->paginate(3)
+            'notes' => $user->notes()->where('public', 1)->paginate(3)
         ]);
     }
 }
