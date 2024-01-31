@@ -37,8 +37,7 @@ class EventsAppService {
 
             return json_decode($response->getBody(), true);
         } catch (\Exception $exception) {
-            dd($exception);
-            return false;
+            return $exception;
         }
     }
 
@@ -60,8 +59,7 @@ class EventsAppService {
 
             return json_decode($response->getBody(), true);
         } catch (\Exception $exception) {
-            dd($exception);
-            return false;
+            return $exception;
         }
     }
 
@@ -83,8 +81,7 @@ class EventsAppService {
 
             return json_decode($response->getBody(), true);
         } catch (\Exception $exception) {
-            dd($exception);
-            return false;
+            return $exception;
         }
     }
 
@@ -113,7 +110,6 @@ class EventsAppService {
 
             return true;
         } catch (\Exception $exception) {
-            dd($exception);
             return false;
         }
     }
@@ -143,7 +139,6 @@ class EventsAppService {
 
             return true;
         } catch (\Exception $exception) {
-            dd($exception);
             return false;
         }
     }
@@ -152,6 +147,7 @@ class EventsAppService {
      * Makes sure that a newly registered user is also registered in Kristjan's app and gets the token
      *
      * @return bool
+     * @throws GuzzleException
      */
     public function register() {
         $user = auth()->user();

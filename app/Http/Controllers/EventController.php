@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\EventsAppService;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
@@ -38,6 +39,22 @@ class EventController extends Controller
     {
         return view('event-show', [
             'event' => $this->eventsAppService->getOneEvent($id)
+        ]);
+    }
+
+    /**
+     * Returns the view of a certain user's profile
+     *
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @throws GuzzleException
+     */
+    public function userEvents(User $user)
+    {
+        return view('user-show', [
+            'user' => $user,
+            'notes' => $user->notes()->where('public', 1)->paginate(3),
+            'events' => $this->getUsersEvents($user->email)
         ]);
     }
 
