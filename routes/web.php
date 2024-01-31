@@ -23,7 +23,7 @@ Route::get('/', function () { return view('index'); })->name('index');
 Route::get('/public', [NoteController::class, 'index'])->name('public.data');
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
-Route::get('/users/{user}', [UserController::class, 'show'])->name('user.profile');
+Route::get('/users/{user}', [EventController::class, 'userEvents'])->name('user.profile');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -28,6 +28,25 @@
                         {{ $notes->links() }}
                     @endif
                 </div>
+
+                <div class="container">
+                    <h5>{{$user->username}}'s events:</h5>
+
+                    @if(count($events) == 0)
+                        <p> &nbsp &nbsp &nbsp This user isn't participating in any events! </p>
+                    @else
+                        <table class="table">
+                            <tbody>
+                            @foreach($events as $event)
+                                <x-trow.event :event="$event"/>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        {{ $notes->links() }}
+                    @endif
+
+                </div>
             </div>
         </div>
     </div>
