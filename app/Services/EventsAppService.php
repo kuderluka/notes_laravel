@@ -51,7 +51,7 @@ class EventsAppService {
     public function getOneEvent($id)
     {
         try {
-            $response = $this->client->request('GET', config('events.url') . '/api/event/' . $id, [
+            $response = $this->client->request('GET', config('events.url') . '/api/events/' . $id, [
                 'headers' => [
                     'Accept' => 'application/json',
                 ],
@@ -59,6 +59,7 @@ class EventsAppService {
 
             return json_decode($response->getBody(), true);
         } catch (\Exception $exception) {
+            dd($exception);
             return $exception;
         }
     }
