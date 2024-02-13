@@ -1,0 +1,18 @@
+<table>
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of userList.entries">
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <th>
+      <button type="button" class="btn btn-outline-secondary"> View Profile </button>
+    </th>
+  </tr>
+  </tbody>
+</table>
