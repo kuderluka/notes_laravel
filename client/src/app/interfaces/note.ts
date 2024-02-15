@@ -1,3 +1,6 @@
+import { User } from "./user";
+import { Category } from "./category";
+
 export interface Note {
   id: string;
   user_id: string;
@@ -8,4 +11,8 @@ export interface Note {
   deadline: string;
   tags: string;
   public: boolean;
+  created_at: string;
+  updated_at: string;
+  category: Category;
+  user: User;
 }

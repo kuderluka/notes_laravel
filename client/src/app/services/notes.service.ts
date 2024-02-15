@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserList } from "../interfaces/user-list";
-import { UserDetails } from "../interfaces/user-details";
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +7,20 @@ import { UserDetails } from "../interfaces/user-details";
 export class NotesService {
   private url = 'http://127.0.0.1:8000/api';
 
-  getAllUsers() {
-    return this.httpClient.get(this.url + '/users');
+  constructor() { }
+
+  async getAllUsers() {
+    const data = await fetch(this.url + '/users');
+    return (await data.json()) ?? [];
   }
 
-  getUserDetails(id: string) {
-    return this.httpClient.get(this.url + '/users' + id);
+  async getUserDetails(id: string) {
+    const data = await fetch(this.url + '/users/' + id);
+    return (await data.json()) ?? [];
   }
-  constructor(private httpClient: HttpClient) { }
+
+  async getPublicNotes() {
+    const data = await fetch(this.url + '/public');
+    return (await data.json()) ?? [];
+  }
 }

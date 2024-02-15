@@ -16,11 +16,5 @@ class UserController extends Controller
             'public' => false,
             'entries' => User::all()
         ]);
-
-//        return view('list', [
-//            'heading' => 'users',
-//            'public' => false,
-//            'entries' => User::sortable()->paginate(8)
-//        ]);
     }
 }

@@ -24,7 +24,6 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        dd($this->eventsAppService->getEvents($request->search));
         return view('events', [
             'events' => $this->eventsAppService->getEvents($request->search)
         ]);
@@ -47,19 +46,14 @@ class EventController extends Controller
      * Returns the view of a certain user's profile
      *
      * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Http\JsonResponse
      * @throws GuzzleException
      */
     public function userEvents(User $user)
     {
-        var_dump(json_encode([
+        return response()->json([
             'user' => $user,
-            'notes' => $user->notes()->where('public', 1)->get(),
-            'events' => $this->getUsersEvents($user->email)
-        ]));
-        return view('user-show', [
-            'user' => $user,
-            'notes' => $user->notes()->where('public', 1)->paginate(3),
+            'notes' => $user->notes()->where('public', 1)->with('user')->with('category')->get(),
             'events' => $this->getUsersEvents($user->email)
         ]);
     }

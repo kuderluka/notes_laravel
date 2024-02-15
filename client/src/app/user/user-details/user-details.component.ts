@@ -2,30 +2,26 @@ import { Component, inject } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { NotesService } from "../../services/notes.service";
-import { UserDetails } from "../../interfaces/user-details";
-import { NgForOf } from "@angular/common";
+import { NgForOf, NgIf } from "@angular/common";
 
 @Component({
   selector: 'notes-user-details',
   standalone: true,
-  imports: [
-    NgForOf
-  ],
+    imports: [
+        NgForOf,
+        NgIf
+    ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.css'
 })
 export class UserDetailsComponent {
-  route: ActivatedRoute = inject(ActivatedRoute);
-  id: string = this.route.snapshot.params['id'];
+    id: string;
+    data: any;
 
-  user: any;
-
-  constructor(private service:NotesService) {}
-
-  ngOnInit() {
-    this.service.getUserDetails(this.id)
-      .subscribe(response => {
-        this.user = response;
-      });
-  }
+    constructor(private route: ActivatedRoute, private service: NotesService) {
+        this.id = this.route.snapshot.params['id'];
+        this.service.getUserDetails(this.id).then((user: any) => {
+            this.data = user;
+        });
+    }
 }

@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 
 import { NotesService } from "../../services/notes.service";
-import { UserList } from "../../interfaces/user-list";
 import { RouterLink } from "@angular/router";
 import { NgForOf } from "@angular/common";
+import { User } from "../../interfaces/user";
+import {UserList} from "../../interfaces/user-list";
 
 @Component({
   selector: 'notes-user-list',
@@ -13,10 +14,11 @@ import { NgForOf } from "@angular/common";
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent {
-  userList: UserList;
-  notesService: NotesService = inject(NotesService);
+  userList: User[] = [];
 
-  constructor() {
-    this.userList = this.notesService.getAllUsers();
+  constructor(private service:NotesService) {
+    this.service.getAllUsers().then((users: UserList) => {
+      this.userList = users.entries;
+    })
   }
 }

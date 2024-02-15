@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { UserListComponent } from "./user/user-list/user-list.component";
 import { LandingComponent } from "./landing/landing.component";
 import { UserDetailsComponent } from "./user/user-details/user-details.component";
+import { PublicComponent } from "./public/public.component";
 
 export const routes: Routes = [
   {
@@ -11,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'public',
-    component: UserListComponent,
+    component: PublicComponent,
     title: 'All public notes',
   },
   {
