@@ -1,4 +1,4 @@
-import {Musician} from "./musician";
+import { Musician } from "./musician";
 
 export interface Event {
   id: string;
@@ -9,5 +9,5 @@ export interface Event {
   description: string;
   ticketPrice: number;
   user_id: string;
-  musicians: Musician[];
+  musicians?: Musician[];
 }

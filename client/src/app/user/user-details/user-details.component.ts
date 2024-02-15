@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import {CommonModule, NgForOf} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+
+import { ActivatedRoute } from '@angular/router';
 import { NotesService } from "../../services/notes.service";
 import { UserDetails } from "../../interfaces/user-details";
+import { NgForOf } from "@angular/common";
 
 @Component({
   selector: 'notes-user-details',

@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from "@angular/common";
+
 import { NotesService } from "../../services/notes.service";
 import { UserList } from "../../interfaces/user-list";
-import {RouterLink} from "@angular/router";
+import { RouterLink } from "@angular/router";
+import { NgForOf } from "@angular/common";
 
 @Component({
   selector: 'notes-user-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink, NgForOf],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })

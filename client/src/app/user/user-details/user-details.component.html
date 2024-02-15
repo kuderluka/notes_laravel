@@ -6,5 +6,56 @@
       <b>Email:</b> {{ userDetails.user.email }}
     </p>
 
+    @if(userDetails.notes != []) {
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Priority</th>
+          <th>Deadline</th>
+          <th>Tags</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let note of userDetails.notes">
+          <td>{{ note.title }}</td>
+          <td>{{ note.content }}</td>
+          <td>{{ note.priority }}</td>
+          <td>{{ note.deadline }}</td>
+          <td>{{ note.tags }}</td>
+        </tr>
+        </tbody>
+      </table>
+    }
+    @else {
+      <p><b> This user has no notes! </b></p>
+    }
+
+    @if(userDetails.events != []) {
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Date</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let event of userDetails.events">
+        <td>{{ event.name }}</td>
+        <td>{{ event.address }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.ticketPrice }}</td>
+      </tr>
+      </tbody>
+      </table>
+    }
+    @else {
+    <p><b> This user has no events! </b></p>
+    }
   </div>
 </div>
