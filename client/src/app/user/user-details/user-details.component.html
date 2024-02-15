@@ -1,7 +1,10 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
   <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-    <p>{{ userId }}</p>
-    <p>{{ userDetails.user.username }}</p>
+    <h3>This is {{ userDetails.user.username }}'s profile:</h3>
+    <p>
+      <b>Username:</b> {{ userDetails.user.username }} <br>
+      <b>Email:</b> {{ userDetails.user.email }}
+    </p>
+
   </div>
 </div>
-
