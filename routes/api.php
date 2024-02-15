@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\UserController;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +19,11 @@ use App\Models\User;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('/public', [NoteController::class, 'index'])->name('public.data');
+
+Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('/users/{user}', [EventController::class, 'userEvents'])->name('user.profile');
 
 Route::post('/tokens/authenticate', function (LoginRequest $request) {
     $request->authenticate();

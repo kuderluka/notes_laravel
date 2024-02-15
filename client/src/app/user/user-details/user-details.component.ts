@@ -16,13 +16,16 @@ import { NgForOf } from "@angular/common";
 })
 export class UserDetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
-  notesService: NotesService = inject(NotesService);
+  id: string = this.route.snapshot.params['id'];
 
-  userId: string = this.route.snapshot.params['id'];
-  userDetails: UserDetails;
+  user: any;
 
-  constructor() {
-    this.userDetails = this.notesService.getUserDetails(this.userId);
-    console.log(this.userDetails);
+  constructor(private service:NotesService) {}
+
+  ngOnInit() {
+    this.service.getUserDetails(this.id)
+      .subscribe(response => {
+        this.user = response;
+      });
   }
 }

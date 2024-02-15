@@ -1,12 +1,12 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
   <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-    <h3>This is {{ userDetails.user.username }}'s profile:</h3>
+    <h3>This is {{ user.user.username }}'s profile:</h3>
     <p>
-      <b>Username:</b> {{ userDetails.user.username }} <br>
-      <b>Email:</b> {{ userDetails.user.email }}
+      <b>Username:</b> {{ user.user.username }} <br>
+      <b>Email:</b> {{ user.user.email }}
     </p>
 
-    @if(userDetails.notes != []) {
+    @if(user.notes != []) {
 
       <table class="table">
         <thead>
@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let note of userDetails.notes">
+        <tr *ngFor="let note of user.notes">
           <td>{{ note.title }}</td>
           <td>{{ note.content }}</td>
           <td>{{ note.priority }}</td>
@@ -33,7 +33,7 @@
       <p><b> This user has no notes! </b></p>
     }
 
-    @if(userDetails.events != []) {
+    @if(user.events != []) {
 
     <table class="table">
       <thead>
@@ -45,7 +45,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let event of userDetails.events">
+      <tr *ngFor="let event of user.events">
         <td>{{ event.name }}</td>
         <td>{{ event.address }}</td>
         <td>{{ event.date }}</td>
