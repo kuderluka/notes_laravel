@@ -24,6 +24,7 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
+        dd($this->eventsAppService->getEvents($request->search));
         return view('events', [
             'events' => $this->eventsAppService->getEvents($request->search)
         ]);
@@ -51,6 +52,11 @@ class EventController extends Controller
      */
     public function userEvents(User $user)
     {
+        var_dump(json_encode([
+            'user' => $user,
+            'notes' => $user->notes()->where('public', 1)->get(),
+            'events' => $this->getUsersEvents($user->email)
+        ]));
         return view('user-show', [
             'user' => $user,
             'notes' => $user->notes()->where('public', 1)->paginate(3),

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { NotesService } from "../../services/notes.service";
-import { User } from "../../user";
-import { UserList } from "../../user-list";
+import { UserList } from "../../interfaces/user-list";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'notes-user-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })

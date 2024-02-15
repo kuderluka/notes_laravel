@@ -59,7 +59,6 @@ class EventsAppService {
 
             return json_decode($response->getBody(), true);
         } catch (\Exception $exception) {
-            dd($exception);
             return $exception;
         }
     }

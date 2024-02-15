@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'notes-navigation',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css'
 })
