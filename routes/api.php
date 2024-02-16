@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoteController;
@@ -24,6 +26,10 @@ Route::get('/public', [NoteController::class, 'index'])->name('public.data');
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::get('/users/{user}', [EventController::class, 'userEvents'])->name('user.profile');
+
+Route::post('register', [RegisteredUserController::class, 'store']);
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
 
 Route::post('/tokens/authenticate', function (LoginRequest $request) {
     $request->authenticate();
