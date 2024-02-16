@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotesService } from "../../services/notes.service";
 import { NgForOf, NgIf } from "@angular/common";
+import {UserDetails} from "../../interfaces/user-details";
 
 @Component({
   selector: 'notes-user-details',
@@ -16,7 +17,7 @@ import { NgForOf, NgIf } from "@angular/common";
 })
 export class UserDetailsComponent {
     id: string;
-    data: any;
+    data: any = {};
 
     constructor(private route: ActivatedRoute, private service: NotesService) {
         this.id = this.route.snapshot.params['id'];
