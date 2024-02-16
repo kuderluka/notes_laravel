@@ -3,17 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\EventController;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use App\Services\EventsAppService;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -38,35 +32,50 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+        try {
+            if ($request->hasFile('image')) {
+                $image = $request->file('image')->store('images', 'public');
+            } else {
+                $image = 'images/ProfilePic.jpg';
+            }
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('images', 'public');
-        } else {
-            $image = 'images/ProfilePic.jpg';
+            $request->validate([
+                'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+
+            $user = User::create([
+                'id' => (string) Str::orderedUuid(),
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'image' => $image
+            ]);
+
+            $token = $user->createToken('token')->plainTextToken;
+
+            //event(new Registered($user));
+
+            $this->eventsAppService->register();
+
+            return response()->json([
+                'message' => 'Registration successful!',
+                'data' => [
+                    'token' => $token,
+                    'user' => $user
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => false,
+                'data' => [
+                    'error' => $e
+                ]
+            ]);
         }
 
-        $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'id' => (string) Str::orderedUuid(),
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'image' => $image
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        $this->eventsAppService->register();
-
-        return redirect(RouteServiceProvider::HOME);
     }
 }
