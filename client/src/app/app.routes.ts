@@ -3,6 +3,7 @@ import { UserListComponent } from "./user/user-list/user-list.component";
 import { LandingComponent } from "./landing/landing.component";
 import { UserDetailsComponent } from "./user/user-details/user-details.component";
 import { PublicComponent } from "./public/public.component";
+import { LoginComponent } from "./login/login.component";
 
 export const routes: Routes = [
   {
@@ -24,5 +25,10 @@ export const routes: Routes = [
     path: 'users/:id',
     component: UserDetailsComponent,
     title: 'Details about a user',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Login form',
   }
 ];
