@@ -66,14 +66,11 @@ class AuthenticatedSessionController extends Controller
         try {
             $this->eventsAppService->logout();
 
-            Auth::guard('web')->logout();
-
-            $request->session()->invalidate();
-
-            $request->session()->regenerateToken();
+            auth()->user()->tokens()->delete();
 
             return response()->json([
-                'message' => 'User logged out!'
+                'message' => 'User logged out!',
+                'data' => auth()->user()->tokens()
             ]);
         } catch (Exception $e) {
             return response()->json([

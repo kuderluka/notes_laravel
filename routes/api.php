@@ -43,6 +43,9 @@ Route::post('/tokens/authenticate', function (LoginRequest $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function() {
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
+
+
     Route::get('/notes', [NoteController::class, 'getNotesByUsername']);
     Route::get('/notes/{noteId}', [NoteController::class, 'getNoteById']);
     Route::post('/notes', [NoteController::class, 'store']);
