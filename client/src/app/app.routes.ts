@@ -5,6 +5,7 @@ import { UserDetailsComponent } from "./user/user-details/user-details.component
 import { PublicComponent } from "./public/public.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import {AuthService} from "./services/auth.service";
 
 export const routes: Routes = [
   {
@@ -36,5 +37,15 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     title: 'Register form',
+  },
+  {
+    path: 'dashboard',
+    component: LandingComponent,
+    title: 'Dashboard',
+  },
+  {
+    path: 'logout',
+    component: AuthService,
+    title: 'Dashboard',
   }
 ];

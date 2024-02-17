@@ -1,1 +1,8 @@
-<h3>Please log in to manage your profile</h3>
+<div *ngIf="isAuthenticated()">
+  <h3>Welcome!</h3>
+  <h3>{{ isAuthenticated() }}</h3>
+</div>
+<div *ngIf="!isAuthenticated()">
+  <h3>Please log in to manage your profile</h3>
+  <h3>{{ isAuthenticated() }}</h3>
+</div>
