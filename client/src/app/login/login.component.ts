@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import {NotesService} from "../services/notes.service";
 import {AuthService} from "../services/auth.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'notes-login',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
