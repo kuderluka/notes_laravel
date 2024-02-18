@@ -1,0 +1,25 @@
+<div *ngIf="events && events.length > 0">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+            <th>Tags</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let event of events">
+            <td>{{ event.name }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.address }}</td>
+            <td>{{ event.ticketPrice }}</td>
+            <td>buttons</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -5,11 +5,10 @@ import { UserDetailsComponent } from "./components/user/user-details/user-detail
 import { PublicComponent } from "./components/public/public.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
-import { AuthService } from "./services/auth.service";
-import {WorkspaceComponent} from "./components/user/workspace/workspace.component";
-import {authGuard} from "./guards/auth.guard";
-import {EventsListComponent} from "./components/events/events-list/events-list.component";
-import {ProfileComponent} from "./components/user/profile/profile.component";
+import { WorkspaceComponent } from "./components/user/workspace/workspace.component";
+import { authGuard } from "./guards/auth.guard";
+import { ProfileComponent } from "./components/user/profile/profile.component";
+import { EventListComponent } from "./components/events/event-list/event-list.component";
 
 export const routes: Routes = [
   {
@@ -56,7 +55,7 @@ export const routes: Routes = [
   {
       path: 'events',
       canActivate: [authGuard],
-      component: EventsListComponent,
+      component: EventListComponent,
       title: 'Events',
   },
   {

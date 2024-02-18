@@ -16,19 +16,20 @@ class ProfileController extends Controller
     /**
      * Display the user's work page
      *
-     * @return View
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(): View
+    public function show(): \Illuminate\Http\JsonResponse
     {
         $user = auth()->user();
-        $categories = $user->categories()->paginate(3);
-        $notes = $user->notes()->paginate(3);
+        $categories = $user->categories();
+        $notes = $user->notes();
 
-        return view('show', [
-            'user' => $user,
-            'public' => 1,
-            'categories' => $categories,
-            'notes' => $notes,
+        return response()->json([
+            'message' => 'Success',
+            'data' => [
+                'categories' => $categories,
+                'notes' => $notes
+            ]
         ]);
     }
 

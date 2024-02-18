@@ -1,9 +1,9 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2" *ngIf="data">
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-        <h3>This is {{ data.user?.username }}'s profile:</h3>
+        <h3>This is {{ data.user.username }}'s profile:</h3>
         <p>
-            <b>Username:</b> {{ data.user?.username }} <br>
-            <b>Email:</b> {{ data.user?.email }}
+            <b>Username:</b> {{ data.user.username }} <br>
+            <b>Email:</b> {{ data.user.email }}
         </p>
 
         <div *ngIf="data.notes && data.notes.length > 0">
@@ -21,7 +21,7 @@
                 <tbody>
                 <tr *ngFor="let note of data.notes">
                     <td>{{ note.title }}</td>
-                    <td>{{ note.category?.title }}</td>
+                    <td>{{ note.category.title }}</td>
                     <td>{{ note.content }}</td>
                     <td>{{ note.priority }}</td>
                     <td>{{ note.deadline }}</td>

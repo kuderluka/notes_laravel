@@ -5,10 +5,11 @@ import { User } from "../interfaces/user";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private url = 'http://127.0.0.1:8000/api';
+
+export class EventService {
+  private url = 'http://127.0.0.1:8001/api';
   private token: string | boolean = false;
-  private user: any;
+  private user: User | boolean = false;
 
   private headers: HttpHeaders = new HttpHeaders();
   private options: any;
@@ -19,14 +20,6 @@ export class AuthService {
     this.setHeaders()
   }
 
-  login(data: any): any {
-    return this.http.post(this.url + '/login', data, this.options);
-  }
-
-  register(data: any):any {
-    return this.http.post(this.url + '/register', data, this.options);
-  }
-
   private setHeaders() {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -35,8 +28,9 @@ export class AuthService {
     this.options = { headers: this.headers };
   }
 
-  getHeaders() {
-    return this.options;
+  async getEvents() {
+    const data = await fetch(this.url + '/events');
+    return (await data.json()) ?? [];
   }
 
   setToken(token: string | false) {
@@ -54,15 +48,23 @@ export class AuthService {
   }
 
   setUser(user: User) {
-      this.user = user;
+    this.user = user;
   }
 
   getUser() {
-      return this.user;
+    return this.user;
   }
 
   setData(data: any) {
     this.user = data.user;
     this.token = data.token;
+  }
+
+  login(data: any): any {
+    return this.http.post(this.url + '/login', data, this.options);
+  }
+
+  register(data: any):any {
+    return this.http.post(this.url + '/register', data, this.options);
   }
 }
