@@ -33,7 +33,6 @@ export class LoginComponent {
           (res: any) => {
             if (res && res.data && res.data.token !== undefined) {
               this.service.setData(res.data);
-              console.log(this.service.getToken());
             } else {
               console.error(res);
             }
@@ -49,7 +48,6 @@ export class LoginComponent {
             if (res && res.data && res.data.token !== undefined) {
               this.loginForm.reset();
               this.eventService.setData(res.data);
-              console.log(this.eventService.getToken());
               this.router.navigate(['dashboard']);
             } else {
               console.error(res);
@@ -60,9 +58,7 @@ export class LoginComponent {
           }
       );
     } catch (error) {
-      console.log(this.eventService.getToken());
       console.log(error);
     }
-    console.log(this.eventService.getToken());
   }
 }

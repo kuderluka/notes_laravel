@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgForOf, NgIf } from "@angular/common";
 import { Event } from "../../../interfaces/event";
-import {NotesService} from "../../../services/notes.service";
-import {EventService} from "../../../services/event.service";
+import { EventService } from "../../../services/event.service";
 
 @Component({
   selector: 'notes-event-list',
@@ -16,7 +15,7 @@ import {EventService} from "../../../services/event.service";
 })
 export class EventListComponent {
     @Input() events: Event[] | undefined;
-    @Input() public: boolean | undefined;
+    @Input() public: boolean | undefined = false;
 
     constructor(private service: EventService) {}
 
