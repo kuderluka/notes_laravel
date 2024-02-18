@@ -24,6 +24,6 @@ export class NavigationComponent {
 
   logout() {
     this.service.logout();
-    this.router.navigate(['/landing']);
+    this.router.navigate(['']);
   }
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { User } from "../interfaces/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private url = 'http://127.0.0.1:8000/api';
-  private token: string | null = null;
-  private user: any = null;
+  private token: string | boolean = false;
+  private user: User | boolean = false;
 
   private headers: HttpHeaders = new HttpHeaders();
   private options: any;
@@ -34,7 +35,7 @@ export class AuthService {
     this.options = { headers: this.headers };
   }
 
-  setToken(token: string | null) {
+  setToken(token: string | false) {
     this.token = token;
   }
 
@@ -43,7 +44,21 @@ export class AuthService {
   }
 
   logout() {
-    this.token = null;
+    this.token = false;
+    this.user = false;
     this.setHeaders();
+  }
+
+  setUser(user: User) {
+      this.user = user;
+  }
+
+  getUser() {
+      return this.user;
+  }
+
+  setData(data: any) {
+    this.user = data.user;
+    this.token = data.token;
   }
 }

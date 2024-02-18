@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { User } from "../interfaces/user";
-import { NotesService } from "../services/notes.service";
-import { Note } from "../interfaces/note";
+import { User } from "../../interfaces/user";
+import { NotesService } from "../../services/notes.service";
+import { Note } from "../../interfaces/note";
 import {NgForOf, NgIf} from "@angular/common";
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NotesService } from "../services/notes.service";
-import { AuthService } from "../services/auth.service";
+import { NotesService } from "../../services/notes.service";
+import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
@@ -26,12 +26,12 @@ export class LoginComponent {
   }
 
   login() {
-    this.service.setToken(null);
+    this.service.logout();
     this.service.login(this.loginForm.value).subscribe(
       (res: any) => {
         if (res && res.data && res.data.token !== undefined) {
           this.loginForm.reset();
-          this.service.setToken(res.data.token);
+          this.service.setData(res.data);
           this.router.navigate(['dashboard']);
         } else {
           console.error(res);

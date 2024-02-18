@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIf } from "@angular/common";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'notes-landing',
