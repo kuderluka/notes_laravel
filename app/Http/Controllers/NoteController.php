@@ -64,6 +64,16 @@ class NoteController extends Controller
     {
         $note = Note::findOrFail($id);
 
+        if ($id->user_id !== Auth::user()->id) {
+            return response()->json([
+                'success' => false,
+                'data' => [
+                    'note' => $id,
+                ],
+                'message' => 'Cannot access this note.'
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'data' => [
