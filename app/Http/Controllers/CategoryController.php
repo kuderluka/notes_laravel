@@ -13,7 +13,11 @@ class CategoryController extends Controller
     public function list()
     {
         return response()->json([
-           'categories' => Category::all(),
+            'success' => true,
+            'data' => [
+                'categories' => Category::all(),
+            ],
+            'message' => 'Categories successfully retrieved.',
         ]);
     }
 
