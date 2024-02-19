@@ -60,8 +60,27 @@ export class EventService {
     }
   }
 
-  removeAttendee(event_id: string, email: string) {
+  async removeAttendee(event_id: string, email: string) {
+    try {
+      const response = await fetch(this.url + '/events/' + event_id + '/attendees/' + email, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.token
+        },
+        body: JSON.stringify({ email: email, event_id: event_id })
+      });
 
+      if (response.ok) {
+        return await response.json();
+      } else {
+        console.error('Failed to remove attendee:', response);
+        return [];
+      }
+    } catch (error) {
+      console.error('Failed to remove attendee:', error);
+      return [];
+    }
   }
 
   setToken(token: string | false) {
