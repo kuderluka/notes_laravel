@@ -9,6 +9,7 @@ import { WorkspaceComponent } from "./components/user/workspace/workspace.compon
 import { authGuard } from "./guards/auth.guard";
 import { ProfileComponent } from "./components/user/profile/profile.component";
 import { EventListComponent } from "./components/events/event-list/event-list.component";
+import { EventDetailsComponent } from "./components/events/event-details/event-details.component";
 
 export const routes: Routes = [
   {
@@ -56,7 +57,13 @@ export const routes: Routes = [
       path: 'events',
       canActivate: [authGuard],
       component: EventListComponent,
-      title: 'Events',
+      title: 'Events'
+  },
+  {
+    path: 'events/:id',
+    canActivate: [authGuard],
+    component: EventDetailsComponent,
+    title: 'Event details'
   },
   {
       path: 'profile',

@@ -32,6 +32,38 @@ export class EventService {
     return (await data.json()) ?? [];
   }
 
+  async getEventDetails(id: string) {
+    const data = await fetch(this.url + '/events/' + id, this.options);
+    return (await data.json()) ?? [];
+  }
+
+  async addAttendee(event_id: string, email: string) {
+    try {
+      const response = await fetch(this.url + '/events/' + event_id + '/attendees', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.token
+        },
+        body: JSON.stringify({ email: email, event_id: event_id })
+      });
+
+      if (response.ok) {
+        return await response.json();
+      } else {
+        console.error('Failed to add attendee:', response);
+        return [];
+      }
+    } catch (error) {
+      console.error('Failed to add attendee:', error);
+      return [];
+    }
+  }
+
+  removeAttendee(event_id: string, email: string) {
+
+  }
+
   setToken(token: string | false) {
     this.token = token;
   }
