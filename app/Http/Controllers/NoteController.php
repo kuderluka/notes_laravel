@@ -153,7 +153,12 @@ class NoteController extends Controller
         $note->category()->associate($category);
         $note->save();
 
-        return response();
+        return response()->json([
+            'message' => 'Success!',
+            'data' => [
+                'note' => $note
+            ]
+        ]);
     }
 
     /**

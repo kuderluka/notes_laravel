@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule } from "@angular/common";
-import {AuthService} from "../../../services/auth.service";
-import {NotesService} from "../../../services/notes.service";
-import {Router} from "@angular/router";
+import { AuthService } from "../../../services/auth.service";
+import { NotesService } from "../../../services/notes.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'notes-category-form',

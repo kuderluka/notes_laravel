@@ -27,7 +27,7 @@ export class NotesService {
   }
 
   async createCategory(form: FormGroup) {
-    const response = await fetch(this.url + '/note/store', {
+    const response = await fetch(this.url + '/category/store', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,6 +46,51 @@ export class NotesService {
     } else {
       console.error('Failed to create a category:', response);
       return response;
+    }
+  }
+
+  async createNote(form: FormGroup) {
+    const response = await fetch(this.url + '/note/store', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.getToken()
+      },
+      body: JSON.stringify({
+        user_id: this.auth.getUser().id,
+        category_id: form.value.category_id,
+        title: form.value.title,
+        content: form.value.content,
+        priority: form.value.priority,
+        deadline: form.value.deadline,
+        tags: form.value.tags,
+        public: form.value.public
+      })
+    });
+
+    if (response.ok) {
+      console.log('Good:', response);
+      return response;
+    } else {
+      console.error('Failed to create a note:', response);
+      return response;
+    }
+  }
+
+  async getCategories() {
+    const response = await fetch(this.url + '/categories', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.getToken()
+      }
+    });
+
+    if (response.ok) {
+      console.log('Good:', response);
+      return (await response.json()) ?? [];
+    } else {
+      console.error('Failed to fetch categories:', response);
+      return (await response.json()) ?? [];
     }
   }
 }

@@ -1,1 +1,140 @@
-<p>note-form works!</p>
+<div class="area">
+    <div class="content">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="form">
+                    <h3>Note form:</h3>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="category_id">Choose the category:</label>
+                            <select class="form-control select2 w-full block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    formControlName="category_id" id="category_id" [ngClass]="{ 'is-invalid': submitted && f['category_id'].errors }">
+                                <option *ngFor="let category of categories" [value]="category.id">
+                                    {{ category.title }}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="submitted && f['category_id'].errors">
+                                <div *ngIf="f['category_id'].errors['required']">
+                                    Category is required
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input
+                                    type="text"
+                                    formControlName="title"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+                            />
+                            <div class="invalid-feedback" *ngIf="submitted && f['title'].errors">
+                                <div *ngIf="f['title'].errors['required']">
+                                    Title is required
+                                </div>
+                                <div *ngIf="f['title'].errors['minlength']">
+                                    Title must be at least 3 characters
+                                </div>
+                                <div *ngIf="f['title'].errors['maxlength']">
+                                    Title must not exceed 30 characters
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Content</label>
+                            <input
+                                    type="text"
+                                    formControlName="content"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f['content'].errors }"
+                            />
+                            <div class="invalid-feedback" *ngIf="submitted && f['content'].errors">
+                                <div *ngIf="f['content'].errors['required']">
+                                    Content is required
+                                </div>
+                                <div *ngIf="f['content'].errors['maxlength']">
+                                    Content must not exceed 500 characters
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <input
+                                    type="number"
+                                    min="1"
+                                    max="5"
+                                    formControlName="priority"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f['priority'].errors }"
+                            />
+                            <div class="invalid-feedback" *ngIf="submitted && f['priority'].errors">
+                                <div *ngIf="f['priority'].errors['required']">
+                                    Priority is required
+                                </div>
+                                <div *ngIf="f['priority'].errors['max']">
+                                    Priority must be between 1 and 5
+                                </div>
+                                <div *ngIf="f['priority'].errors['min']">
+                                    Priority must be between 1 and 5
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deadline</label>
+                            <input
+                                    type="datetime-local"
+                                    formControlName="deadline"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f['deadline'].errors }"
+                            />
+                            <div class="invalid-feedback" *ngIf="submitted && f['deadline'].errors">
+                                <div *ngIf="f['deadline'].errors['required']">
+                                    Deadline is required
+                                </div>
+                                <div *ngIf="f['deadline'].errors['invalidDate']">
+                                    Deadline must be after current date
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tags</label>
+                            <input
+                                    type="text"
+                                    formControlName="tags"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f['tags'].errors }"
+                            />
+                            <div class="invalid-feedback" *ngIf="submitted && f['tags'].errors">
+                                <div *ngIf="f['tags'].errors['required']">
+                                    Tags are required
+                                </div>
+                                <div *ngIf="f['tags'].errors['maxlength']">
+                                    Tags must not exceed 200 characters
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="public">Public</label>
+                            <input type="checkbox" id="public" formControlName="public" class="form-check-input"
+                                   [ngClass]="{ 'is-invalid': submitted && f['public'].errors }" />
+                            <div class="invalid-feedback" *ngIf="submitted && f['public'].errors">
+                                <div *ngIf="f['public'].errors['required']">Public status is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
