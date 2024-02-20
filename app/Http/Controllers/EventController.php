@@ -45,6 +45,15 @@ class EventController extends Controller
         ]);
     }
 
+    public function getSingleUsersData(User $user)
+    {
+        return response()->json([
+            'user' => $user,
+            'notes' => $user->notes()->with('user')->with('category')->get(),
+            'events' => $this->getUsersEvents($user->email)
+        ]);
+    }
+
     /**
      * Returns the view of a certain user's profile
      *

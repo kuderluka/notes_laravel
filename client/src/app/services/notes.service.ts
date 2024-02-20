@@ -11,19 +11,40 @@ export class NotesService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  getUser() {
+    return this.auth.getUser();
+  }
+
   async getAllUsers() {
-    const data = await fetch(this.url + '/users');
+    const data = await fetch(this.url + '/public/users');
     return (await data.json()) ?? [];
   }
 
-  async getUserDetails(id: string) {
-    const data = await fetch(this.url + '/users/' + id);
+  async getUsersPublicData(id: string) {
+    const data = await fetch(this.url + '/public/users/' + id);
     return (await data.json()) ?? [];
   }
 
   async getPublicNotes() {
     const data = await fetch(this.url + '/public');
     return (await data.json()) ?? [];
+  }
+
+  async getUserDetails(id: string) {
+    const response = await fetch(this.url + '/users/' + id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.getToken()
+      }
+    });
+
+    if (response.ok) {
+      console.log('Good:', response);
+      return (await response.json()) ?? [];
+    } else {
+      console.error('Failed to create a category:', response);
+      return (await response.json()) ?? [];
+    }
   }
 
   async createCategory(form: FormGroup) {
@@ -57,7 +78,7 @@ export class NotesService {
         'Authorization': 'Bearer ' + this.auth.getToken()
       },
       body: JSON.stringify({
-        user_id: this.auth.getUser().id,
+        user_id: form.value.user_id,
         category_id: form.value.category_id,
         title: form.value.title,
         content: form.value.content,
@@ -73,6 +94,35 @@ export class NotesService {
       return response;
     } else {
       console.error('Failed to create a note:', response);
+      return response;
+    }
+  }
+
+  async updateNote(form: FormGroup, id: string) {
+    const response = await fetch(this.url + '/note/store/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.getToken()
+      },
+      body: JSON.stringify({
+        id: id,
+        user_id: form.value.user_id,
+        category_id: form.value.category_id,
+        title: form.value.title,
+        content: form.value.content,
+        priority: form.value.priority,
+        deadline: form.value.deadline,
+        tags: form.value.tags,
+        public: form.value.public
+      })
+    });
+
+    if (response.ok) {
+      console.log('Good patch:', response);
+      return response;
+    } else {
+      console.error('Failed to update a note:', response);
       return response;
     }
   }

@@ -69,12 +69,6 @@ export const routes: Routes = [
     title: 'Event details'
   },
   {
-      path: 'profile',
-      canActivate: [authGuard],
-      component: ProfileComponent,
-      title: 'Profile',
-  },
-  {
     path: 'category/create',
     canActivate: [authGuard],
     component: CategoryFormComponent,
@@ -87,15 +81,15 @@ export const routes: Routes = [
     title: 'New Note',
   },
   {
-    path: 'note/:note',
-    canActivate: [authGuard],
-    component: NoteFormComponent,
-    title: 'Edit Note',
-  },
-  {
     path: 'note/destroy/:id',
     canActivate: [authGuard],
     component: NoteDestroyComponent,
     title: 'Delete Note',
+  },
+  {
+    path: 'note/:note',
+    canActivate: [authGuard],
+    component: NoteFormComponent,
+    title: 'Edit Note',
   }
 ];

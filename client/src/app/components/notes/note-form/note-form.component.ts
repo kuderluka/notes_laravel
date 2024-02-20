@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModu
 import { CommonModule } from "@angular/common";
 import { AuthService } from "../../../services/auth.service";
 import { NotesService } from "../../../services/notes.service";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'notes-note-form',
@@ -18,17 +18,22 @@ export class NoteFormComponent implements OnInit {
   categories: any[] = [];
   entry: any;
 
-  constructor(private formBuilder: FormBuilder, private service: NotesService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: NotesService, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.route.snapshot.params['note']) {
+      this.entry = JSON.parse(this.route.snapshot.params['note']);
+    }
+
     this.form = this.formBuilder.group({
-      category_id: ['', Validators.required],
-      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
-      content: ['', [Validators.required, Validators.maxLength(500)]],
-      priority: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-      deadline: ['', [Validators.required, this.validateDeadline]],
-      tags: ['', [Validators.required, Validators.maxLength(200)]],
-      public: [false]
+      user_id: [this.service.getUser().id],
+      category_id: [this.entry?.category_id, Validators.required],
+      title: [this.entry?.title, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
+      content: [this.entry?.content, [Validators.required, Validators.maxLength(500)]],
+      priority: [this.entry?.priority, [Validators.required, Validators.min(1), Validators.max(5)]],
+      deadline: [this.entry?.date, [Validators.required, this.validateDeadline]],
+      tags: [this.entry?.tags, [Validators.required, Validators.maxLength(200)]],
+      public: [this.entry?.public]
     });
 
     this.service.getCategories().then((res: any) => {
@@ -56,8 +61,14 @@ export class NoteFormComponent implements OnInit {
 
     console.log(JSON.stringify(this.form.value, null, 2));
 
-    this.service.createNote(this.form).then(res => {
-      this.router.navigate(['workspace']);
-    });
+    if (this.entry) {
+      this.service.updateNote(this.form, this.entry.id).then(res => {
+        this.router.navigate(['workspace']);
+      })
+    } else {
+      this.service.createNote(this.form).then(res => {
+        this.router.navigate(['workspace']);
+      })
+    }
   }
 }

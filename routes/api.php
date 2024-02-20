@@ -25,8 +25,8 @@ use App\Models\User;
 
 Route::get('/public', [NoteController::class, 'index']);
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{user}', [EventController::class, 'userEvents']);
+Route::get('/public/users', [UserController::class, 'index']);
+Route::get('/public/users/{user}', [EventController::class, 'userEvents']);
 
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::patch('/profile', [ProfileController::class, 'update']);
     Route::delete('/profile', [ProfileController::class, 'destroy']);
 
-    Route::get('/user', [ProfileController::class, 'show']);
+    Route::get('/users/{user}', [EventController::class, 'getSingleUsersData']);
 
     Route::get('/category/create', [CategoryController::class, 'create']);
     Route::post('/category/store', [CategoryController::class, 'store']);
@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::get('/note/create', [NoteController::class, 'create']);
     Route::post('/note/store', [NoteController::class, 'store']);
-    Route::put('/note/store', [NoteController::class, 'update']);
+    Route::put('/note/store/{note}', [NoteController::class, 'update']);
     Route::get('/note/edit/{note}', [NoteController::class, 'edit']);
     Route::delete('/note/destroy/{note}', [NoteController::class, 'destroyById']);
 

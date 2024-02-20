@@ -9,7 +9,7 @@
                             <label for="category_id">Choose the category:</label>
                             <select class="form-control select2 w-full block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     formControlName="category_id" id="category_id" [ngClass]="{ 'is-invalid': submitted && f['category_id'].errors }">
-                                <option *ngFor="let category of categories" [value]="category.id" [selected]="entry && category.title == entry.title">
+                                <option *ngFor="let category of categories" [value]="category.id" [selected]="this.entry?.category_id === category.id">
                                     {{ category.title }}
                                 </option>
                             </select>
@@ -27,6 +27,7 @@
                                     formControlName="title"
                                     class="form-control"
                                     [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+                                    [value]="entry?.title"
                             />
                             <div class="invalid-feedback" *ngIf="submitted && f['title'].errors">
                                 <div *ngIf="f['title'].errors['required']">
@@ -48,6 +49,8 @@
                                     formControlName="content"
                                     class="form-control"
                                     [ngClass]="{ 'is-invalid': submitted && f['content'].errors }"
+                                    [value]="entry?.content"
+
                             />
                             <div class="invalid-feedback" *ngIf="submitted && f['content'].errors">
                                 <div *ngIf="f['content'].errors['required']">
@@ -125,6 +128,10 @@
                             <div class="invalid-feedback" *ngIf="submitted && f['public'].errors">
                                 <div *ngIf="f['public'].errors['required']">Public status is required</div>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" id="user_id" formControlName="user_id">
                         </div>
 
                         <div class="form-group">

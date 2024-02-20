@@ -97,11 +97,11 @@ class NoteController extends Controller
      * Updates the entry in the database and redirects
      *
      * @param Request $request
-     * @param string $noteId
      * @return string
      */
-    public function update(Request $request, string $noteId)
+    public function update(Request $request): string
     {
+        $noteId = $request->id;
         $validated = $request->validate([
             'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title')->ignore($noteId), 'min:5', 'max:30'],
@@ -115,7 +115,12 @@ class NoteController extends Controller
         $validated['id'] = $noteId;
         $validated['user_id'] = Auth::user()->id;
         Note::where('id', $validated['id'])->update($validated);
-        return redirect(route('user.show'))->with('message', 'Note updated successfully');
+        return response()->json([
+            'message' => 'Success!',
+            'data' => [
+
+            ]
+        ]);
     }
 
     /**

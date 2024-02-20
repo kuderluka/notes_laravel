@@ -27,6 +27,7 @@ class ProfileController extends Controller
         return response()->json([
             'message' => 'Success',
             'data' => [
+                'user' => $user,
                 'categories' => $categories,
                 'notes' => $notes
             ]

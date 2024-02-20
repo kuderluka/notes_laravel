@@ -12,4 +12,5 @@ import { RouterLink } from "@angular/router";
 })
 export class EditButtonsComponent {
   @Input() note: any;
+  protected readonly JSON = JSON;
 }
