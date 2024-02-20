@@ -153,7 +153,7 @@ class NoteController extends Controller
         $note->category()->associate($category);
         $note->save();
 
-        return redirect(route('user.show'))->with('message', 'Note created successfully');
+        return response();
     }
 
     /**

@@ -35,7 +35,7 @@ export class AuthService {
     this.options = { headers: this.headers };
   }
 
-  getHeaders() {
+  getOptions() {
     return this.options;
   }
 
