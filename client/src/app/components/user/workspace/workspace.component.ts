@@ -5,13 +5,19 @@ import { UserDetails } from "../../../interfaces/user-details";
 import { NotesService } from "../../../services/notes.service";
 import { AuthService } from "../../../services/auth.service";
 import { User } from "../../../interfaces/user";
+import {NgIf} from "@angular/common";
+import {EventListComponent} from "../../events/event-list/event-list.component";
+import {WorkspaceButtonsComponent} from "../../subcomponents/workspace-buttons/workspace-buttons.component";
 
 @Component({
   selector: 'notes-workspace',
   standalone: true,
-    imports: [
-        NoteListComponent
-    ],
+  imports: [
+    NoteListComponent,
+    NgIf,
+    EventListComponent,
+    WorkspaceButtonsComponent
+  ],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.css'
 })

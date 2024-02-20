@@ -17,12 +17,12 @@ import {EventButtonComponent} from "../../subcomponents/event-button/event-butto
 })
 export class EventListComponent {
     @Input() events: Event[] | undefined;
-    @Input() public: boolean | undefined = false;
+    @Input() public: boolean | undefined = true;
 
     constructor(private service: EventService) {}
 
     ngOnInit() {
-        if (!this.public) {
+        if (this.public) {
             this.service.getEvents().then((events: any) => {
                 this.events = events.data.events;
             });

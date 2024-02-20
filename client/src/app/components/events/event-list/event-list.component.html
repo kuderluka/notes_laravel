@@ -1,24 +1,32 @@
-<div *ngIf="events && events.length > 0">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Musician</th>
-            <th>Date</th>
-            <th>Address</th>
-            <th>Price</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let event of events">
-            <td>{{ event.name }}</td>
-            <td *ngIf="event.musicians">{{ event.musicians[0].name }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.address }}</td>
-            <td>{{ event.ticketPrice }}</td>
-            <td><notes-event-button [id]="event.id"> </notes-event-button></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="area">
+    <div class="content">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div *ngIf="events && events.length > 0">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Musician</th>
+                            <th>Date</th>
+                            <th>Address</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let event of events">
+                            <td>{{ event.name }}</td>
+                            <td *ngIf="event.musicians">{{ event.musicians[0].name }}</td>
+                            <td>{{ event.date }}</td>
+                            <td>{{ event.address }}</td>
+                            <td>{{ event.ticketPrice }}</td>
+                            <td><notes-event-button [id]="event.id"> </notes-event-button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

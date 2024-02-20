@@ -10,6 +10,8 @@ import { authGuard } from "./guards/auth.guard";
 import { ProfileComponent } from "./components/user/profile/profile.component";
 import { EventListComponent } from "./components/events/event-list/event-list.component";
 import { EventDetailsComponent } from "./components/events/event-details/event-details.component";
+import {CategoryFormComponent} from "./components/categories/category-form/category-form.component";
+import {NoteFormComponent} from "./components/notes/note-form/note-form.component";
 
 export const routes: Routes = [
   {
@@ -70,5 +72,17 @@ export const routes: Routes = [
       canActivate: [authGuard],
       component: ProfileComponent,
       title: 'Profile',
+  },
+  {
+    path: 'category/create',
+    canActivate: [authGuard],
+    component: CategoryFormComponent,
+    title: 'New Category',
+  },
+  {
+    path: 'note/create',
+    canActivate: [authGuard],
+    component: NoteFormComponent,
+    title: 'New Note',
   }
 ];
