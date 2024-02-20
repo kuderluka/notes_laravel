@@ -16,6 +16,7 @@ export class NoteFormComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   categories: any[] = [];
+  entry: any;
 
   constructor(private formBuilder: FormBuilder, private service: NotesService, private router: Router) { }
 

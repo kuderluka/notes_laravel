@@ -22,7 +22,9 @@
             <td>{{ note.priority }}</td>
             <td>{{ note.deadline }}</td>
             <td>{{ note.tags }}</td>
-            <td *ngIf="!public">hmmmm</td>
+            <td *ngIf="!public">
+                <notes-edit-buttons [note]="note"></notes-edit-buttons>
+            </td>
         </tr>
         </tbody>
     </table>

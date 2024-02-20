@@ -9,7 +9,7 @@
                             <label for="category_id">Choose the category:</label>
                             <select class="form-control select2 w-full block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     formControlName="category_id" id="category_id" [ngClass]="{ 'is-invalid': submitted && f['category_id'].errors }">
-                                <option *ngFor="let category of categories" [value]="category.id">
+                                <option *ngFor="let category of categories" [value]="category.id" [selected]="entry && category.title == entry.title">
                                     {{ category.title }}
                                 </option>
                             </select>
@@ -19,8 +19,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
                         <div class="form-group">
                             <label>Title</label>

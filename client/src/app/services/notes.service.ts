@@ -93,4 +93,22 @@ export class NotesService {
       return (await response.json()) ?? [];
     }
   }
+
+  async deleteNote(id: string) {
+    const response = await fetch(this.url + '/note/destroy/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.getToken()
+      }
+    });
+
+    if (response.ok) {
+      console.log('Good:', response);
+      return response;
+    } else {
+      console.error('Failed to create a category:', response);
+      return response;
+    }
+  }
 }

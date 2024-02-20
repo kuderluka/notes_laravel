@@ -2,13 +2,15 @@ import { Component, Input } from '@angular/core';
 import { NgForOf, NgIf } from "@angular/common";
 import { Note } from "../../../interfaces/note";
 import { NotesService } from "../../../services/notes.service";
+import {EditButtonsComponent} from "../../subcomponents/edit-buttons/edit-buttons.component";
 
 @Component({
   selector: 'notes-note-list',
   standalone: true,
     imports: [
         NgForOf,
-        NgIf
+        NgIf,
+        EditButtonsComponent
     ],
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.css'
