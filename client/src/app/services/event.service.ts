@@ -29,6 +29,7 @@ export class EventService {
 
   async getEvents() {
     const data = await fetch(this.url + '/events', this.options);
+    console.log(data);
     return (await data.json()) ?? [];
   }
 
@@ -37,14 +38,19 @@ export class EventService {
     return (await data.json()) ?? [];
   }
 
+  async getUsersEvents(email: string) {
+    const data = await fetch(this.url + '/events/user/' + email, this.options);
+    return (await data.json()) ?? [];
+  }
+
   async addAttendee(event_id: string, email: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/attendees', {
+    const response = await fetch(this.url + '/events/' + event_id + '/add-user/' + email, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
       },
-      body: JSON.stringify({ email: email, event_id: event_id })
+      body: JSON.stringify({ user_id: email, event_id: event_id })
     });
 
     if (response.ok) {
@@ -56,13 +62,13 @@ export class EventService {
   }
 
   async removeAttendee(event_id: string, email: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/attendees/' + email, {
-      method: 'DELETE',
+    const response = await fetch(this.url + '/events/' + event_id + '/remove-user/' + email, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
       },
-      body: JSON.stringify({ email: email, event_id: event_id })
+      body: JSON.stringify({ user_id: email, event_id: event_id })
     });
 
     if (response.ok) {
@@ -96,5 +102,9 @@ export class EventService {
 
   register(data: any):any {
     return this.http.post(this.url + '/register', data, this.options);
+  }
+
+  getUrl() {
+    return this.url;
   }
 }
