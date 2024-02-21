@@ -37,14 +37,13 @@ export class EventService {
     return (await data.json()) ?? [];
   }
 
-  async addAttendee(event_id: string, email: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/attendees', {
+  async addAttendee(event_id: string, user_id: string) {
+    const response = await fetch(this.url + '/events/' + event_id + '/add-user/' + user_id, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
       },
-      body: JSON.stringify({ email: email, event_id: event_id })
     });
 
     if (response.ok) {
@@ -55,14 +54,13 @@ export class EventService {
     }
   }
 
-  async removeAttendee(event_id: string, email: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/attendees/' + email, {
-      method: 'DELETE',
+  async removeAttendee(event_id: string, user_id: string) {
+    const response = await fetch(this.url + '/events/' + event_id + '/remove-user/' + user_id, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
       },
-      body: JSON.stringify({ email: email, event_id: event_id })
     });
 
     if (response.ok) {
