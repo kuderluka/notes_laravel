@@ -49,8 +49,7 @@ class EventController extends Controller
     {
         return response()->json([
             'user' => $user,
-            'notes' => $user->notes()->with('user')->with('category')->get(),
-            'events' => $this->getUsersEvents($user->email)
+            'notes' => $user->notes()->with('user')->with('category')->get()
         ]);
     }
 

@@ -41,7 +41,7 @@ export class AttendButtonComponent {
 
   async removeAttendee() {
     try {
-      const res = await this.eventService.removeAttendee(this.event_id, this.user.id);
+      const res = await this.eventService.removeAttendee(this.event_id, this.user.email);
       if (res.message) {
         //Vem da to ni pravi nacin ampak za angular 17 nisem nasl vredu dokumentacijo kak spremenit route reuse zato sm kr to uporabu
         this.router.navigate(['/']).then(() => { this.router.navigate(['/events', this.event_id]) })
@@ -53,7 +53,7 @@ export class AttendButtonComponent {
 
   async addAttendee() {
     try {
-      const res = await this.eventService.addAttendee(this.event_id, this.user.id);
+      const res = await this.eventService.addAttendee(this.event_id, this.user.email);
       if (res.message) {
         //Vem da to ni pravi nacin ampak za angular 17 nisem nasl vredu dokumentacijo kak spremenit route reuse zato sm kr to uporabu
         this.router.navigate(['/']).then(() => { this.router.navigate(['/events', this.event_id]) })

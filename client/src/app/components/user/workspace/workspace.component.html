@@ -8,19 +8,19 @@
                         <notes-workspace-buttons></notes-workspace-buttons>
                     </div>
                 </div>
-                <div *ngIf="data">
+                <div>
                     <h5>Your notes:</h5>
-                    <div *ngIf="data.notes && data.notes.length > 0">
-                        <notes-note-list [notes]="data.notes" [public]="false"></notes-note-list>
+                    <div *ngIf="notes && notes.length > 0">
+                        <notes-note-list [notes]="notes" [public]="false"></notes-note-list>
                     </div>
-                    <div *ngIf="!data.notes || data.notes.length == 0">
+                    <div *ngIf="!notes || notes.length == 0">
                         <p><b>You have no notes!</b></p>
                     </div>
                     <h5>Your events:</h5>
-                    <div *ngIf="data.events && data.events.length > 0">
-                        <notes-event-list [events]="data.events" [public]="false"></notes-event-list>
+                    <div *ngIf="events && events.length > 0">
+                        <notes-event-list [events]="events" [public]="false"></notes-event-list>
                     </div>
-                    <div *ngIf="!data.events || data.events.length == 0">
+                    <div *ngIf="!events || events.length == 0">
                         <p><b>You have no events!</b></p>
                     </div>
                 </div>

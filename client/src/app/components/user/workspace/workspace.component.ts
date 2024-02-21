@@ -8,6 +8,7 @@ import { User } from "../../../interfaces/user";
 import {NgIf} from "@angular/common";
 import {EventListComponent} from "../../events/event-list/event-list.component";
 import {WorkspaceButtonsComponent} from "../../subcomponents/workspace-buttons/workspace-buttons.component";
+import {EventService} from "../../../services/event.service";
 
 @Component({
   selector: 'notes-workspace',
@@ -25,11 +26,15 @@ export class WorkspaceComponent {
   notes: Note[] = [];
   user: User = this.authService.getUser();
   id: string = this.user.id;
-  data: UserDetails | undefined;
+  events: any;
 
-  constructor(private noteService: NotesService, private authService: AuthService) {
+  constructor(private eventService: EventService, private noteService: NotesService, private authService: AuthService) {
     this.noteService.getUserDetails(this.id).then((user: any) => {
-      this.data = user;
+      this.notes = user.notes;
+    });
+
+    this.eventService.getUsersEvents(this.user.email).then((res: any) => {
+      this.events = res;
     });
   }
 }

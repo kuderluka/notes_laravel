@@ -32,18 +32,24 @@ export class EventService {
     return (await data.json()) ?? [];
   }
 
+  async getUsersEvents(email: string) {
+    const data = await fetch(this.url + '/events/user/' + email, this.options);
+    return (await data.json()) ?? [];
+  }
+
   async getEventDetails(id: string) {
     const data = await fetch(this.url + '/events/' + id, this.options);
     return (await data.json()) ?? [];
   }
 
-  async addAttendee(event_id: string, user_id: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/add-user/' + user_id, {
+  async addAttendee(event_id: string, email: string) {
+    const response = await fetch(this.url + '/events/' + event_id + '/add-user/' + email, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
       },
+      body: JSON.stringify({ user_id: email, event_id: event_id })
     });
 
     if (response.ok) {
@@ -54,14 +60,17 @@ export class EventService {
     }
   }
 
-  async removeAttendee(event_id: string, user_id: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/remove-user/' + user_id, {
+  async removeAttendee(event_id: string, email: string) {
+    const response = await fetch(this.url + '/events/' + event_id + '/remove-user/' + email, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
       },
+      body: JSON.stringify({ user_id: email, event_id: event_id })
     });
+
+    console.log(response);
 
     if (response.ok) {
       return await response.json();
@@ -95,4 +104,9 @@ export class EventService {
   register(data: any):any {
     return this.http.post(this.url + '/register', data, this.options);
   }
+
+  getUrl() {
+    return this.url;
+  }
+
 }
