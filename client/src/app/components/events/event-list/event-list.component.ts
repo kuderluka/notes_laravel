@@ -24,7 +24,6 @@ export class EventListComponent {
     ngOnInit() {
         if (this.public) {
             this.service.getEvents().then((events: any) => {
-                this.events = events.data.events;
                 this.events = events.data.events.data;
             });
         }

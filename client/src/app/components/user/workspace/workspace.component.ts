@@ -30,11 +30,12 @@ export class WorkspaceComponent {
 
   constructor(private eventService: EventService, private noteService: NotesService, private authService: AuthService) {
     this.noteService.getUserDetails(this.id).then((user: any) => {
-      this.data = user;
+      this.notes = user.notes;
     });
 
     this.eventService.getUsersEvents(this.user.email).then((res: any) => {
       this.events = res;
+    })
 
   }
 }
