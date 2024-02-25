@@ -41,7 +41,6 @@ export class NotesService {
     });
 
     if (response.ok) {
-      console.log('Good:', response);
       return (await response.json()) ?? [];
     } else {
       console.error('Failed to fetch data:', response);
@@ -64,7 +63,6 @@ export class NotesService {
     });
 
     if (response.ok) {
-      console.log('Good:', response);
       return response;
     } else {
       console.error('Failed to create a category:', response);
@@ -92,7 +90,6 @@ export class NotesService {
     });
 
     if (response.ok) {
-      console.log('Good:', response);
       return response;
     } else {
       console.error('Failed to create a note:', response);
@@ -121,7 +118,6 @@ export class NotesService {
     });
 
     if (response.ok) {
-      console.log('Good patch:', response);
       return response;
     } else {
       console.error('Failed to update a note:', response);
@@ -138,7 +134,6 @@ export class NotesService {
     });
 
     if (response.ok) {
-      console.log('Good:', response);
       return (await response.json()) ?? [];
     } else {
       console.error('Failed to fetch categories:', response);
@@ -156,7 +151,6 @@ export class NotesService {
     });
 
     if (response.ok) {
-      console.log('Good:', response);
       return response;
     } else {
       console.error('Failed to create a category:', response);
