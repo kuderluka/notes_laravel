@@ -13,10 +13,11 @@ class CategoryController extends Controller
     public function list()
     {
         return response()->json([
-            'message' => 'Success!',
+            'success' => true,
             'data' => [
                 'categories' => Category::orderBy('title')->get()
-            ]
+            ],
+            'message' => 'Categories successfully retrieved.',
         ]);
 
     }

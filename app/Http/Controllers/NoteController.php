@@ -44,8 +44,13 @@ class NoteController extends Controller
      */
     public function getNotesByUsername(): JsonResponse
     {
-        return response()->json([
-            'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
+        return response()->json(
+        [
+            'success' => true,
+            'data' => [
+                'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
+            ],
+            'message' => 'Note successfully retrieved.'
         ]);
     }
 
@@ -57,13 +62,25 @@ class NoteController extends Controller
      */
     public function getNoteById($id): JsonResponse
     {
-        $id = Note::findOrFail($id);
+        $note = Note::findOrFail($id);
 
         if ($id->user_id !== Auth::user()->id) {
-            return response()->json(['message' => 'Cannot access this note.'], 403);
+            return response()->json([
+                'success' => false,
+                'data' => [
+                    'note' => $id,
+                ],
+                'message' => 'Cannot access this note.'
+            ]);
         }
 
-        return response()->json($id);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'note' => $note,
+            ],
+            'message' => 'Note successfully retrieved.'
+        ]);
     }
 
     /**
