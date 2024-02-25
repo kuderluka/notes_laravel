@@ -40,6 +40,7 @@ Route::post('/tokens/authenticate', function (LoginRequest $request) {
 
     return response()->json([
         'token' => $token,
+        'user' => $user,
     ]);
 });
 
@@ -69,7 +70,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/addAttendee', [EventController::class, 'addAttendee']);
     Route::post('/removeAttendee', [EventController::class, 'removeAttendee']);
 
-    Route::get('/notes', [NoteController::class, 'getNotesByUsername']);
+    Route::get('/notes/byUser', [NoteController::class, 'getNotesByUsername']);
     Route::get('/notes/{noteId}', [NoteController::class, 'getNoteById']);
     Route::post('/notes', [NoteController::class, 'store']);
     Route::patch('/notes/{noteId}', [NoteController::class, 'update']);

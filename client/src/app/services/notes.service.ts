@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from "./auth.service";
-import {FormGroup} from "@angular/forms";
+import { FormGroup } from "@angular/forms";
+import { EventService } from "./event.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {FormGroup} from "@angular/forms";
 export class NotesService {
   private url = 'http://127.0.0.1:8000/api';
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService, private eventService: EventService) { }
 
   getUser() {
     return this.auth.getUser();
@@ -42,7 +43,7 @@ export class NotesService {
       console.log('Good:', response);
       return (await response.json()) ?? [];
     } else {
-      console.error('Failed to create a category:', response);
+      console.error('Failed to fetch data:', response);
       return (await response.json()) ?? [];
     }
   }
@@ -160,5 +161,9 @@ export class NotesService {
       console.error('Failed to create a category:', response);
       return response;
     }
+  }
+
+  private getUrl() {
+    return this.url;
   }
 }

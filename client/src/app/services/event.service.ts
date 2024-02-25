@@ -29,6 +29,7 @@ export class EventService {
 
   async getEvents() {
     const data = await fetch(this.url + '/events', this.options);
+    console.log(data);
     return (await data.json()) ?? [];
   }
 
@@ -39,6 +40,11 @@ export class EventService {
 
   async getEventDetails(id: string) {
     const data = await fetch(this.url + '/events/' + id, this.options);
+    return (await data.json()) ?? [];
+  }
+
+  async getUsersEvents(email: string) {
+    const data = await fetch(this.url + '/events/user/' + email, this.options);
     return (await data.json()) ?? [];
   }
 
@@ -108,5 +114,4 @@ export class EventService {
   getUrl() {
     return this.url;
   }
-
 }
