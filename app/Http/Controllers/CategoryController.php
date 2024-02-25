@@ -13,13 +13,8 @@ class CategoryController extends Controller
     public function list()
     {
         return response()->json([
-            'success' => true,
-            'data' => [
-                'categories' => Category::orderBy('title')->get()
-            ],
-            'message' => 'Categories successfully retrieved.',
+           'categories' => Category::all(),
         ]);
-
     }
 
     /**
@@ -103,12 +98,10 @@ class CategoryController extends Controller
         ]);
         $validated['id'] = (string) Str::orderedUuid();
 
+
         $category = Category::create($validated);
         $category->users()->attach($request->users);
-        return response()->json([
-            'message' => 'Category created!',
-            'data' => []
-        ]);
+        return redirect(route('user.show'))->with('message', 'Category created successfully');
     }
 
     /**

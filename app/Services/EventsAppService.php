@@ -26,7 +26,7 @@ class EventsAppService {
     public function getEvents($keyword)
     {
         try {
-            $response = $this->client->request('GET', config('events.url') . '/api/events/all', [
+            $response = $this->client->request('GET', config('events.url') . '/api/events', [
                 'headers' => [
                     'Accept' => 'application/json',
                 ],
@@ -59,6 +59,7 @@ class EventsAppService {
 
             return json_decode($response->getBody(), true);
         } catch (\Exception $exception) {
+            dd($exception);
             return $exception;
         }
     }
@@ -73,7 +74,7 @@ class EventsAppService {
     public function getUsersEvents($email)
     {
         try {
-            $response = $this->client->request('GET', config('events.url') . '/api/events/user/' . $email, [
+            $response = $this->client->request('GET', config('events.url') . '/api/attending/' . $email, [
                 'headers' => [
                     'Accept' => 'application/json',
                 ]

@@ -7,13 +7,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use App\Services\EventsAppService;
-use Dotenv\Repository\Adapter\ReplacingWriter;
-use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use mysql_xdevapi\Exception;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -34,49 +31,30 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response([
-                'message' => 'Invalid credentials',
-                'data' => false
-            ]);
-        }
+        $request->authenticate();
 
-        $user = Auth::user();
+        $request->session()->regenerate();
 
-        $this->eventsAppService->login($user);
+        $this->eventsAppService->login($request);
 
-        $token = $user->createToken('token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Success',
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
-        ]);
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): \Illuminate\Http\JsonResponse
+    public function destroy(Request $request): RedirectResponse
     {
-        try {
-            $this->eventsAppService->logout();
+        $this->eventsAppService->logout();
 
-            auth()->user()->tokens()->delete();
+        Auth::guard('web')->logout();
 
-            return response()->json([
-                'message' => 'User logged out!',
-                'data' => auth()->user()->tokens()
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => false,
-                'data' => $e
-            ]);
-        }
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
