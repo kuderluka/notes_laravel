@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "../interfaces/user";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EventService {
-  private url = 'http://127.0.0.1:8001/api';
+  private url = environment.eventsUrl;
   private token: string | boolean = false;
 
   private headers: HttpHeaders = new HttpHeaders();
@@ -40,11 +41,6 @@ export class EventService {
 
   async getEventDetails(id: string) {
     const data = await fetch(this.url + '/events/' + id, this.options);
-    return (await data.json()) ?? [];
-  }
-
-  async getUsersEvents(email: string) {
-    const data = await fetch(this.url + '/events/user/' + email, this.options);
     return (await data.json()) ?? [];
   }
 

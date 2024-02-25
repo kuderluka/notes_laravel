@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "../interfaces/user";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private url = 'http://127.0.0.1:8000/api';
+  private url = environment.appUrl;
   private token: string | boolean = false;
   private user: any;
 

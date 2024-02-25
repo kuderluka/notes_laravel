@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from "./auth.service";
 import { FormGroup } from "@angular/forms";
 import { EventService } from "./event.service";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
-  private url = 'http://127.0.0.1:8000/api';
+  private url = environment.appUrl;
 
   constructor(private http: HttpClient, private auth: AuthService, private eventService: EventService) { }
 
