@@ -24,13 +24,13 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $entries = Note::where('public', 1)
-            ->with('category')
-            ->with('user')
+        $entries = Note::join('users', 'notes.user_id', '=', 'users.id')
+            ->where('public', 1)
             ->filter(request(['search']))
-            ->get();
+            ->sortable()
+            ->paginate(8);
 
-        return response()->json([
+        return view('list', [
             'heading' => 'notes',
             'public' => 0,
             'entries' => $entries
@@ -44,13 +44,8 @@ class NoteController extends Controller
      */
     public function getNotesByUsername(): JsonResponse
     {
-        return response()->json(
-        [
-            'success' => true,
-            'data' => [
-                'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
-            ],
-            'message' => 'Note successfully retrieved.'
+        return response()->json([
+            'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
         ]);
     }
 
@@ -62,25 +57,13 @@ class NoteController extends Controller
      */
     public function getNoteById($id): JsonResponse
     {
-        $note = Note::findOrFail($id);
+        $id = Note::findOrFail($id);
 
         if ($id->user_id !== Auth::user()->id) {
-            return response()->json([
-                'success' => false,
-                'data' => [
-                    'note' => $id,
-                ],
-                'message' => 'Cannot access this note.'
-            ]);
+            return response()->json(['message' => 'Cannot access this note.'], 403);
         }
 
-        return response()->json([
-            'success' => true,
-            'data' => [
-                'note' => $note,
-            ],
-            'message' => 'Note successfully retrieved.'
-        ]);
+        return response()->json($id);
     }
 
     /**
@@ -114,11 +97,11 @@ class NoteController extends Controller
      * Updates the entry in the database and redirects
      *
      * @param Request $request
+     * @param string $noteId
      * @return string
      */
-    public function update(Request $request): string
+    public function update(Request $request, string $noteId)
     {
-        $noteId = $request->id;
         $validated = $request->validate([
             'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title')->ignore($noteId), 'min:5', 'max:30'],
@@ -132,12 +115,7 @@ class NoteController extends Controller
         $validated['id'] = $noteId;
         $validated['user_id'] = Auth::user()->id;
         Note::where('id', $validated['id'])->update($validated);
-        return response()->json([
-            'message' => 'Success!',
-            'data' => [
-
-            ]
-        ]);
+        return redirect(route('user.show'))->with('message', 'Note updated successfully');
     }
 
     /**
@@ -175,12 +153,7 @@ class NoteController extends Controller
         $note->category()->associate($category);
         $note->save();
 
-        return response()->json([
-            'message' => 'Success!',
-            'data' => [
-                'note' => $note
-            ]
-        ]);
+        return redirect(route('user.show'))->with('message', 'Note created successfully');
     }
 
     /**
