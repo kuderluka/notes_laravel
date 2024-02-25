@@ -1,0 +1,7 @@
+<div *ngIf="isAttendee()">
+    <button class="btn btn-secondary" (click)="removeAttendee()"> Remove Attendee </button>
+</div>
+<div *ngIf="!isAttendee()">
+    <button class="btn btn-secondary" (click)="addAttendee()"> Add Attendee </button>
+</div>
+

@@ -1,0 +1,30 @@
+<div class="area">
+    <div class="content">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="bar">
+                    <h3>Manage your data here</h3>
+                    <div class="buttons-container">
+                        <notes-workspace-buttons></notes-workspace-buttons>
+                    </div>
+                </div>
+                <div *ngIf="events && notes">
+                    <h5>Your notes:</h5>
+                    <div *ngIf="notes && notes.length > 0">
+                        <notes-note-list [notes]="notes" [public]="false"></notes-note-list>
+                    </div>
+                    <div *ngIf="!notes || notes.length == 0">
+                        <p><b>You have no notes!</b></p>
+                    </div>
+                    <h5>Your events:</h5>
+                    <div *ngIf="events && events.length > 0">
+                        <notes-event-list [events]="events" [public]="false"></notes-event-list>
+                    </div>
+                    <div *ngIf="!events || events.length == 0">
+                        <p><b>You have no events!</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

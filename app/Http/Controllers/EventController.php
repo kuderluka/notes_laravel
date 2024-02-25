@@ -20,12 +20,15 @@ class EventController extends Controller
      * Returns the view of all events
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        return view('events', [
-            'events' => $this->eventsAppService->getEvents($request->search)
+        return response()->json([
+            'message' => 'Success',
+            'data' => [
+                'events' => $this->eventsAppService->getEvents($request->search)
+            ]
         ]);
     }
 
@@ -42,18 +45,26 @@ class EventController extends Controller
         ]);
     }
 
+    public function getSingleUsersData(User $user)
+    {
+        return response()->json([
+            'user' => $user,
+            'notes' => $user->notes()->with('user')->with('category')->get()
+        ]);
+    }
+
     /**
      * Returns the view of a certain user's profile
      *
      * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Http\JsonResponse
      * @throws GuzzleException
      */
     public function userEvents(User $user)
     {
-        return view('user-show', [
+        return response()->json([
             'user' => $user,
-            'notes' => $user->notes()->where('public', 1)->paginate(3),
+            'notes' => $user->notes()->where('public', 1)->with('user')->with('category')->get(),
             'events' => $this->getUsersEvents($user->email)
         ]);
     }
