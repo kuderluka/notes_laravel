@@ -1,0 +1,31 @@
+<h3 *ngIf="public">Public notes</h3>
+<div *ngIf="notes && notes.length > 0">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+            <th>Tags</th>
+            <th *ngIf="!public">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let note of notes">
+            <td>{{ note.user.username }}</td>
+            <td>{{ note.title }}</td>
+            <td>{{ note.category.title }}</td>
+            <td>{{ note.content }}</td>
+            <td>{{ note.priority }}</td>
+            <td>{{ note.deadline }}</td>
+            <td>{{ note.tags }}</td>
+            <td *ngIf="!public">
+                <notes-edit-buttons [note]="note"></notes-edit-buttons>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

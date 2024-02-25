@@ -8,13 +8,15 @@ import { User } from "../interfaces/user";
 export class AuthService {
   private url = 'http://127.0.0.1:8000/api';
   private token: string | boolean = false;
-  private user: User | boolean = false;
+  private user: any;
 
   private headers: HttpHeaders = new HttpHeaders();
   private options: any;
 
-  constructor(private http: HttpClient) {
-    this.setHeaders();
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.setHeaders()
   }
 
   login(data: any): any {
@@ -26,13 +28,15 @@ export class AuthService {
   }
 
   private setHeaders() {
-    this.token = this.getToken() ?? '';
-
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token
     });
     this.options = { headers: this.headers };
+  }
+
+  getOptions() {
+    return this.options;
   }
 
   setToken(token: string | false) {

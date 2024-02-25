@@ -29,6 +29,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div *ngIf="!noteList || noteList.length == 0">
+                    <p><b>There are no public notes!</b></p>
+                </div>
             </div>
         </div>
     </div>

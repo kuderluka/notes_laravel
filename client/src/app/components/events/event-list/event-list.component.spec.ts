@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserRowComponent } from './user-row.component';
+import { EventListComponent } from './event-list.component';
 
-describe('UserRowComponent', () => {
-  let component: UserRowComponent;
-  let fixture: ComponentFixture<UserRowComponent>;
+describe('EventListComponent', () => {
+  let component: EventListComponent;
+  let fixture: ComponentFixture<EventListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserRowComponent]
+      imports: [EventListComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UserRowComponent);
+    fixture = TestBed.createComponent(EventListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,11 +5,14 @@ import { UserDetailsComponent } from "./components/user/user-details/user-detail
 import { PublicComponent } from "./components/public/public.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
-import { AuthService } from "./services/auth.service";
-import {WorkspaceComponent} from "./components/user/workspace/workspace.component";
-import {authGuard} from "./guards/auth.guard";
-import {EventsListComponent} from "./components/events/events-list/events-list.component";
-import {ProfileComponent} from "./components/user/profile/profile.component";
+import { WorkspaceComponent } from "./components/user/workspace/workspace.component";
+import { authGuard } from "./guards/auth.guard";
+import { ProfileComponent } from "./components/user/profile/profile.component";
+import { EventListComponent } from "./components/events/event-list/event-list.component";
+import { EventDetailsComponent } from "./components/events/event-details/event-details.component";
+import {CategoryFormComponent} from "./components/categories/category-form/category-form.component";
+import {NoteFormComponent} from "./components/notes/note-form/note-form.component";
+import {NoteDestroyComponent} from "./components/notes/note-destroy/note-destroy.component";
 
 export const routes: Routes = [
   {
@@ -56,13 +59,37 @@ export const routes: Routes = [
   {
       path: 'events',
       canActivate: [authGuard],
-      component: EventsListComponent,
-      title: 'Events',
+      component: EventListComponent,
+      title: 'Events'
   },
   {
-      path: 'profile',
-      canActivate: [authGuard],
-      component: ProfileComponent,
-      title: 'Profile',
+    path: 'events/:id',
+    canActivate: [authGuard],
+    component: EventDetailsComponent,
+    title: 'Event details'
+  },
+  {
+    path: 'category/create',
+    canActivate: [authGuard],
+    component: CategoryFormComponent,
+    title: 'New Category',
+  },
+  {
+    path: 'note/create',
+    canActivate: [authGuard],
+    component: NoteFormComponent,
+    title: 'New Note',
+  },
+  {
+    path: 'note/destroy/:id',
+    canActivate: [authGuard],
+    component: NoteDestroyComponent,
+    title: 'Delete Note',
+  },
+  {
+    path: 'note/:note',
+    canActivate: [authGuard],
+    component: NoteFormComponent,
+    title: 'Edit Note',
   }
 ];

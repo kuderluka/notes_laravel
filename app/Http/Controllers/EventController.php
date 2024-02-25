@@ -20,12 +20,15 @@ class EventController extends Controller
      * Returns the view of all events
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        return view('events', [
-            'events' => $this->eventsAppService->getEvents($request->search)
+        return response()->json([
+            'message' => 'Success',
+            'data' => [
+                'events' => $this->eventsAppService->getEvents($request->search)
+            ]
         ]);
     }
 
@@ -39,6 +42,14 @@ class EventController extends Controller
     {
         return view('event-show', [
             'event' => $this->eventsAppService->getOneEvent($id)
+        ]);
+    }
+
+    public function getSingleUsersData(User $user)
+    {
+        return response()->json([
+            'user' => $user,
+            'notes' => $user->notes()->with('user')->with('category')->get()
         ]);
     }
 

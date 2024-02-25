@@ -4,7 +4,7 @@ import { NotesService } from "../../../services/notes.service";
 import { RouterLink } from "@angular/router";
 import { NgForOf } from "@angular/common";
 import { User } from "../../../interfaces/user";
-import {UserList} from "../../../interfaces/user-list";
+import { UserList } from "../../../interfaces/user-list";
 
 @Component({
   selector: 'notes-user-list',
