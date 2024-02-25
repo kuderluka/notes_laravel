@@ -4,7 +4,6 @@ import {User} from "../../../interfaces/user";
 import {NgIf} from "@angular/common";
 import {EventService} from "../../../services/event.service";
 import {Router} from "@angular/router";
-import {log} from "util";
 
 @Component({
   selector: 'notes-attend-button',

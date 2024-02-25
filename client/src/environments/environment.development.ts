@@ -1,4 +1,4 @@
 export const environment = {
-  appUrl: 'http://localhost:8000/api',
-  eventsUrl: 'http://localhost:8001/api'
+  appUrl: 'http://192.168.150.228/api',
+  eventsUrl: 'http://192.168.150.221/api'
 };
