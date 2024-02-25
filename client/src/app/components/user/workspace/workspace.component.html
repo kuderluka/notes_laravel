@@ -8,7 +8,7 @@
                         <notes-workspace-buttons></notes-workspace-buttons>
                     </div>
                 </div>
-                <div *ngIf="events && notes">
+                <div>
                     <h5>Your notes:</h5>
                     <div *ngIf="notes && notes.length > 0">
                         <notes-note-list [notes]="notes" [public]="false"></notes-note-list>

@@ -33,6 +33,11 @@ export class EventService {
     return (await data.json()) ?? [];
   }
 
+  async getUsersEvents(email: string) {
+    const data = await fetch(this.url + '/events/user/' + email, this.options);
+    return (await data.json()) ?? [];
+  }
+
   async getEventDetails(id: string) {
     const data = await fetch(this.url + '/events/' + id, this.options);
     return (await data.json()) ?? [];
@@ -70,6 +75,8 @@ export class EventService {
       },
       body: JSON.stringify({ user_id: email, event_id: event_id })
     });
+
+    console.log(response);
 
     if (response.ok) {
       return await response.json();
