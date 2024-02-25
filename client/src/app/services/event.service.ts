@@ -28,9 +28,8 @@ export class EventService {
     this.options = { headers: this.headers };
   }
 
-  async getEvents() {
-    const data = await fetch(this.url + '/events', this.options);
-    console.log(data);
+  async getEvents(currentPage: number) {
+    const data = await fetch(this.url + '/events/?page=' + currentPage, this.options);
     return (await data.json()) ?? [];
   }
 

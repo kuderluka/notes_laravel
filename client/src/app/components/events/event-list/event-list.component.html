@@ -25,6 +25,14 @@
                         </tr>
                         </tbody>
                     </table>
+                  <div *ngIf="totalItems > itemsPerPage">
+                    <ngb-pagination
+                      [collectionSize]="totalItems"
+                      [(page)]="currentPage"
+                      [pageSize]="itemsPerPage"
+                      (pageChange)="onPageChange($event)">
+                    </ngb-pagination>
+                  </div>
                 </div>
             </div>
         </div>
