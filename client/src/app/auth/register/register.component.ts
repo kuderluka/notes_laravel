@@ -44,6 +44,7 @@ export class RegisterComponent {
       }
     );
 
+    console.log(this.registerForm.value);
     this.eventService.logout();
     this.eventService.register(this.registerForm.value).subscribe(
         (res: any) => {
