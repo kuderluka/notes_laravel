@@ -27,8 +27,9 @@ export class NotesService {
     return (await data.json()) ?? [];
   }
 
-  async getPublicNotes() {
-    const data = await fetch(this.url + '/public');
+  async getPublicNotes(search: string) {
+    let queryParams = search ? `?search=${search}` : '';
+    const data = await fetch(this.url + '/public' + queryParams);
     return (await data.json()) ?? [];
   }
 

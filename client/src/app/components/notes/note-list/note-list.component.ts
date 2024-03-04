@@ -23,7 +23,7 @@ export class NoteListComponent {
 
     ngOnInit() {
         if (this.public) {
-            this.service.getPublicNotes().then((notes: any) => {
+            this.service.getPublicNotes('').then((notes: any) => {
                 this.notes = notes.entries;
             });
         }
