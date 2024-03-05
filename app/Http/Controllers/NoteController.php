@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -24,16 +23,18 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $entries = Note::where('public', 1)
+        $notes = Note::where('public', 1)
             ->with('category')
             ->with('user')
-            ->filter(request(['search']))
-            ->get();
+            ->filterSearch(request(['search']))
+            ->paginate(10);
 
         return response()->json([
-            'heading' => 'notes',
-            'public' => 0,
-            'entries' => $entries
+            'success' => true,
+            'data' => [
+                'notes' => $notes,
+            ],
+            'message' => 'Notes successfully retrieved.'
         ]);
     }
 

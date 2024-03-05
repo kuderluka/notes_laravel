@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NotesService } from "../../services/notes.service";
 import { Note } from "../../interfaces/note";
 import { NgForOf, NgIf } from "@angular/common";
-import {SearchComponent} from "../subcomponents/search/search.component";
+import { SearchComponent } from "../subcomponents/search/search.component";
+import { NgbPagination } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'notes-public',
@@ -10,7 +11,8 @@ import {SearchComponent} from "../subcomponents/search/search.component";
   imports: [
     NgForOf,
     NgIf,
-    SearchComponent
+    SearchComponent,
+    NgbPagination
   ],
   templateUrl: './public.component.html',
   styleUrl: './public.component.css'
@@ -18,20 +20,32 @@ import {SearchComponent} from "../subcomponents/search/search.component";
 export class PublicComponent {
   noteList: Note[] = [];
   searchQuery: string = '';
+  currentPage = 1;
+  totalItems = 0;
+  itemsPerPage = 0;
 
-  constructor(private service:NotesService) {
-    this.getNotes();
+  constructor(private service:NotesService) {}
+
+  ngOnInit() {
+    this.loadNotes();
   }
 
-  getNotes() {
-    this.service.getPublicNotes(this.searchQuery).then((notes: any) => {
-      this.noteList = notes.entries;
+  loadNotes() {
+    this.service.getPublicNotes(this.searchQuery).then((res: any) => {
+      this.noteList = res.data.notes.data;
+      this.totalItems = res.data.notes.total;
+      this.itemsPerPage = res.data.notes.per_page;
       console.log(this.noteList);
     })
   }
 
   searchNotes(search: string) {
     this.searchQuery = search;
-    this.getNotes();
+    this.loadNotes();
+  }
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.loadNotes();
   }
 }

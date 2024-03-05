@@ -33,6 +33,13 @@
                 <div *ngIf="!noteList || noteList.length == 0">
                     <p><b>There are no public notes!</b></p>
                 </div>
+                <div *ngIf="totalItems > itemsPerPage">
+                  <ngb-pagination
+                    [collectionSize]="totalItems"
+                    [(page)]="currentPage"
+                    [pageSize]="itemsPerPage"
+                    (pageChange)="onPageChange($event)">
+                  </ngb-pagination>
             </div>
         </div>
     </div>
