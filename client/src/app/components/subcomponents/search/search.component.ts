@@ -10,8 +10,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class SearchComponent {
   @Output() searchEvent = new EventEmitter<string>()
 
-  constructor() { }
-
+  /**
+   * Emits the value entered into the search field on button click
+   *
+   * @param value
+   */
   onSearch(value: string): void {
     this.searchEvent.emit(value);
   }

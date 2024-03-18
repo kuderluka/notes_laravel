@@ -10,6 +10,4 @@ import { Router, RouterLink } from "@angular/router";
   templateUrl: './workspace-buttons.component.html',
   styleUrl: './workspace-buttons.component.css'
 })
-export class WorkspaceButtonsComponent {
-  constructor(private router: Router) {}
-}
+export class WorkspaceButtonsComponent {}

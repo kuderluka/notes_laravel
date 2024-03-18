@@ -7,7 +7,7 @@ import { environment } from "../../environments/environment";
   providedIn: 'root'
 })
 export class AuthService {
-  private url = environment.appUrl;
+  private url: string = environment.appUrl;
   private token: string | boolean = false;
   private user: any;
 

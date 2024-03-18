@@ -11,7 +11,5 @@ import { Router, RouterLink } from "@angular/router";
   styleUrl: './event-button.component.css'
 })
 export class EventButtonComponent {
-  @Input() id: string | undefined;
-
-  constructor(private router: Router) {}
+  @Input() id!: string;
 }

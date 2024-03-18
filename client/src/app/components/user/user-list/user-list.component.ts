@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-
 import { NotesService } from "../../../services/notes.service";
 import { RouterLink } from "@angular/router";
 import { NgForOf } from "@angular/common";

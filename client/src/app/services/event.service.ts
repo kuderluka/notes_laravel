@@ -71,8 +71,6 @@ export class EventService {
       body: JSON.stringify({ user_id: email, event_id: event_id })
     });
 
-    console.log(response);
-
     if (response.ok) {
       return await response.json();
     } else {
