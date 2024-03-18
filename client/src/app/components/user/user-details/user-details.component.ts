@@ -5,6 +5,7 @@ import { NotesService } from "../../../services/notes.service";
 import { NgForOf, NgIf } from "@angular/common";
 import { UserDetails } from "../../../interfaces/user-details";
 import { EventTableComponent } from "../../events/event-table/event-table.component";
+import {NoteListComponent} from "../../notes/note-list/note-list.component";
 
 @Component({
   selector: 'notes-user-details',
@@ -12,7 +13,8 @@ import { EventTableComponent } from "../../events/event-table/event-table.compon
   imports: [
     NgForOf,
     NgIf,
-    EventTableComponent
+    EventTableComponent,
+    NoteListComponent
   ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.css'
