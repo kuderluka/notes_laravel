@@ -36,7 +36,6 @@ export class RegisterComponent {
       (res: any) => {
         if (res && res.data && res.data.token !== undefined) {
           this.authService.setData(res.data);
-          console.log(this.authService.getToken());
         } else {
           console.error(res);
         }
@@ -51,7 +50,6 @@ export class RegisterComponent {
           if (res && res.data && res.data.token !== undefined) {
             this.registerForm.reset();
             this.eventService.setData(res.data);
-            console.log(this.eventService.getToken());
             this.router.navigate(['dashboard']);
           } else {
             console.error(res);

@@ -58,11 +58,8 @@ export class NoteFormComponent implements OnInit {
     this.submitted = true;
 
     if (this.form.invalid) {
-      console.log(JSON.stringify(this.form.value, null, 2));
       return;
     }
-
-    console.log(JSON.stringify(this.form.value, null, 2));
 
     if (this.entry) {
       this.notesService.updateNote(this.form, this.entry.id).then(res => {

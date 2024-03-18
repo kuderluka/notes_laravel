@@ -16,7 +16,7 @@ import {EditButtonsComponent} from "../../subcomponents/edit-buttons/edit-button
   styleUrl: './note-list.component.css'
 })
 export class NoteListComponent {
-    @Input() notes: Note[] | undefined;
+    @Input() notes!: Note[];
     @Input() public: boolean = true;
 
     constructor(private notesService:NotesService) {}

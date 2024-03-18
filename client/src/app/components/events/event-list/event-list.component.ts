@@ -18,8 +18,8 @@ import { NgbPagination } from "@ng-bootstrap/ng-bootstrap";
   styleUrl: './event-list.component.css'
 })
 export class EventListComponent {
-    @Input() events: Event[] | undefined;
-    @Input() public: boolean | undefined = true;
+    @Input() events!: Event[];
+    @Input() public: boolean = true;
     currentPage = 1;
     totalItems = 0;
     itemsPerPage = 0;

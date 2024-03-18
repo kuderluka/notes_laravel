@@ -36,6 +36,5 @@ export class WorkspaceComponent {
     this.eventService.getUsersEvents(this.user.email).then((res: any) => {
       this.events = res;
     })
-
   }
 }

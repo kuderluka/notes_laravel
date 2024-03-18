@@ -15,7 +15,7 @@ export class LandingComponent {
   constructor(private authService: AuthService) {
   }
 
-  isAuthenticated() {
-    return this.authService.getToken();
+  isAuthenticated(): boolean {
+    return <boolean>this.authService.getToken();
   }
 }

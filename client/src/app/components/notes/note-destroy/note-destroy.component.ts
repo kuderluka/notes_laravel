@@ -10,7 +10,7 @@ import {NotesService} from "../../../services/notes.service";
   styleUrl: './note-destroy.component.css'
 })
 export class NoteDestroyComponent implements OnInit {
-  id!: string;
+  private id!: string;
 
   constructor(
       private route: ActivatedRoute,

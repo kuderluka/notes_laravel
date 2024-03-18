@@ -36,8 +36,6 @@ export class CategoryFormComponent implements OnInit {
       return;
     }
 
-    console.log(JSON.stringify(this.form.value, null, 2));
-
     this.notesService.createCategory(this.form).then(res => {
       this.router.navigate(['workspace']);
     });
