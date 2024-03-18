@@ -9,9 +9,8 @@ import { WorkspaceComponent } from "./components/user/workspace/workspace.compon
 import { authGuard } from "./guards/auth.guard";
 import { EventListComponent } from "./components/events/event-list/event-list.component";
 import { EventDetailsComponent } from "./components/events/event-details/event-details.component";
-import {CategoryFormComponent} from "./components/categories/category-form/category-form.component";
-import {NoteFormComponent} from "./components/notes/note-form/note-form.component";
-import {NoteDestroyComponent} from "./components/notes/note-destroy/note-destroy.component";
+import { CategoryFormComponent } from "./components/categories/category-form/category-form.component";
+import { NoteFormComponent } from "./components/notes/note-form/note-form.component";
 
 export const routes: Routes = [
   {
@@ -78,12 +77,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     component: NoteFormComponent,
     title: 'New Note',
-  },
-  {
-    path: 'note/destroy/:id',
-    canActivate: [authGuard],
-    component: NoteDestroyComponent,
-    title: 'Delete Note',
   },
   {
     path: 'note/:note',

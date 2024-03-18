@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgForOf, NgIf } from "@angular/common";
 import { Note } from "../../../interfaces/note";
-import { NotesService } from "../../../services/notes.service";
-import {EditButtonsComponent} from "../../subcomponents/edit-buttons/edit-buttons.component";
+import { EditButtonsComponent } from "../../subcomponents/edit-buttons/edit-buttons.component";
 
 @Component({
   selector: 'notes-note-list',
@@ -18,14 +17,4 @@ import {EditButtonsComponent} from "../../subcomponents/edit-buttons/edit-button
 export class NoteListComponent {
     @Input() notes!: Note[];
     @Input() public: boolean = true;
-
-    constructor(private notesService:NotesService) {}
-
-    ngOnInit() {
-        if (this.public) {
-            this.notesService.getPublicNotes('').then((notes: any) => {
-                this.notes = notes.entries;
-            });
-        }
-    }
 }

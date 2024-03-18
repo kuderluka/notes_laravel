@@ -20,4 +20,10 @@ export class EditButtonsComponent {
     this.noteService.setNote(this.note);
     this.router.navigate(['note', this.note.id]);
   }
+
+  destroyNote(): void {
+    this.noteService.deleteNote(this.note.id).then(() => {
+      this.router.navigate(['/workspace']);
+    });
+  }
 }
