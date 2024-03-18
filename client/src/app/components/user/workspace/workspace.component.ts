@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { NoteListComponent } from "../../notes/note-list/note-list.component";
 import { Note } from "../../../interfaces/note";
-import { UserDetails } from "../../../interfaces/user-details";
 import { NotesService } from "../../../services/notes.service";
 import { AuthService } from "../../../services/auth.service";
 import { User } from "../../../interfaces/user";
-import {NgIf} from "@angular/common";
-import {EventListComponent} from "../../events/event-list/event-list.component";
-import {WorkspaceButtonsComponent} from "../../subcomponents/workspace-buttons/workspace-buttons.component";
-import {EventService} from "../../../services/event.service";
+import { NgIf } from "@angular/common";
+import { WorkspaceButtonsComponent } from "../../subcomponents/workspace-buttons/workspace-buttons.component";
+import { EventService } from "../../../services/event.service";
+import { EventTableComponent } from "../../events/event-table/event-table.component";
 
 @Component({
   selector: 'notes-workspace',
@@ -16,8 +15,8 @@ import {EventService} from "../../../services/event.service";
   imports: [
     NoteListComponent,
     NgIf,
-    EventListComponent,
-    WorkspaceButtonsComponent
+    WorkspaceButtonsComponent,
+    EventTableComponent
   ],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.css'

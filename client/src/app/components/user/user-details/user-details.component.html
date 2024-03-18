@@ -37,24 +37,7 @@
                 </div>
 
                 <div *ngIf="data.events && data.events.length > 0">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Date</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let event of data.events">
-                            <td>{{ event.name }}</td>
-                            <td>{{ event.address }}</td>
-                            <td>{{ event.date }}</td>
-                            <td>{{ event.ticketPrice }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                  <notes-event-table [events]="data.events"></notes-event-table>
                 </div>
                 <div *ngIf="!(data.events && data.events.length > 0)">
                     <p><b>This user has no events!</b></p>

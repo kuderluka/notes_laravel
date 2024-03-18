@@ -18,7 +18,7 @@
                     </div>
                     <h5>Your events:</h5>
                     <div *ngIf="events && events.length > 0">
-                        <notes-event-list [events]="events" [public]="false"></notes-event-list>
+                        <notes-event-table [events]="events"></notes-event-table>
                     </div>
                     <div *ngIf="!events || events.length == 0">
                         <p><b>You have no events!</b></p>

@@ -4,6 +4,7 @@ import { Event } from "../../../interfaces/event";
 import { EventService } from "../../../services/event.service";
 import { EventButtonComponent } from "../../subcomponents/event-button/event-button.component";
 import { NgbPagination } from "@ng-bootstrap/ng-bootstrap";
+import { EventTableComponent } from "../event-table/event-table.component";
 
 @Component({
   selector: 'notes-event-list',
@@ -12,7 +13,8 @@ import { NgbPagination } from "@ng-bootstrap/ng-bootstrap";
     NgForOf,
     NgIf,
     EventButtonComponent,
-    NgbPagination
+    NgbPagination,
+    EventTableComponent
   ],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.css'
