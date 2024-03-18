@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\EventsAppService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use GuzzleHttp\Exception\GuzzleException;
 
 class EventController extends Controller
@@ -20,7 +21,7 @@ class EventController extends Controller
      * Returns the view of all events
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -33,18 +34,11 @@ class EventController extends Controller
     }
 
     /**
-     * Returns the view of a specific event
+     * Gets the data of a single user
      *
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @param User $user
+     * @return JsonResponse
      */
-    public function show($id)
-    {
-        return view('event-show', [
-            'event' => $this->eventsAppService->getOneEvent($id)
-        ]);
-    }
-
     public function getSingleUsersData(User $user)
     {
         return response()->json([
@@ -57,14 +51,14 @@ class EventController extends Controller
      * Returns the view of a certain user's profile
      *
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws GuzzleException
      */
     public function userEvents(User $user)
     {
         return response()->json([
             'user' => $user,
-            'notes' => $user->notes()->where('public', 1)->with('user')->with('category')->get(),
+            'notes' => $user->notes()->where('public', 1)->with('user', 'category')->get(),
             'events' => $this->getUsersEvents($user->email)
         ]);
     }

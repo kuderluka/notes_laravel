@@ -3,17 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\EventController;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use App\Services\EventsAppService;
-use Dotenv\Repository\Adapter\ReplacingWriter;
-use http\Env\Response;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use mysql_xdevapi\Exception;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -61,7 +55,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): \Illuminate\Http\JsonResponse
+    public function destroy(Request $request): JsonResponse
     {
         try {
             $this->eventsAppService->logout();
@@ -72,7 +66,7 @@ class AuthenticatedSessionController extends Controller
                 'message' => 'User logged out!',
                 'data' => auth()->user()->tokens()
             ]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'message' => false,
                 'data' => $e

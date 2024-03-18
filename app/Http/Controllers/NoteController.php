@@ -24,8 +24,7 @@ class NoteController extends Controller
     public function index(Request $request)
     {
         $notes = Note::where('public', 1)
-            ->with('category')
-            ->with('user')
+            ->with('category', 'user')
             ->filterSearch(request(['search']))
             ->paginate(10);
 
@@ -58,18 +57,18 @@ class NoteController extends Controller
     /**
      * Gets single note by id
      *
-     * @param $id
+     * @param string $id
      * @return JsonResponse
      */
-    public function getNoteById($id): JsonResponse
+    public function getNoteById(String $id): JsonResponse
     {
         $note = Note::findOrFail($id);
 
-        if ($id->user_id !== Auth::user()->id) {
+        if ($note->user_id !== Auth::user()->id) {
             return response()->json([
                 'success' => false,
                 'data' => [
-                    'note' => $id,
+                    'note' => $note,
                 ],
                 'message' => 'Cannot access this note.'
             ]);
@@ -133,11 +132,10 @@ class NoteController extends Controller
         $validated['id'] = $noteId;
         $validated['user_id'] = Auth::user()->id;
         Note::where('id', $validated['id'])->update($validated);
+
         return response()->json([
             'message' => 'Success!',
-            'data' => [
-
-            ]
+            'data' => []
         ]);
     }
 
