@@ -16,14 +16,14 @@ import { CommonModule, NgIf } from "@angular/common";
 })
 export class NavigationComponent {
 
-  constructor(private service: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   isAuthenticated() {
-    return this.service.getToken();
+    return this.authService.getToken();
   }
 
   logout() {
-    this.service.logout();
+    this.authService.logout();
     this.router.navigate(['']);
   }
 }

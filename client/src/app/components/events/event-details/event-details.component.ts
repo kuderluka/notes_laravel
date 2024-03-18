@@ -19,11 +19,11 @@ export class EventDetailsComponent {
   id: string = '';
   event: any;
 
-  constructor(private route: ActivatedRoute, private service: EventService) {}
+  constructor(private route: ActivatedRoute, private eventService: EventService) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.service.getEventDetails(this.id).then((res: any) => {
+    this.eventService.getEventDetails(this.id).then((res: any) => {
       this.event = res.data.event;
     });
   }

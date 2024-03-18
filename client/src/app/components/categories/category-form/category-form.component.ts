@@ -16,7 +16,7 @@ export class CategoryFormComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private service: NotesService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private notesService: NotesService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -38,7 +38,7 @@ export class CategoryFormComponent implements OnInit {
 
     console.log(JSON.stringify(this.form.value, null, 2));
 
-    this.service.createCategory(this.form).then(res => {
+    this.notesService.createCategory(this.form).then(res => {
       this.router.navigate(['workspace']);
     });
   }

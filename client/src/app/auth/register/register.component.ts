@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { FormGroup, FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
-import {EventService} from "../../services/event.service";
+import { EventService } from "../../services/event.service";
 
 @Component({
   selector: 'notes-register',
@@ -17,24 +17,26 @@ import {EventService} from "../../services/event.service";
 export class RegisterComponent {
   public registerForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private service: AuthService, private eventService: EventService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private eventService: EventService, private router: Router) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      username: [''],
-      email: [''],
-      password: [''],
-      password_confirmation: ['']
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      password_confirmation: ['', Validators.required]
     });
   }
 
+  /*
+    Creates new accounts on both mine and Kristjan's site, and stores the given tokens
+   */
   register() {
-    this.service.logout();
-    this.service.register(this.registerForm.value).subscribe(
+    this.authService.register(this.registerForm.value).subscribe(
       (res: any) => {
         if (res && res.data && res.data.token !== undefined) {
-          this.service.setData(res.data);
-          console.log(this.service.getToken());
+          this.authService.setData(res.data);
+          console.log(this.authService.getToken());
         } else {
           console.error(res);
         }
@@ -44,7 +46,6 @@ export class RegisterComponent {
       }
     );
 
-    this.eventService.logout();
     this.eventService.register(this.registerForm.value).subscribe(
         (res: any) => {
           if (res && res.data && res.data.token !== undefined) {

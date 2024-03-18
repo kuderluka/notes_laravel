@@ -19,11 +19,11 @@ export class NoteListComponent {
     @Input() notes: Note[] | undefined;
     @Input() public: boolean = true;
 
-    constructor(private service:NotesService) {}
+    constructor(private notesService:NotesService) {}
 
     ngOnInit() {
         if (this.public) {
-            this.service.getPublicNotes('').then((notes: any) => {
+            this.notesService.getPublicNotes('').then((notes: any) => {
                 this.notes = notes.entries;
             });
         }

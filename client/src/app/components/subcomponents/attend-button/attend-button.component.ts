@@ -31,6 +31,9 @@ export class AttendButtonComponent {
     }
   }
 
+  /*
+    Checks if the authenticated user is an attendee of a certain event
+   */
   isAttendee() {
     if (!this.event || !this.event.participants || !this.user) {
       return false;
@@ -38,6 +41,9 @@ export class AttendButtonComponent {
     return this.event.participants.some((participant: any) => participant.email === this.user.email);
   }
 
+  /*
+    Removes the user as an attendee of an event
+   */
   async removeAttendee() {
     try {
       const res = await this.eventService.removeAttendee(this.event_id, this.user.email);
@@ -50,6 +56,9 @@ export class AttendButtonComponent {
     }
   }
 
+  /*
+    Adds the user as an attendee of an event
+   */
   async addAttendee() {
     try {
       const res = await this.eventService.addAttendee(this.event_id, this.user.email);

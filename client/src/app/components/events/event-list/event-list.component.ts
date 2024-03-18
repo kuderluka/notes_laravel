@@ -24,7 +24,7 @@ export class EventListComponent {
     totalItems = 0;
     itemsPerPage = 0;
 
-    constructor(private service: EventService) {}
+    constructor(private eventService: EventService) {}
 
     ngOnInit() {
       if (this.public) {
@@ -33,7 +33,7 @@ export class EventListComponent {
     }
 
     loadEvents() {
-      this.service.getEvents(this.currentPage).then((res: any) => {
+      this.eventService.getEvents(this.currentPage).then((res: any) => {
         this.events = res.data.events.data;
         this.totalItems = res.data.events.total;
         this.itemsPerPage = res.data.events.per_page;

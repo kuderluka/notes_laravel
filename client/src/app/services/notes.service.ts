@@ -11,10 +11,10 @@ import { environment } from "../../environments/environment";
 export class NotesService {
   private url = environment.appUrl;
 
-  constructor(private http: HttpClient, private auth: AuthService, private eventService: EventService) { }
+  constructor(private http: HttpClient, private authService: AuthService, private eventService: EventService) { }
 
   getUser() {
-    return this.auth.getUser();
+    return this.authService.getUser();
   }
 
   async getAllUsers() {
@@ -37,7 +37,7 @@ export class NotesService {
     const response = await fetch(this.url + '/users/' + id, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.getToken()
+        'Authorization': 'Bearer ' + this.authService.getToken()
       }
     });
 
@@ -54,10 +54,10 @@ export class NotesService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.getToken()
+        'Authorization': 'Bearer ' + this.authService.getToken()
       },
       body: JSON.stringify({
-        users: this.auth.getUser().id,
+        users: this.authService.getUser().id,
         title: form.value.title,
         color: form.value.color
       })
@@ -76,7 +76,7 @@ export class NotesService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.getToken()
+        'Authorization': 'Bearer ' + this.authService.getToken()
       },
       body: JSON.stringify({
         user_id: form.value.user_id,
@@ -103,7 +103,7 @@ export class NotesService {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.getToken()
+        'Authorization': 'Bearer ' + this.authService.getToken()
       },
       body: JSON.stringify({
         id: id,
@@ -130,7 +130,7 @@ export class NotesService {
     const response = await fetch(this.url + '/categories', {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.getToken()
+        'Authorization': 'Bearer ' + this.authService.getToken()
       }
     });
 
@@ -147,7 +147,7 @@ export class NotesService {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.getToken()
+        'Authorization': 'Bearer ' + this.authService.getToken()
       }
     });
 

@@ -16,8 +16,8 @@ import { UserList } from "../../../interfaces/user-list";
 export class UserListComponent {
   userList: User[] = [];
 
-  constructor(private service:NotesService) {
-    this.service.getAllUsers().then((users: UserList) => {
+  constructor(private notesService:NotesService) {
+    this.notesService.getAllUsers().then((users: UserList) => {
       this.userList = users.entries;
     })
   }

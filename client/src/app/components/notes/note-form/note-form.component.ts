@@ -18,7 +18,7 @@ export class NoteFormComponent implements OnInit {
   categories: any[] = [];
   entry: any;
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private service: NotesService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private notesService: NotesService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.route.snapshot.params['note']) {
@@ -26,7 +26,7 @@ export class NoteFormComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      user_id: [this.service.getUser().id],
+      user_id: [this.notesService.getUser().id],
       category_id: [this.entry?.category_id, Validators.required],
       title: [this.entry?.title, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
       content: [this.entry?.content, [Validators.required, Validators.maxLength(500)]],
@@ -36,11 +36,14 @@ export class NoteFormComponent implements OnInit {
       public: [this.entry?.public]
     });
 
-    this.service.getCategories().then((res: any) => {
+    this.notesService.getCategories().then((res: any) => {
       this.categories = res.data.categories;
     })
   }
 
+  /*
+    Checks if the entered date is in the future
+   */
   validateDeadline(control: any) {
     const deadline = new Date(control.value);
     const currentDate = new Date();
@@ -62,11 +65,11 @@ export class NoteFormComponent implements OnInit {
     console.log(JSON.stringify(this.form.value, null, 2));
 
     if (this.entry) {
-      this.service.updateNote(this.form, this.entry.id).then(res => {
+      this.notesService.updateNote(this.form, this.entry.id).then(res => {
         this.router.navigate(['workspace']);
       })
     } else {
-      this.service.createNote(this.form).then(res => {
+      this.notesService.createNote(this.form).then(res => {
         this.router.navigate(['workspace']);
       })
     }

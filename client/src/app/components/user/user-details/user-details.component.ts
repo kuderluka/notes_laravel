@@ -19,9 +19,9 @@ export class UserDetailsComponent {
     id: string = '';
     data: UserDetails | undefined;
 
-    constructor(private route: ActivatedRoute, private service: NotesService) {
+    constructor(private route: ActivatedRoute, private notesService: NotesService) {
         this.id = this.route.snapshot.params['id'];
-        this.service.getUsersPublicData(this.id).then((user: any) => {
+        this.notesService.getUsersPublicData(this.id).then((user: any) => {
             this.data = user;
         });
     }

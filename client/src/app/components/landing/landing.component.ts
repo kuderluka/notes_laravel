@@ -12,10 +12,10 @@ import { AuthService } from "../../services/auth.service";
   styleUrl: './landing.component.css'
 })
 export class LandingComponent {
-  constructor(private service: AuthService) {
+  constructor(private authService: AuthService) {
   }
 
   isAuthenticated() {
-    return this.service.getToken();
+    return this.authService.getToken();
   }
 }

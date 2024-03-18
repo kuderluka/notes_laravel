@@ -24,26 +24,34 @@ export class PublicComponent {
   totalItems = 0;
   itemsPerPage = 0;
 
-  constructor(private service:NotesService) {}
+  constructor(private notesService:NotesService) {}
 
   ngOnInit() {
     this.loadNotes();
   }
 
+  /*
+    Loads a new page of notes from the server
+   */
   loadNotes() {
-    this.service.getPublicNotes(this.searchQuery).then((res: any) => {
+    this.notesService.getPublicNotes(this.searchQuery).then((res: any) => {
       this.noteList = res.data.notes.data;
       this.totalItems = res.data.notes.total;
       this.itemsPerPage = res.data.notes.per_page;
-      console.log(this.noteList);
     })
   }
 
+  /*
+    Loads notes that match the search query
+   */
   searchNotes(search: string) {
     this.searchQuery = search;
     this.loadNotes();
   }
 
+  /*
+    Handles a page change and loads notes again
+   */
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
     this.loadNotes();

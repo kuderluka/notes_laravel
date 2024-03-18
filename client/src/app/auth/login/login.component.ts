@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NotesService } from "../../services/notes.service";
 import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
-import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import {EventService} from "../../services/event.service";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { EventService } from "../../services/event.service";
 
 @Component({
   selector: 'notes-login',
@@ -17,22 +17,24 @@ import {EventService} from "../../services/event.service";
 })
 export class LoginComponent {
   public loginForm!: FormGroup;
-  constructor(private service: AuthService,private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private authService: AuthService,private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: [''],
-      password: ['']
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
+  /*
+    Authenticates an already existing user by fetching tokens from both my and Kristjan's server and storing them
+   */
   login() {
     try {
-      this.service.logout();
-      this.service.login(this.loginForm.value).subscribe(
+      this.authService.login(this.loginForm.value).subscribe(
           (res: any) => {
             if (res && res.data && res.data.token !== undefined) {
-              this.service.setData(res.data);
+              this.authService.setData(res.data);
             } else {
               console.error(res);
             }
@@ -42,7 +44,6 @@ export class LoginComponent {
           }
       );
 
-      this.eventService.logout();
       this.eventService.login(this.loginForm.value).subscribe(
           (res: any) => {
             if (res && res.data && res.data.token !== undefined) {
