@@ -4,17 +4,27 @@ import { AuthService } from "./auth.service";
 import { FormGroup } from "@angular/forms";
 import { EventService } from "./event.service";
 import { environment } from "../../environments/environment";
+import { Note } from "../interfaces/note";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
   private url = environment.appUrl;
+  private note!: Note;
 
   constructor(private http: HttpClient, private authService: AuthService, private eventService: EventService) { }
 
   getUser() {
     return this.authService.getUser();
+  }
+
+  getNote(): Note {
+    return this.note;
+  }
+
+  setNote(note: Note): void {
+    this.note = note;
   }
 
   async getAllUsers() {

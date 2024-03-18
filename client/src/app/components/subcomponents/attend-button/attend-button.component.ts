@@ -34,7 +34,7 @@ export class AttendButtonComponent {
   /*
     Checks if the authenticated user is an attendee of a certain event
    */
-  isAttendee() {
+  isAttendee(): boolean {
     if (!this.event || !this.event.participants || !this.user) {
       return false;
     }
@@ -44,7 +44,7 @@ export class AttendButtonComponent {
   /*
     Removes the user as an attendee of an event
    */
-  async removeAttendee() {
+  async removeAttendee(): Promise<void> {
     try {
       const res = await this.eventService.removeAttendee(this.event_id, this.user.email);
       if (res.message) {
@@ -59,7 +59,7 @@ export class AttendButtonComponent {
   /*
     Adds the user as an attendee of an event
    */
-  async addAttendee() {
+  async addAttendee(): Promise<void> {
     try {
       const res = await this.eventService.addAttendee(this.event_id, this.user.email);
       if (res.message) {

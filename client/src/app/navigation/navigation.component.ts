@@ -18,11 +18,11 @@ export class NavigationComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  isAuthenticated() {
-    return this.authService.getToken();
+  isAuthenticated(): boolean {
+    return <boolean>this.authService.getToken();
   }
 
-  logout() {
+  logout(): void {
     this.authService.logout();
     this.router.navigate(['']);
   }

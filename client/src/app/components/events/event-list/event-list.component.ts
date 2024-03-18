@@ -32,7 +32,7 @@ export class EventListComponent {
       }
     }
 
-    loadEvents() {
+    loadEvents(): void {
       this.eventService.getEvents(this.currentPage).then((res: any) => {
         this.events = res.data.events.data;
         this.totalItems = res.data.events.total;
@@ -40,7 +40,7 @@ export class EventListComponent {
       });
     }
 
-    onPageChange(pageNumber: number) {
+    onPageChange(pageNumber: number): void {
       this.currentPage = pageNumber;
       this.loadEvents();
     }

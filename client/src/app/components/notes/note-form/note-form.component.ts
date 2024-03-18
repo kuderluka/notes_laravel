@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from "@angular/common";
-import { AuthService } from "../../../services/auth.service";
 import { NotesService } from "../../../services/notes.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'notes-note-form',
@@ -16,24 +15,22 @@ export class NoteFormComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   categories: any[] = [];
-  entry: any;
+  @Input() note: any;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private notesService: NotesService, private router: Router) { }
 
   ngOnInit(): void {
-    if (this.route.snapshot.params['note']) {
-      this.entry = JSON.parse(this.route.snapshot.params['note']);
-    }
+    this.note = this.notesService.getNote();
 
     this.form = this.formBuilder.group({
       user_id: [this.notesService.getUser().id],
-      category_id: [this.entry?.category_id, Validators.required],
-      title: [this.entry?.title, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
-      content: [this.entry?.content, [Validators.required, Validators.maxLength(500)]],
-      priority: [this.entry?.priority, [Validators.required, Validators.min(1), Validators.max(5)]],
-      deadline: [this.entry?.date, [Validators.required, this.validateDeadline]],
-      tags: [this.entry?.tags, [Validators.required, Validators.maxLength(200)]],
-      public: [this.entry?.public]
+      category_id: [this.note?.category_id, Validators.required],
+      title: [this.note?.title, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
+      content: [this.note?.content, [Validators.required, Validators.maxLength(500)]],
+      priority: [this.note?.priority, [Validators.required, Validators.min(1), Validators.max(5)]],
+      deadline: [this.note?.date, [Validators.required, this.validateDeadline]],
+      tags: [this.note?.tags, [Validators.required, Validators.maxLength(200)]],
+      public: [this.note?.public]
     });
 
     this.notesService.getCategories().then((res: any) => {
@@ -61,8 +58,8 @@ export class NoteFormComponent implements OnInit {
       return;
     }
 
-    if (this.entry) {
-      this.notesService.updateNote(this.form, this.entry.id).then(res => {
+    if (this.note) {
+      this.notesService.updateNote(this.form, this.note.id).then(res => {
         this.router.navigate(['workspace']);
       })
     } else {

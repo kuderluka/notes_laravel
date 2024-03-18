@@ -12,8 +12,7 @@ import { AuthService } from "../../services/auth.service";
   styleUrl: './landing.component.css'
 })
 export class LandingComponent {
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
 
   isAuthenticated(): boolean {
     return <boolean>this.authService.getToken();

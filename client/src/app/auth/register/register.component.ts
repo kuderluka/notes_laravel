@@ -31,7 +31,7 @@ export class RegisterComponent {
   /*
     Creates new accounts on both mine and Kristjan's site, and stores the given tokens
    */
-  register() {
+  register(): void {
     this.authService.register(this.registerForm.value).subscribe(
       (res: any) => {
         if (res && res.data && res.data.token !== undefined) {

@@ -1,2 +1,3 @@
-<button class="btn btn-secondary" [routerLink]="['/note', JSON.stringify(note)]"> Edit </button>
+<!-- <button class="btn btn-secondary" [routerLink]="['/note', note]"> Edit </button> -->
+<button class="btn btn-secondary" (click)="edit()"> Edit </button>
 <button class="btn btn-danger" [routerLink]="['/note/destroy', note.id]"> Delete </button>

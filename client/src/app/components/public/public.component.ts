@@ -33,7 +33,7 @@ export class PublicComponent {
   /*
     Loads a new page of notes from the server
    */
-  loadNotes() {
+  loadNotes(): void {
     this.notesService.getPublicNotes(this.searchQuery).then((res: any) => {
       this.noteList = res.data.notes.data;
       this.totalItems = res.data.notes.total;
@@ -44,7 +44,7 @@ export class PublicComponent {
   /*
     Loads notes that match the search query
    */
-  searchNotes(search: string) {
+  searchNotes(search: string): void {
     this.searchQuery = search;
     this.loadNotes();
   }
@@ -52,7 +52,7 @@ export class PublicComponent {
   /*
     Handles a page change and loads notes again
    */
-  onPageChange(pageNumber: number) {
+  onPageChange(pageNumber: number): void {
     this.currentPage = pageNumber;
     this.loadNotes();
   }

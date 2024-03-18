@@ -24,11 +24,11 @@ export class AuthService {
     return this.http.post(this.url + '/login', data, this.options);
   }
 
-  register(data: any):any {
+  register(data: any): any {
     return this.http.post(this.url + '/register', data, this.options);
   }
 
-  private setHeaders() {
+  private setHeaders(): void {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token

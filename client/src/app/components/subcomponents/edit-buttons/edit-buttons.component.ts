@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import { NotesService } from "../../../services/notes.service";
 
 @Component({
   selector: 'notes-edit-buttons',
@@ -12,5 +13,11 @@ import { RouterLink } from "@angular/router";
 })
 export class EditButtonsComponent {
   @Input() note: any;
-  protected readonly JSON = JSON;
+
+  constructor(private noteService: NotesService, private router: Router) {}
+
+  edit() {
+    this.noteService.setNote(this.note);
+    this.router.navigate(['note', this.note.id]);
+  }
 }

@@ -29,7 +29,7 @@ export class LoginComponent {
   /*
     Authenticates an already existing user by fetching tokens from both my and Kristjan's server and storing them
    */
-  login() {
+  login(): void {
     try {
       this.authService.login(this.loginForm.value).subscribe(
           (res: any) => {

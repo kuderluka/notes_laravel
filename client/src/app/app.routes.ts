@@ -7,7 +7,6 @@ import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
 import { WorkspaceComponent } from "./components/user/workspace/workspace.component";
 import { authGuard } from "./guards/auth.guard";
-import { ProfileComponent } from "./components/user/profile/profile.component";
 import { EventListComponent } from "./components/events/event-list/event-list.component";
 import { EventDetailsComponent } from "./components/events/event-details/event-details.component";
 import {CategoryFormComponent} from "./components/categories/category-form/category-form.component";

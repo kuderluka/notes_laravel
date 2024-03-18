@@ -6,8 +6,7 @@ import {NotesService} from "../../../services/notes.service";
   selector: 'notes-note-destroy',
   standalone: true,
   imports: [],
-  templateUrl: './note-destroy.component.html',
-  styleUrl: './note-destroy.component.css'
+  template: ''
 })
 export class NoteDestroyComponent implements OnInit {
   private id!: string;
