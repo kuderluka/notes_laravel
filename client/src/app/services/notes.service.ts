@@ -11,9 +11,9 @@ import { Note } from "../interfaces/note";
 })
 export class NotesService {
   private url = environment.appUrl;
-  private note!: Note;
+  private note!: any;
 
-  constructor(private http: HttpClient, private authService: AuthService, private eventService: EventService) { }
+  constructor(private httpClient: HttpClient, private authService: AuthService, private eventService: EventService) { }
 
   getUser() {
     return this.authService.getUser();
@@ -23,72 +23,51 @@ export class NotesService {
     return this.note;
   }
 
-  setNote(note: Note): void {
+  setNote(note: any): void {
     this.note = note;
   }
 
-  async getAllUsers() {
-    const data = await fetch(this.url + '/public/users');
-    return (await data.json()) ?? [];
+  getAllUsers() {
+    return this.httpClient.get<any>(this.url + '/public/users');
   }
 
-  async getUsersPublicData(id: string) {
-    const data = await fetch(this.url + '/public/users/' + id);
-    return (await data.json()) ?? [];
+  getUsersPublicData(id: string) {
+    return this.httpClient.get<any>(this.url + '/public/users/' + id);
   }
 
-  async getPublicNotes(search: string) {
+  getPublicNotes(search: string) {
     let queryParams = search ? `?search=${search}` : '';
-    const data = await fetch(this.url + '/public' + queryParams);
-    return (await data.json()) ?? [];
+    return this.httpClient.get<any>(this.url + '/public' + queryParams);
   }
 
-  async getUserDetails(id: string) {
-    const response = await fetch(this.url + '/users/' + id, {
+  getUserDetails(id: string) {
+    return this.httpClient.get<any>(this.url + '/users/' + id, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.authService.getToken()
       }
     });
-
-    if (response.ok) {
-      return (await response.json()) ?? [];
-    } else {
-      console.error('Failed to fetch data:', response);
-      return (await response.json()) ?? [];
-    }
   }
 
-  async createCategory(form: FormGroup) {
-    const response = await fetch(this.url + '/category/store', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
-      },
-      body: JSON.stringify({
+  createCategory(form: FormGroup) {
+    return this.httpClient.post<any>(this.url + '/category/store',
+      {
         users: this.authService.getUser().id,
         title: form.value.title,
         color: form.value.color
-      })
-    });
-
-    if (response.ok) {
-      return response;
-    } else {
-      console.error('Failed to create a category:', response);
-      return response;
-    }
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.authService.getToken()
+        }
+      }
+    );
   }
 
-  async createNote(form: FormGroup) {
-    const response = await fetch(this.url + '/note/store', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
-      },
-      body: JSON.stringify({
+  createNote(form: FormGroup) {
+    return this.httpClient.post<any>(this.url + '/note/store',
+      {
         user_id: form.value.user_id,
         category_id: form.value.category_id,
         title: form.value.title,
@@ -97,25 +76,18 @@ export class NotesService {
         deadline: form.value.deadline,
         tags: form.value.tags,
         public: form.value.public
-      })
-    });
-
-    if (response.ok) {
-      return response;
-    } else {
-      console.error('Failed to create a note:', response);
-      return response;
-    }
-  }
-
-  async updateNote(form: FormGroup, id: string) {
-    const response = await fetch(this.url + '/note/store/' + id, {
-      method: 'PUT',
+      },
+      {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.authService.getToken()
-      },
-      body: JSON.stringify({
+      }
+    });
+  }
+
+  updateNote(form: FormGroup, id: string) {
+    return this.httpClient.put<any>(this.url + '/note/store/' + id,
+      {
         id: id,
         user_id: form.value.user_id,
         category_id: form.value.category_id,
@@ -125,48 +97,31 @@ export class NotesService {
         deadline: form.value.deadline,
         tags: form.value.tags,
         public: form.value.public
-      })
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.authService.getToken()
+        }
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      console.error('Failed to update a note:', response);
-      return response;
-    }
   }
 
-  async getCategories() {
-    const response = await fetch(this.url + '/categories', {
+  getCategories() {
+    return this.httpClient.get<any>(this.url + '/categories', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.authService.getToken()
       }
     });
-
-    if (response.ok) {
-      return (await response.json()) ?? [];
-    } else {
-      console.error('Failed to fetch categories:', response);
-      return (await response.json()) ?? [];
-    }
   }
 
-  async deleteNote(id: string) {
-    const response = await fetch(this.url + '/note/destroy/' + id, {
-      method: 'DELETE',
+  deleteNote(id: string) {
+    return this.httpClient.delete<any>(this.url + '/note/destroy/' + id, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.authService.getToken()
       }
     });
-
-    if (response.ok) {
-      return response;
-    } else {
-      console.error('Failed to create a category:', response);
-      return response;
-    }
   }
 
   private getUrl() {

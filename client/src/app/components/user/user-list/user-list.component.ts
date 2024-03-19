@@ -16,7 +16,7 @@ export class UserListComponent {
   userList: User[] = [];
 
   constructor(private notesService:NotesService) {
-    this.notesService.getAllUsers().then((users: UserList) => {
+    this.notesService.getAllUsers().subscribe((users: UserList) => {
       this.userList = users.entries;
     })
   }

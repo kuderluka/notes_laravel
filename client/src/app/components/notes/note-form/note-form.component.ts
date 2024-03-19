@@ -21,6 +21,7 @@ export class NoteFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.note = this.notesService.getNote();
+    //this.notesService.setNote([]);
 
     this.form = this.formBuilder.group({
       user_id: [this.notesService.getUser().id],
@@ -33,7 +34,7 @@ export class NoteFormComponent implements OnInit {
       public: [this.note?.public]
     });
 
-    this.notesService.getCategories().then((res: any) => {
+    this.notesService.getCategories().subscribe((res: any) => {
       this.categories = res.data.categories;
     })
   }
@@ -59,11 +60,12 @@ export class NoteFormComponent implements OnInit {
     }
 
     if (this.note) {
-      this.notesService.updateNote(this.form, this.note.id).then(res => {
+      this.notesService.updateNote(this.form, this.note.id).subscribe(res => {
         this.router.navigate(['workspace']);
       })
     } else {
-      this.notesService.createNote(this.form).then(res => {
+      console.log('new');
+      this.notesService.createNote(this.form).subscribe(res => {
         this.router.navigate(['workspace']);
       })
     }

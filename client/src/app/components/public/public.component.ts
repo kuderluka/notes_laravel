@@ -36,7 +36,7 @@ export class PublicComponent {
    * Loads a new page of notes from the server
    */
   loadNotes(): void {
-    this.notesService.getPublicNotes(this.searchQuery).then((res: any) => {
+    this.notesService.getPublicNotes(this.searchQuery).subscribe((res: any) => {
       this.notes = res.data.notes.data;
       this.totalItems = res.data.notes.total;
       this.itemsPerPage = res.data.notes.per_page;

@@ -131,11 +131,13 @@ class NoteController extends Controller
 
         $validated['id'] = $noteId;
         $validated['user_id'] = Auth::user()->id;
-        Note::where('id', $validated['id'])->update($validated);
+        $note = Note::where('id', $validated['id'])->update($validated);
 
         return response()->json([
             'message' => 'Success!',
-            'data' => []
+            'data' => [
+                'note' => $note
+            ]
         ]);
     }
 

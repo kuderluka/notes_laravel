@@ -28,7 +28,7 @@ export class WorkspaceComponent {
   events: any;
 
   constructor(private eventService: EventService, private noteService: NotesService, private authService: AuthService) {
-    this.noteService.getUserDetails(this.id).then((user: any) => {
+    this.noteService.getUserDetails(this.id).subscribe((user: any) => {
       this.notes = user.notes;
     });
 

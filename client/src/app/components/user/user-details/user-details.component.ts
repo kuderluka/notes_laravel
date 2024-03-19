@@ -25,7 +25,7 @@ export class UserDetailsComponent {
 
     constructor(private route: ActivatedRoute, private notesService: NotesService) {
         this.id = this.route.snapshot.params['id'];
-        this.notesService.getUsersPublicData(this.id).then((user: any) => {
+        this.notesService.getUsersPublicData(this.id).subscribe((user: any) => {
             this.data = user;
         });
     }

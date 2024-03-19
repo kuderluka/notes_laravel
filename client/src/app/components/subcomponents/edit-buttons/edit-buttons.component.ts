@@ -22,7 +22,7 @@ export class EditButtonsComponent {
   }
 
   destroyNote(): void {
-    this.noteService.deleteNote(this.note.id).then(() => {
+    this.noteService.deleteNote(this.note.id).subscribe(() => {
       this.router.navigate(['/workspace']);
     });
   }
