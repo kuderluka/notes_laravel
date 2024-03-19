@@ -14,7 +14,7 @@ export class EventService {
   private headers: HttpHeaders = new HttpHeaders();
   private options: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   ngOnInit() {
     this.setHeaders()
@@ -28,55 +28,38 @@ export class EventService {
     this.options = { headers: this.headers };
   }
 
-  async getEvents(currentPage: number) {
-    const data = await fetch(this.url + '/events/?page=' + currentPage, this.options);
-    return (await data.json()) ?? [];
+  getEvents(currentPage: number) {
+    return this.httpClient.get<any>(this.url + '/events/?page=' + currentPage, this.options);
   }
 
-  async getUsersEvents(email: string) {
-    const data = await fetch(this.url + '/events/user/' + email, this.options);
-    return (await data.json()) ?? [];
+  getUsersEvents(email: string) {
+    return this.httpClient.get<any>(this.url + '/events/user/' + email, this.options);
   }
 
-  async getEventDetails(id: string) {
-    const data = await fetch(this.url + '/events/' + id, this.options);
-    return (await data.json()) ?? [];
+  getEventDetails(id: string) {
+    return this.httpClient.get<any>(this.url + '/events/' + id, this.options);
   }
 
-  async addAttendee(event_id: string, email: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/add-user/' + email, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.token
+  addAttendee(event_id: string, email: string) {
+    this.setHeaders();
+    return this.httpClient.post<any>(this.url + '/events/' + event_id + '/add-user/' + email,
+      {
+        user_id: email,
+        event_id: event_id
       },
-      body: JSON.stringify({ user_id: email, event_id: event_id })
-    });
-
-    if (response.ok) {
-      return await response.json();
-    } else {
-      console.error('Failed to add attendee:', response);
-      return [];
-    }
+      this.options
+    );
   }
 
-  async removeAttendee(event_id: string, email: string) {
-    const response = await fetch(this.url + '/events/' + event_id + '/remove-user/' + email, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.token
+  removeAttendee(event_id: string, email: string) {
+    this.setHeaders();
+    return this.httpClient.post<any>(this.url + '/events/' + event_id + '/remove-user/' + email,
+      {
+        user_id: email,
+        event_id: event_id
       },
-      body: JSON.stringify({ user_id: email, event_id: event_id })
-    });
-
-    if (response.ok) {
-      return await response.json();
-    } else {
-      console.error('Failed to remove attendee:', response);
-      return [];
-    }
+      this.options
+    );
   }
 
   setToken(token: string | false) {
@@ -97,11 +80,11 @@ export class EventService {
   }
 
   login(data: any): any {
-    return this.http.post(this.url + '/login', data, this.options);
+    return this.httpClient.post(this.url + '/login', data, this.options);
   }
 
   register(data: any):any {
-    return this.http.post(this.url + '/register', data, this.options);
+    return this.httpClient.post(this.url + '/register', data, this.options);
   }
 
   getUrl() {

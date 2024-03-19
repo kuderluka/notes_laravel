@@ -32,7 +32,7 @@ export class WorkspaceComponent {
       this.notes = user.notes;
     });
 
-    this.eventService.getUsersEvents(this.user.email).then((res: any) => {
+    this.eventService.getUsersEvents(this.user.email).subscribe((res: any) => {
       this.events = res;
     })
   }

@@ -23,7 +23,7 @@ export class AttendButtonComponent {
 
   ngOnInit() {
     try {
-      this.eventService.getEventDetails(this.event_id).then((res: any) => {
+      this.eventService.getEventDetails(this.event_id).subscribe((res: any) => {
         this.event = res.data.event;
       })
     } catch (error) {
@@ -41,33 +41,31 @@ export class AttendButtonComponent {
     return this.event.participants.some((participant: any) => participant.email === this.user.email);
   }
 
-  /*
-    Removes the user as an attendee of an event
+  /**
+   * Removes an attendee from an event
    */
-  async removeAttendee(): Promise<void> {
-    try {
-      const res = await this.eventService.removeAttendee(this.event_id, this.user.email);
+  removeAttendee(): void {
+    this.eventService.removeAttendee(this.event_id, this.user.email).subscribe((res: any) => {
       if (res.message) {
         //Vem da to ni pravi nacin ampak za angular 17 nisem nasl vredu dokumentacijo kak spremenit route reuse zato sm kr to uporabu
         this.router.navigate(['/']).then(() => { this.router.navigate(['/events', this.event_id]) })
+      } else {
+        console.error('Failed to remove attendee:' + res);
       }
-    } catch (error) {
-      console.error('Failed to remove attendee:', error);
-    }
+    })
   }
 
-  /*
-    Adds the user as an attendee of an event
+  /**
+   * Adds the user as an attendee of an event
    */
-  async addAttendee(): Promise<void> {
-    try {
-      const res = await this.eventService.addAttendee(this.event_id, this.user.email);
+  addAttendee(): void {
+    this.eventService.addAttendee(this.event_id, this.user.email).subscribe((res: any) => {
       if (res.message) {
         //Vem da to ni pravi nacin ampak za angular 17 nisem nasl vredu dokumentacijo kak spremenit route reuse zato sm kr to uporabu
         this.router.navigate(['/']).then(() => { this.router.navigate(['/events', this.event_id]) })
+      } else {
+        console.error('Failed to add attendee:' + res);
       }
-    } catch (error) {
-      console.error('Failed to add attendee:', error);
-    }
+    })
   }
 }

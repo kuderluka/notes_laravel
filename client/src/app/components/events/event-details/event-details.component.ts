@@ -23,7 +23,7 @@ export class EventDetailsComponent {
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.eventService.getEventDetails(this.id).then((res: any) => {
+    this.eventService.getEventDetails(this.id).subscribe((res: any) => {
       this.event = res.data.event;
     });
   }

@@ -35,7 +35,7 @@ export class EventListComponent {
     }
 
     loadEvents(): void {
-      this.eventService.getEvents(this.currentPage).then((res: any) => {
+      this.eventService.getEvents(this.currentPage).subscribe((res: any) => {
         this.events = res.data.events.data;
         this.totalItems = res.data.events.total;
         this.itemsPerPage = res.data.events.per_page;
