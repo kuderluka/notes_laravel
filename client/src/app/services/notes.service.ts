@@ -41,12 +41,7 @@ export class NotesService {
   }
 
   getUserDetails(id: string) {
-    return this.httpClient.get<any>(this.url + '/users/' + id, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
-      }
-    });
+    return this.httpClient.get<any>(this.url + '/users/' + id);
   }
 
   createCategory(form: FormGroup) {
@@ -55,12 +50,6 @@ export class NotesService {
         users: this.authService.getUser().id,
         title: form.value.title,
         color: form.value.color
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.authService.getToken()
-        }
       }
     );
   }
@@ -76,13 +65,8 @@ export class NotesService {
         deadline: form.value.deadline,
         tags: form.value.tags,
         public: form.value.public
-      },
-      {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
       }
-    });
+    );
   }
 
   updateNote(form: FormGroup, id: string) {
@@ -97,31 +81,16 @@ export class NotesService {
         deadline: form.value.deadline,
         tags: form.value.tags,
         public: form.value.public
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.authService.getToken()
-        }
-    });
+      }
+    );
   }
 
   getCategories() {
-    return this.httpClient.get<any>(this.url + '/categories', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
-      }
-    });
+    return this.httpClient.get<any>(this.url + '/categories');
   }
 
   deleteNote(id: string) {
-    return this.httpClient.delete<any>(this.url + '/note/destroy/' + id, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
-      }
-    });
+    return this.httpClient.delete<any>(this.url + '/note/destroy/' + id);
   }
 
   private getUrl() {

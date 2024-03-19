@@ -9,60 +9,41 @@ import { environment } from "../../environments/environment";
 
 export class EventService {
   private url = environment.eventsUrl;
-  private token: string | boolean = false;
-
-  private headers: HttpHeaders = new HttpHeaders();
-  private options: any;
+  private token: string = '';
 
   constructor(private httpClient: HttpClient) {}
 
-  ngOnInit() {
-    this.setHeaders()
-  }
-
-  private setHeaders() {
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    this.options = { headers: this.headers };
-  }
-
   getEvents(currentPage: number) {
-    return this.httpClient.get<any>(this.url + '/events/?page=' + currentPage, this.options);
+    return this.httpClient.get<any>(this.url + '/events/?page=' + currentPage);
   }
 
   getUsersEvents(email: string) {
-    return this.httpClient.get<any>(this.url + '/events/user/' + email, this.options);
+    return this.httpClient.get<any>(this.url + '/events/user/' + email);
   }
 
   getEventDetails(id: string) {
-    return this.httpClient.get<any>(this.url + '/events/' + id, this.options);
+    return this.httpClient.get<any>(this.url + '/events/' + id);
   }
 
   addAttendee(event_id: string, email: string) {
-    this.setHeaders();
     return this.httpClient.post<any>(this.url + '/events/' + event_id + '/add-user/' + email,
       {
         user_id: email,
         event_id: event_id
-      },
-      this.options
+      }
     );
   }
 
   removeAttendee(event_id: string, email: string) {
-    this.setHeaders();
     return this.httpClient.post<any>(this.url + '/events/' + event_id + '/remove-user/' + email,
       {
         user_id: email,
         event_id: event_id
-      },
-      this.options
+      }
     );
   }
 
-  setToken(token: string | false) {
+  setToken(token: string) {
     this.token = token;
   }
 
@@ -71,8 +52,7 @@ export class EventService {
   }
 
   logout() {
-    this.token = false;
-    this.setHeaders();
+    this.token = '';
   }
 
   setData(data: any) {
@@ -80,11 +60,11 @@ export class EventService {
   }
 
   login(data: any): any {
-    return this.httpClient.post(this.url + '/login', data, this.options);
+    return this.httpClient.post(this.url + '/login', data);
   }
 
   register(data: any):any {
-    return this.httpClient.post(this.url + '/register', data, this.options);
+    return this.httpClient.post(this.url + '/register', data);
   }
 
   getUrl() {

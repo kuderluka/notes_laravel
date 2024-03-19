@@ -8,39 +8,20 @@ import { environment } from "../../environments/environment";
 })
 export class AuthService {
   private url: string = environment.appUrl;
-  private token: string | boolean = false;
+  private token: string = '';
   private user: any;
-
-  private headers: HttpHeaders = new HttpHeaders();
-  private options: any;
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.setHeaders()
-  }
-
   login(data: any): any {
-    return this.http.post(this.url + '/login', data, this.options);
+    return this.http.post(this.url + '/login', data);
   }
 
   register(data: any): any {
-    return this.http.post(this.url + '/register', data, this.options);
+    return this.http.post(this.url + '/register', data);
   }
 
-  private setHeaders(): void {
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    this.options = { headers: this.headers };
-  }
-
-  getOptions() {
-    return this.options;
-  }
-
-  setToken(token: string | false) {
+  setToken(token: string) {
     this.token = token;
   }
 
@@ -49,9 +30,8 @@ export class AuthService {
   }
 
   logout() {
-    this.token = false;
+    this.token = '';
     this.user = false;
-    this.setHeaders();
   }
 
   setUser(user: User) {
