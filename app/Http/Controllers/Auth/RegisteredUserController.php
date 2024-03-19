@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => false,
+                'message' => 'Invalid credentials!',
                 'data' => [
                     'error' => $e
                 ]
