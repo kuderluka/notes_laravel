@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -24,16 +23,17 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $entries = Note::join('users', 'notes.user_id', '=', 'users.id')
-            ->where('public', 1)
-            ->filter(request(['search']))
-            ->sortable()
-            ->paginate(8);
+        $notes = Note::where('public', 1)
+            ->with('category', 'user')
+            ->filterSearch(request(['search']))
+            ->paginate(10);
 
-        return view('list', [
-            'heading' => 'notes',
-            'public' => 0,
-            'entries' => $entries
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'notes' => $notes,
+            ],
+            'message' => 'Notes successfully retrieved.'
         ]);
     }
 
@@ -44,26 +44,43 @@ class NoteController extends Controller
      */
     public function getNotesByUsername(): JsonResponse
     {
-        return response()->json([
-            'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
+        return response()->json(
+        [
+            'success' => true,
+            'data' => [
+                'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
+            ],
+            'message' => 'Note successfully retrieved.'
         ]);
     }
 
     /**
      * Gets single note by id
      *
-     * @param $id
+     * @param string $id
      * @return JsonResponse
      */
-    public function getNoteById($id): JsonResponse
+    public function getNoteById(String $id): JsonResponse
     {
-        $id = Note::findOrFail($id);
+        $note = Note::findOrFail($id);
 
-        if ($id->user_id !== Auth::user()->id) {
-            return response()->json(['message' => 'Cannot access this note.'], 403);
+        if ($note->user_id !== Auth::user()->id) {
+            return response()->json([
+                'success' => false,
+                'data' => [
+                    'note' => $note,
+                ],
+                'message' => 'Cannot access this note.'
+            ]);
         }
 
-        return response()->json($id);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'note' => $note,
+            ],
+            'message' => 'Note successfully retrieved.'
+        ]);
     }
 
     /**
@@ -97,11 +114,11 @@ class NoteController extends Controller
      * Updates the entry in the database and redirects
      *
      * @param Request $request
-     * @param string $noteId
      * @return string
      */
-    public function update(Request $request, string $noteId)
+    public function update(Request $request): string
     {
+        $noteId = $request->id;
         $validated = $request->validate([
             'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title')->ignore($noteId), 'min:5', 'max:30'],
@@ -114,8 +131,14 @@ class NoteController extends Controller
 
         $validated['id'] = $noteId;
         $validated['user_id'] = Auth::user()->id;
-        Note::where('id', $validated['id'])->update($validated);
-        return redirect(route('user.show'))->with('message', 'Note updated successfully');
+        $note = Note::where('id', $validated['id'])->update($validated);
+
+        return response()->json([
+            'message' => 'Success!',
+            'data' => [
+                'note' => $note
+            ]
+        ]);
     }
 
     /**
@@ -153,7 +176,12 @@ class NoteController extends Controller
         $note->category()->associate($category);
         $note->save();
 
-        return redirect(route('user.show'))->with('message', 'Note created successfully');
+        return response()->json([
+            'message' => 'Success!',
+            'data' => [
+                'note' => $note
+            ]
+        ]);
     }
 
     /**

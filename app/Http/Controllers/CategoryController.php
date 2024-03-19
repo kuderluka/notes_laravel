@@ -6,20 +6,23 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
     public function list()
     {
         return response()->json([
-           'categories' => Category::all(),
+            'success' => true,
+            'data' => [
+                'categories' => Category::orderBy('title')->get()
+            ],
+            'message' => 'Categories successfully retrieved.',
         ]);
+
     }
 
     /**
      * Returns the default view
-     *
      *
      * @return string
      */
@@ -98,10 +101,13 @@ class CategoryController extends Controller
         ]);
         $validated['id'] = (string) Str::orderedUuid();
 
-
         $category = Category::create($validated);
         $category->users()->attach($request->users);
-        return redirect(route('user.show'))->with('message', 'Category created successfully');
+
+        return response()->json([
+            'message' => 'Category created!',
+            'data' => []
+        ]);
     }
 
     /**

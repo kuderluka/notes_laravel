@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
+
     /**
-     * Returns the view that displays all the users
+     * Returns the list of all users
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return JsonResponse
      */
     public function index()
     {
-        return view('list', [
+        return response()->json([
             'heading' => 'users',
             'public' => false,
-            'entries' => User::sortable()->paginate(8)
+            'entries' => User::all()
         ]);
     }
 }
