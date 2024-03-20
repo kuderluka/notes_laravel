@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { EventService } from "../../services/event.service";
-import { NgIf } from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
 
 @Component({
@@ -13,7 +13,8 @@ import { ErrorsComponent } from "../../components/subcomponents/errors/errors.co
     RouterLink,
     ReactiveFormsModule,
     NgIf,
-    ErrorsComponent
+    ErrorsComponent,
+    NgClass
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -21,6 +22,7 @@ import { ErrorsComponent } from "../../components/subcomponents/errors/errors.co
 export class RegisterComponent {
   public registerForm!: FormGroup;
   protected errors: { [key: string]: string } = {};
+  protected submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private eventService: EventService, private router: Router) {}
 
@@ -33,10 +35,20 @@ export class RegisterComponent {
     });
   }
 
+  get f(): { [key: string]: AbstractControl } {
+    return this.registerForm.controls;
+  }
+
   /**
    * Creates new accounts on both mine and Kristjan's site, and stores the given tokens
    */
   register(): void {
+    this.submitted = true;
+
+    if (this.registerForm.invalid) {
+      return;
+    }
+
     this.errors = {};
     this.authService.register(this.registerForm.value).subscribe(
       (res: any) => {
@@ -44,7 +56,6 @@ export class RegisterComponent {
           this.authService.setData(res.data);
 
           if (Object.keys(this.errors).length === 0) {
-            console.log('hmmmm');
             this.eventService.register(this.registerForm.value).subscribe(
               (res2: any) => {
                 if (res2 && res2.data && res2.data.token !== undefined) {

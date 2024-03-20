@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import { EventService } from "../../services/event.service";
 import {NgIf} from "@angular/common";
 import {ErrorsComponent} from "../../components/subcomponents/errors/errors.component";
@@ -21,6 +21,7 @@ import {ErrorsComponent} from "../../components/subcomponents/errors/errors.comp
 export class LoginComponent {
   public loginForm!: FormGroup;
   protected errors: { [key: string]: string } = {};
+  protected submitted: boolean = false;
 
   constructor(private authService: AuthService,private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
 
@@ -31,10 +32,19 @@ export class LoginComponent {
     });
   }
 
+  get f(): { [key: string]: AbstractControl } {
+    return this.loginForm.controls;
+  }
+
   /**
    * Authenticates an already existing user by fetching tokens from both my and Kristjan's server and storing them
    */
   login(): void {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.errors = {};
     this.authService.login(this.loginForm.value).subscribe(
         (res: any) => {
