@@ -65,11 +65,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/note/edit/{note}', [NoteController::class, 'edit']);
     Route::delete('/note/destroy/{note}', [NoteController::class, 'destroyById']);
 
-    Route::get('/events', [EventController::class, 'index']);
-    Route::get('/events/{event}', [EventController::class, 'show']);
-    Route::post('/addAttendee', [EventController::class, 'addAttendee']);
-    Route::post('/removeAttendee', [EventController::class, 'removeAttendee']);
-
     Route::get('/notes/byUser', [NoteController::class, 'getNotesByUsername']);
     Route::get('/notes/{noteId}', [NoteController::class, 'getNoteById']);
     Route::post('/notes', [NoteController::class, 'store']);

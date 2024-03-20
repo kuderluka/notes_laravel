@@ -60,14 +60,11 @@ export class NoteFormComponent implements OnInit {
     }
 
     if (this.note) {
-      this.notesService.updateNote(this.form, this.note.id).subscribe(res => {
-        this.router.navigate(['workspace']);
-      })
+      this.notesService.updateNote(this.form, this.note.id).subscribe(res => {})
     } else {
-      console.log('new');
-      this.notesService.createNote(this.form).subscribe(res => {
-        this.router.navigate(['workspace']);
-      })
+      this.notesService.createNote(this.form).subscribe(res => {})
     }
+
+    this.router.navigate(['workspace']);
   }
 }

@@ -32,19 +32,19 @@ class AuthenticatedSessionController extends Controller
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response([
+                'success' => true,
                 'message' => 'Invalid credentials',
-                'data' => false
+                'data' => []
             ]);
         }
 
         $user = Auth::user();
 
-        $this->eventsAppService->login($user);
-
         $token = $user->createToken('token')->plainTextToken;
 
         return response()->json([
-            'message' => 'Success',
+            'success' => true,
+            'message' => 'Authentication successful!',
             'data' => [
                 'user' => $user,
                 'token' => $token
