@@ -25,11 +25,8 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json([
-            'message' => 'Success',
-            'data' => [
-                'events' => $this->eventsAppService->getEvents($request->search)
-            ]
+        return view('events', [
+            'events' => $this->eventsAppService->getEvents($request->search)
         ]);
     }
 
@@ -56,7 +53,7 @@ class EventController extends Controller
      */
     public function userEvents(User $user)
     {
-        return response()->json([
+        return view('user-show', [
             'user' => $user,
             'notes' => $user->notes()->where('public', 1)->with('user', 'category')->get(),
             'events' => $this->getUsersEvents($user->email)

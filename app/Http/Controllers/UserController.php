@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-
     /**
      * Returns the list of all users
      *
@@ -15,10 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json([
+        return view('list', [
             'heading' => 'users',
             'public' => false,
-            'entries' => User::all()
+            'entries' => User::sortable()->paginate(8)
         ]);
     }
 }

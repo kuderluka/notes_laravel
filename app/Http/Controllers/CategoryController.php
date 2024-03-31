@@ -12,13 +12,8 @@ class CategoryController extends Controller
     public function list()
     {
         return response()->json([
-            'success' => true,
-            'data' => [
-                'categories' => Category::orderBy('title')->get()
-            ],
-            'message' => 'Categories successfully retrieved.',
+           'categories' => Category::all(),
         ]);
-
     }
 
     /**
@@ -100,6 +95,7 @@ class CategoryController extends Controller
             'color' => 'required'
         ]);
         $validated['id'] = (string) Str::orderedUuid();
+
 
         $category = Category::create($validated);
         $category->users()->attach($request->users);
