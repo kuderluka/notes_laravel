@@ -44,9 +44,14 @@ class NoteController extends Controller
      */
     public function getNotesByUsername(): JsonResponse
     {
-        return response()->json([
-            'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
-        ]);
+        return response()->json(
+            [
+                'success' => true,
+                'data' => [
+                    'notes' => User::with('notes')->findOrFail(Auth::user()->id)->notes,
+                ],
+                'message' => 'Note successfully retrieved.'
+            ]);
     }
 
     /**
@@ -57,7 +62,7 @@ class NoteController extends Controller
      */
     public function getNoteById(String $id): JsonResponse
     {
-        $id = Note::findOrFail($id);
+        $note = Note::findOrFail($id);
 
         if ($note->user_id !== Auth::user()->id) {
             return response()->json([
@@ -69,7 +74,13 @@ class NoteController extends Controller
             ]);
         }
 
-        return response()->json($id);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'note' => $note,
+            ],
+            'message' => 'Note successfully retrieved.'
+        ]);
     }
 
     /**
@@ -103,11 +114,11 @@ class NoteController extends Controller
      * Updates the entry in the database and redirects
      *
      * @param Request $request
-     * @param string $noteId
      * @return string
      */
-    public function update(Request $request, string $noteId)
+    public function update(Request $request): string
     {
+        $noteId = $request->id;
         $validated = $request->validate([
             'category_id' => 'required',
             'title' => ['required', Rule::unique('notes' , 'title')->ignore($noteId), 'min:5', 'max:30'],
@@ -165,7 +176,12 @@ class NoteController extends Controller
         $note->category()->associate($category);
         $note->save();
 
-        return redirect(route('user.show'))->with('message', 'Note created successfully');
+        return response()->json([
+            'message' => 'Success!',
+            'data' => [
+                'note' => $note
+            ]
+        ]);
     }
 
     /**

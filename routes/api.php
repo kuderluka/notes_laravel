@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -18,6 +22,15 @@ use App\Models\User;
 |
 */
 
+Route::get('/public', [NoteController::class, 'index']);
+
+Route::get('/public/users', [UserController::class, 'index']);
+Route::get('/public/users/{user}', [EventController::class, 'userEvents']);
+
+Route::post('register', [RegisteredUserController::class, 'store']);
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+
 Route::post('/tokens/authenticate', function (LoginRequest $request) {
     $request->authenticate();
 
@@ -26,6 +39,7 @@ Route::post('/tokens/authenticate', function (LoginRequest $request) {
 
     return response()->json([
         'token' => $token,
+        'user' => $user,
     ]);
 });
 
@@ -49,6 +63,11 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('/note/store/{note}', [NoteController::class, 'update']);
     Route::get('/note/edit/{note}', [NoteController::class, 'edit']);
     Route::delete('/note/destroy/{note}', [NoteController::class, 'destroyById']);
+
+    Route::get('/events', [EventController::class, 'index']);
+    Route::get('/events/{event}', [EventController::class, 'show']);
+    Route::post('/addAttendee', [EventController::class, 'addAttendee']);
+    Route::post('/removeAttendee', [EventController::class, 'removeAttendee']);
 
     Route::get('/notes/byUser', [NoteController::class, 'getNotesByUsername']);
     Route::get('/notes/{noteId}', [NoteController::class, 'getNoteById']);

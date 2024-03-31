@@ -25,8 +25,11 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        return view('events', [
-            'events' => $this->eventsAppService->getEvents($request->search)
+        return response()->json([
+            'message' => 'Success',
+            'data' => [
+                'events' => $this->eventsAppService->getEvents($request->search)
+            ]
         ]);
     }
 
@@ -53,7 +56,7 @@ class EventController extends Controller
      */
     public function userEvents(User $user)
     {
-        return view('user-show', [
+        return response()->json([
             'user' => $user,
             'notes' => $user->notes()->where('public', 1)->with('user', 'category')->get(),
             'events' => $this->getUsersEvents($user->email)
@@ -71,5 +74,44 @@ class EventController extends Controller
     {
         return $this->eventsAppService->getUsersEvents($email);
     }
-}
 
+    /**
+     * Adds the currently authenticated user to the list of attendees of a certain event
+     *
+     * @param Request $request
+     * @return \Exception|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function addAttendee(Request $request)
+    {
+        try {
+            $this->eventsAppService->addAttendee(
+                auth()->user()->email,
+                $request->event_id,
+            );
+
+            return redirect(route('event.show', ['event' => $request->event_id]));
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    /**
+     * Removes the currently authenticated user from the list of attendees of a certain event
+     *
+     * @param Request $request
+     * @return \Exception|GuzzleException|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function removeAttendee(Request $request)
+    {
+        try {
+            $this->eventsAppService->removeAttendee(
+                auth()->user()->email,
+                $request->event_id
+            );
+
+            return redirect(route('event.show', ['event' => $request->event_id]));
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+}

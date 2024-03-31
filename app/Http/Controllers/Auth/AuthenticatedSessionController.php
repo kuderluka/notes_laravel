@@ -28,23 +28,21 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response([
-                'success' => true,
                 'message' => 'Invalid credentials',
-                'data' => []
+                'data' => false
             ]);
         }
 
-        $request->session()->regenerate();
+        $user = Auth::user();
 
         $token = $user->createToken('token')->plainTextToken;
 
         return response()->json([
-            'success' => true,
-            'message' => 'Authentication successful!',
+            'message' => 'Success',
             'data' => [
                 'user' => $user,
                 'token' => $token
@@ -57,19 +55,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): JsonResponse
     {
-        $this->eventsAppService->logout();
+        try {
+            $this->eventsAppService->logout();
 
-        Auth::guard('web')->logout();
+            auth()->user()->tokens()->delete();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->json([
-            'message' => 'User logged out!',
-            'data' => auth()->user()->tokens()
-        ]);
-      
+            return response()->json([
+                'message' => 'User logged out!',
+                'data' => auth()->user()->tokens()
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => false,
