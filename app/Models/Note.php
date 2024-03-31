@@ -46,15 +46,14 @@ class Note extends Model
         return Carbon::parse($this->attributes['deadline'])->format('d-m-Y H:i:s');
     }
 
-    public function scopeFilter($query, array $filters)
+    public function scopeFilterSearch($query, array $filters)
     {
         if (isset($filters['search'])) {
             $query->where('title', 'like', '%' . $filters['search'] . '%')
                 ->orWhere('content', 'like', '%' . $filters['search'] . '%')
                 ->orWhere('priority', 'like', '%' . $filters['search'] . '%')
                 ->orWhere('deadline', 'like', '%' . $filters['search'] . '%')
-                ->orWhere('tags', 'like', '%' . $filters['search'] . '%')
-                ->orWhere('username', 'like', '%' . $filters['search'] . '%');
+                ->orWhere('tags', 'like', '%' . $filters['search'] . '%');
         }
     }
 

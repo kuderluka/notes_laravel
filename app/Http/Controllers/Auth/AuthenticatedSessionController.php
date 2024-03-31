@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\EventController;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use App\Services\EventsAppService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -33,19 +30,32 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response([
+                'success' => true,
+                'message' => 'Invalid credentials',
+                'data' => []
+            ]);
+        }
 
         $request->session()->regenerate();
 
-        $this->eventsAppService->login($request);
+        $token = $user->createToken('token')->plainTextToken;
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return response()->json([
+            'success' => true,
+            'message' => 'Authentication successful!',
+            'data' => [
+                'user' => $user,
+                'token' => $token
+            ]
+        ]);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): JsonResponse
     {
         $this->eventsAppService->logout();
 
@@ -55,6 +65,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return response()->json([
+            'message' => 'User logged out!',
+            'data' => auth()->user()->tokens()
+        ]);
+      
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => false,
+                'data' => $e
+            ]);
+        }
     }
 }

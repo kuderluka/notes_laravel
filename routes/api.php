@@ -30,7 +30,27 @@ Route::post('/tokens/authenticate', function (LoginRequest $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/notes', [NoteController::class, 'getNotesByUsername']);
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
+
+    Route::get('/profile', [ProfileController::class, 'edit']);
+    Route::patch('/profile', [ProfileController::class, 'update']);
+    Route::delete('/profile', [ProfileController::class, 'destroy']);
+
+    Route::get('/users/{user}', [EventController::class, 'getSingleUsersData']);
+
+    Route::get('/category/create', [CategoryController::class, 'create']);
+    Route::post('/category/store', [CategoryController::class, 'store']);
+    Route::put('/category/store', [CategoryController::class, 'update']);
+    Route::get('/category/edit/{category}', [CategoryController::class, 'edit']);
+    Route::delete('/category/destroy/{category}', [CategoryController::class, 'destroy']);
+
+    Route::get('/note/create', [NoteController::class, 'create']);
+    Route::post('/note/store', [NoteController::class, 'store']);
+    Route::put('/note/store/{note}', [NoteController::class, 'update']);
+    Route::get('/note/edit/{note}', [NoteController::class, 'edit']);
+    Route::delete('/note/destroy/{note}', [NoteController::class, 'destroyById']);
+
+    Route::get('/notes/byUser', [NoteController::class, 'getNotesByUsername']);
     Route::get('/notes/{noteId}', [NoteController::class, 'getNoteById']);
     Route::post('/notes', [NoteController::class, 'store']);
     Route::patch('/notes/{noteId}', [NoteController::class, 'update']);

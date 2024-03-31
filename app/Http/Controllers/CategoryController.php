@@ -6,7 +6,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -19,7 +18,6 @@ class CategoryController extends Controller
 
     /**
      * Returns the default view
-     *
      *
      * @return string
      */
@@ -101,7 +99,11 @@ class CategoryController extends Controller
 
         $category = Category::create($validated);
         $category->users()->attach($request->users);
-        return redirect(route('user.show'))->with('message', 'Category created successfully');
+
+        return response()->json([
+            'message' => 'Category created!',
+            'data' => []
+        ]);
     }
 
     /**
