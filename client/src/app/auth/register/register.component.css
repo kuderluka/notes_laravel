@@ -1,0 +1,17 @@
+.card {
+  width: 600px;
+  padding: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.buttons > button {
+  margin-right: 10px;
+}
+
+.error-message {
+  margin-top: 5px;
+  color: red;
+}

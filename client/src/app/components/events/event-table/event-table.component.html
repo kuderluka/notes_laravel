@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Musician</th>
+      <th>Date</th>
+      <th>Address</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let event of events">
+    <td>{{ event.name }}</td>
+    <td *ngIf="event.musicians">{{ event.musicians[0].name }}</td>
+    <td>{{ event.date }}</td>
+    <td>{{ event.address }}</td>
+    <td>{{ event.ticketPrice }}</td>
+    <td><notes-event-button [id]="event.id"> </notes-event-button></td>
+  </tr>
+  </tbody>
+</table>
