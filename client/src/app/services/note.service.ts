@@ -31,6 +31,10 @@ export class NoteService {
     return this.httpClient.get<any>(this.url + '/public/users');
   }
 
+  getStatisticsData() {
+    return this.httpClient.get<any>(this.url + '/statistics')
+  }
+
   getUsersPublicData(id: string) {
     return this.httpClient.get<any>(this.url + '/public/users/' + id);
   }

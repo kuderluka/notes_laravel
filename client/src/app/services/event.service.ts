@@ -17,6 +17,10 @@ export class EventService {
     return this.httpClient.get<any>(this.url + '/events/?page=' + currentPage);
   }
 
+  getAllEvents() {
+    return this.httpClient.get<any>(this.url + '/events');
+  }
+
   getUsersEvents(email: string) {
     return this.httpClient.get<any>(this.url + '/events/user/' + email);
   }
