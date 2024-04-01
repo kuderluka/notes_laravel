@@ -58,8 +58,6 @@ export class StatisticsPageComponent {
         console.error('Error fetching events');
       }
     });
-
-    console.log(this.data.categories)
   }
 
   /**
@@ -68,27 +66,21 @@ export class StatisticsPageComponent {
    * @protected
    */
   protected getCategoryPopularityData(): any {
-    return [
-      {
-        "name": "Germany",
-        "value": 894000
-      },
-      {
-        "name": "USA",
-        "value": 500000
-      },
-      {
-        "name": "France",
-        "value": 720000
-      },
-      {
-        "name": "USAa",
-        "value": 500000
-      },
-      {
-        "name": "Fraance",
-        "value": 720000
+
+    let output: any[] = [];
+    this.data.notes.forEach((note: any) => {
+      let existing = output.find(entry => entry.name === note.category.title);
+
+      if (existing) {
+        existing.value += 1;
+      } else {
+        output.push({
+          "name": note.category.title,
+          "value": 1
+        });
       }
-    ];
+    });
+
+    return output.sort((a, b) => b.value - a.value).slice(0,5);
   }
 }

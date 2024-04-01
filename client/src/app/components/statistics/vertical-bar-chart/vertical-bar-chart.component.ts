@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @Component({
   selector: 'notes-vertical-bar-chart',
