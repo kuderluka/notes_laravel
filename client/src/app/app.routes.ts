@@ -11,6 +11,7 @@ import { EventListComponent } from "./components/events/event-list/event-list.co
 import { EventDetailsComponent } from "./components/events/event-details/event-details.component";
 import { CategoryFormComponent } from "./components/categories/category-form/category-form.component";
 import { NoteFormComponent } from "./components/notes/note-form/note-form.component";
+import {StatisticsPageComponent} from "./components/statistics/statistics-page/statistics-page.component";
 
 export const routes: Routes = [
   {
@@ -52,6 +53,11 @@ export const routes: Routes = [
     path: 'dashboard',
     component: LandingComponent,
     title: 'Dashboard',
+  },
+  {
+    path: 'statistics',
+    component: StatisticsPageComponent,
+    title: 'Statistics',
   },
   {
     path: 'workspace',
