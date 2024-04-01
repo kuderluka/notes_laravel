@@ -57,4 +57,30 @@ export class StatisticsPageComponent {
       }
     });
   }
+
+  /**
+   * Extracts and returns the data about how many users have an event connected to their account
+   *
+   * @protected
+   */
+  protected getEventAttendanceData(): any {
+    let attending: number = 0;
+
+    this.data.users.forEach((user: any) => {
+      if (user.events.length != 0) {
+        attending++;
+      }
+    });
+
+    return [
+      {
+        "name": "Have attended",
+        "value": attending
+      },
+      {
+        "name": "Have not attended",
+        "value": this.data.users.length - attending
+      }
+    ];
+  }
 }
