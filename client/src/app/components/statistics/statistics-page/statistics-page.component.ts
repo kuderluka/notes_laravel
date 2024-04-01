@@ -55,5 +55,16 @@ export class StatisticsPageComponent {
     });
 
     console.log(this.data);
+  getNotesEventsRatio(): any {
+    return [
+      {
+        "name": "Events",
+        "value": this.data.events
+      },
+      {
+        "name": "Notes",
+        "value": this.data.notes.length
+      }
+    ];
   }
 }
