@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NotesService } from "../../services/notes.service";
+import { NoteService } from "../../services/note.service";
 import { Note } from "../../interfaces/note";
 import { NgForOf, NgIf } from "@angular/common";
 import { SearchComponent } from "../subcomponents/search/search.component";
@@ -26,7 +26,7 @@ export class PublicComponent {
   totalItems = 0;
   itemsPerPage = 0;
 
-  constructor(private notesService:NotesService) {}
+  constructor(private notesService:NoteService) {}
 
   ngOnInit() {
     this.loadNotes();

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NoteListComponent } from "../../notes/note-list/note-list.component";
 import { Note } from "../../../interfaces/note";
-import { NotesService } from "../../../services/notes.service";
+import { NoteService } from "../../../services/note.service";
 import { AuthService } from "../../../services/auth.service";
 import { User } from "../../../interfaces/user";
 import { NgIf } from "@angular/common";
@@ -27,7 +27,7 @@ export class WorkspaceComponent {
   id: string = this.user.id;
   events: any;
 
-  constructor(private eventService: EventService, private noteService: NotesService, private authService: AuthService) {
+  constructor(private eventService: EventService, private noteService: NoteService, private authService: AuthService) {
     this.noteService.getUserDetails(this.id).subscribe((user: any) => {
       this.notes = user.notes;
     });

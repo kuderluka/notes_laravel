@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NotesService } from "../../../services/notes.service";
+import { NoteService } from "../../../services/note.service";
 import { RouterLink } from "@angular/router";
 import { NgForOf } from "@angular/common";
 import { User } from "../../../interfaces/user";
@@ -15,7 +15,7 @@ import { UserList } from "../../../interfaces/user-list";
 export class UserListComponent {
   userList: User[] = [];
 
-  constructor(private notesService:NotesService) {
+  constructor(private notesService:NoteService) {
     this.notesService.getAllUsers().subscribe((users: UserList) => {
       this.userList = users.entries;
     })

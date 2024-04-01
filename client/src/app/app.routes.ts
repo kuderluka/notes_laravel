@@ -25,13 +25,18 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserListComponent,
-    title: 'All users',
-  },
-  {
-    path: 'users/:id',
-    component: UserDetailsComponent,
-    title: 'Details about a user',
+    children: [
+      {
+        path: '',
+        component: UserListComponent,
+        title: 'All users',
+      },
+      {
+        path: ':id/:email',
+        component: UserDetailsComponent,
+        title: 'Details about a user',
+      }
+    ]
   },
   {
     path: 'login',
@@ -55,16 +60,20 @@ export const routes: Routes = [
     title: 'Workspace',
   },
   {
-      path: 'events',
-      canActivate: [authGuard],
-      component: EventListComponent,
-      title: 'Events'
-  },
-  {
-    path: 'events/:id',
+    path: 'events',
     canActivate: [authGuard],
-    component: EventDetailsComponent,
-    title: 'Event details'
+    children: [
+      {
+        path: '',
+        component: EventListComponent,
+        title: 'Events'
+      },
+      {
+        path: ':id',
+        component: EventDetailsComponent,
+        title: 'Event details'
+      }
+    ]
   },
   {
     path: 'category/create',
@@ -73,15 +82,19 @@ export const routes: Routes = [
     title: 'New Category',
   },
   {
-    path: 'note/create',
+    path: 'note',
     canActivate: [authGuard],
-    component: NoteFormComponent,
-    title: 'New Note',
-  },
-  {
-    path: 'note/:note',
-    canActivate: [authGuard],
-    component: NoteFormComponent,
-    title: 'Edit Note',
+    children: [
+      {
+        path: 'create',
+        component: NoteFormComponent,
+        title: 'New Note',
+      },
+      {
+        path: ':note',
+        component: NoteFormComponent,
+        title: 'Edit Note',
+      }
+    ]
   }
 ];

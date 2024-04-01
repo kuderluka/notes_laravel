@@ -9,7 +9,7 @@ import { Note } from "../interfaces/note";
 @Injectable({
   providedIn: 'root'
 })
-export class NotesService {
+export class NoteService {
   private url = environment.appUrl;
   private note!: any;
 

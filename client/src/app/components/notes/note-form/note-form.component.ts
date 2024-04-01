@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from "@angular/common";
-import { NotesService } from "../../../services/notes.service";
+import { NoteService } from "../../../services/note.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -17,7 +17,7 @@ export class NoteFormComponent implements OnInit {
   categories: any[] = [];
   @Input() note: any;
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private notesService: NotesService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private notesService: NoteService, private router: Router) { }
 
   ngOnInit(): void {
     this.note = this.notesService.getNote();
