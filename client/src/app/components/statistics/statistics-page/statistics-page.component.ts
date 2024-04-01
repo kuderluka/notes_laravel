@@ -4,13 +4,15 @@ import {AdvancedPieChartComponent} from "../advanced-pie-chart/advanced-pie-char
 import {AuthService} from "../../../services/auth.service";
 import {NoteService} from "../../../services/note.service";
 import {EventService} from "../../../services/event.service";
+import {VerticalBarChartComponent} from "../vertical-bar-chart/vertical-bar-chart.component";
 
 @Component({
   selector: 'notes-statistics-page',
   standalone: true,
   imports: [
     NgIf,
-    AdvancedPieChartComponent
+    AdvancedPieChartComponent,
+    VerticalBarChartComponent
   ],
   templateUrl: './statistics-page.component.html',
   styleUrl: './statistics-page.component.css'
@@ -56,5 +58,37 @@ export class StatisticsPageComponent {
         console.error('Error fetching events');
       }
     });
+
+    console.log(this.data.categories)
+  }
+
+  /**
+   * Extracts and returns the category popularity data for top 5 categories
+   *
+   * @protected
+   */
+  protected getCategoryPopularityData(): any {
+    return [
+      {
+        "name": "Germany",
+        "value": 894000
+      },
+      {
+        "name": "USA",
+        "value": 500000
+      },
+      {
+        "name": "France",
+        "value": 720000
+      },
+      {
+        "name": "USAa",
+        "value": 500000
+      },
+      {
+        "name": "Fraance",
+        "value": 720000
+      }
+    ];
   }
 }
