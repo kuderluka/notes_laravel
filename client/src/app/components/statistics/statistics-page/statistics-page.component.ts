@@ -57,4 +57,19 @@ export class StatisticsPageComponent {
       }
     });
   }
+
+  /**
+   * Return the data needed to display the note privacy pie chart
+   *
+   * @protected
+   */
+  protected getNotePrivacyData(): any {
+    const publicNotes: any = this.data.notes.filter((note: any) => note.public);
+    const publicCount: number = publicNotes.length;
+
+    return [
+      { name: "Public", value: publicCount },
+      { name: "Private", value: this.data.notes.length - publicCount }
+    ];
+  }
 }

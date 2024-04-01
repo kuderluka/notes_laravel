@@ -62,6 +62,7 @@ export class NoteFormComponent implements OnInit {
     if (this.note) {
       this.notesService.updateNote(this.form, this.note.id).subscribe(res => {})
     } else {
+      this.form.value.public = 0;
       this.notesService.createNote(this.form).subscribe(res => {})
     }
 
