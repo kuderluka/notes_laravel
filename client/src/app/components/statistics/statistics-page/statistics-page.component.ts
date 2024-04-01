@@ -51,6 +51,9 @@ export class StatisticsPageComponent {
     this.eventService.getAllEvents().subscribe({
       next: (res: any) => {
         this.data.events = res.data.events.total
+      },
+      error: (res: any) => {
+        console.error('Error fetching events');
       }
     });
   }
