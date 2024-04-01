@@ -39,7 +39,7 @@ export class StatisticsPageComponent {
             events = res;
           });
 
-          return { user: element.user, notes: element.notes, events: events};
+          return {user: element.user, notes: element.notes, events: events};
         });
       },
 
@@ -53,9 +53,9 @@ export class StatisticsPageComponent {
         this.data.events = res.data.events.total
       }
     });
+  }
 
-    console.log(this.data);
-  getNotesEventsRatio(): any {
+  protected getNotesEventsRatio(): any {
     return [
       {
         "name": "Events",

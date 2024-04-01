@@ -14,9 +14,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 export class AdvancedPieChartComponent {
   @Input() data: any[] = [];
   @Input() title: string = '';
-  view: [number, number] = [700, 400];
+  view: [number, number] = [550, 200];
 
-  // options
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;
@@ -24,9 +23,5 @@ export class AdvancedPieChartComponent {
 
   constructor() {
     Object.assign(this, { this: this.data });
-  }
-
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 }
