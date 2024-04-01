@@ -20,8 +20,4 @@ export class AdvancedPieChartComponent {
   showLegend: boolean = true;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
-
-  constructor() {
-    Object.assign(this, { this: this.data });
-  }
 }
