@@ -6,8 +6,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { OptionsInterceptorProvider } from "./interceptors/options.interceptor.provider";
+import { provideAnimations } from "@angular/platform-browser/animations";
 
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()), importProvidersFrom(HttpClientModule), OptionsInterceptorProvider,]
+    providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()), importProvidersFrom(HttpClientModule), OptionsInterceptorProvider, provideAnimations()]
 };

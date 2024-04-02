@@ -4,6 +4,10 @@
       <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
         <div class="card-container" *ngIf="data.users">
           <notes-advanced-pie-chart [data]="getEventAttendanceData()" [title]="'Event attendance data'"></notes-advanced-pie-chart>
+
+          <notes-vertical-bar-chart [data]="getCategoryPopularityData()" [xAxisLabel]="'Category'" [yAxisLabel]="'Number of notes'"></notes-vertical-bar-chart>
+
+          <notes-advanced-pie-chart [data]="getNoteCreationData()" [title]="'Users with notes created'"></notes-advanced-pie-chart>
         </div>
       </div>
     </div>

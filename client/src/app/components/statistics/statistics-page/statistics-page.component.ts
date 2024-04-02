@@ -4,13 +4,15 @@ import {AdvancedPieChartComponent} from "../advanced-pie-chart/advanced-pie-char
 import {AuthService} from "../../../services/auth.service";
 import {NoteService} from "../../../services/note.service";
 import {EventService} from "../../../services/event.service";
+import {VerticalBarChartComponent} from "../vertical-bar-chart/vertical-bar-chart.component";
 
 @Component({
   selector: 'notes-statistics-page',
   standalone: true,
   imports: [
     NgIf,
-    AdvancedPieChartComponent
+    AdvancedPieChartComponent,
+    VerticalBarChartComponent
   ],
   templateUrl: './statistics-page.component.html',
   styleUrl: './statistics-page.component.css'
@@ -71,7 +73,7 @@ export class StatisticsPageComponent {
         attending++;
       }
     });
-
+    
     return [
       {
         "name": "Have attended",
@@ -80,6 +82,56 @@ export class StatisticsPageComponent {
       {
         "name": "Have not attended",
         "value": this.data.users.length - attending
+      }
+    ];
+  }
+  
+  /**
+   * Extracts and returns the category popularity data for top 5 categories
+   *
+   * @protected
+   */
+  protected getCategoryPopularityData(): any {
+
+    let output: any[] = [];
+    this.data.notes.forEach((note: any) => {
+      let existing = output.find(entry => entry.name === note.category.title);
+
+      if (existing) {
+        existing.value += 1;
+      } else {
+        output.push({
+          "name": note.category.title,
+          "value": 1
+        });
+      }
+    });
+  
+    return output.sort((a, b) => b.value - a.value).slice(0,5);
+  }
+}
+    
+  /**
+   * Extracts and returns the data about users note creation
+   *
+   * @protected
+   */
+  protected getNoteCreationData(): any {
+    let haveCreated: number = 0;
+    this.data.users.forEach((user: any) => {
+      if (user.notes.length != 0) {
+        haveCreated++;
+      }
+    });
+
+    return [
+      {
+        "name": "Have created",
+        "value": haveCreated
+      },
+      {
+        "name": "Have not created",
+        "value": this.data.users.length - haveCreated
       }
     ];
   }
