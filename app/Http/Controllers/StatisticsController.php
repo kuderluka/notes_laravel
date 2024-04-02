@@ -26,7 +26,7 @@ class StatisticsController extends Controller
         });
 
         $data['categories'] = Category::all();
-        $data['notes'] = Note::all();
+        $data['notes'] = Note::with('user', 'category')->get();
 
         return response()->json([
             'success' => true,

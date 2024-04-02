@@ -12,9 +12,9 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrl: './note-form.component.css'
 })
 export class NoteFormComponent implements OnInit {
-  form!: FormGroup;
-  submitted = false;
-  categories: any[] = [];
+  protected form!: FormGroup;
+  protected submitted = false;
+  protected categories: any[] = [];
   @Input() note: any;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private notesService: NoteService, private router: Router) { }
@@ -62,6 +62,7 @@ export class NoteFormComponent implements OnInit {
     if (this.note) {
       this.notesService.updateNote(this.form, this.note.id).subscribe(res => {})
     } else {
+      this.form.value.public = 0;
       this.notesService.createNote(this.form).subscribe(res => {})
     }
 
