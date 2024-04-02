@@ -58,6 +58,11 @@ export class StatisticsPageComponent {
     });
   }
 
+  /**
+   * Extracts and returns the data for the Notes-Events ratio pie chart
+   *
+   * @protected
+   */
   protected getNotesEventsRatio(): any {
     return [
       {
