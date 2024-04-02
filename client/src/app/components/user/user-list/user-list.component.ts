@@ -13,7 +13,7 @@ import { UserList } from "../../../interfaces/user-list";
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent {
-  userList: User[] = [];
+  protected userList: User[] = [];
 
   constructor(private notesService:NoteService) {
     this.notesService.getAllUsers().subscribe((users: UserList) => {
