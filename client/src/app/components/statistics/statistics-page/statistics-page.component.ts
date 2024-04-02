@@ -41,7 +41,7 @@ export class StatisticsPageComponent {
             events = res;
           });
 
-          return { user: element.user, notes: element.notes, events: events};
+          return {user: element.user, notes: element.notes, events: events};
         });
       },
 
@@ -60,6 +60,24 @@ export class StatisticsPageComponent {
     });
   }
 
+  /**
+   * Extracts and returns the data for the Notes-Events ratio pie chart
+   *
+   * @protected
+   */
+  protected getNotesEventsRatio(): any {
+    return [
+      {
+        "name": "Events",
+        "value": this.data.events
+      },
+      {
+        "name": "Notes",
+        "value": this.data.notes.length
+      }
+    ];
+  }
+  
   /**
    * Return the data needed to display the note privacy pie chart
    *
