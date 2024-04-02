@@ -17,6 +17,6 @@
 .card-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 0;
+  grid-gap: 10px;
   grid-auto-rows: auto;
 }

@@ -77,7 +77,7 @@ export class StatisticsPageComponent {
       }
     ];
   }
-  
+
   /**
    * Return the data needed to display the note privacy pie chart
    *
@@ -88,11 +88,17 @@ export class StatisticsPageComponent {
     const publicCount: number = publicNotes.length;
 
     return [
-      { name: "Public", value: publicCount },
-      { name: "Private", value: this.data.notes.length - publicCount }
+      {
+        name: "Public",
+        value: publicCount
+      },
+      {
+        name: "Private",
+        value: this.data.notes.length - publicCount
+      }
     ];
   }
-  
+
   /**
    * Extracts and returns the data about how many users have an event connected to their account
    *
@@ -106,7 +112,7 @@ export class StatisticsPageComponent {
         attending++;
       }
     });
-    
+
     return [
       {
         "name": "Have attended",
@@ -118,14 +124,13 @@ export class StatisticsPageComponent {
       }
     ];
   }
-  
+
   /**
    * Extracts and returns the category popularity data for top 5 categories
    *
    * @protected
    */
   protected getCategoryPopularityData(): any {
-
     let output: any[] = [];
     this.data.notes.forEach((note: any) => {
       let existing = output.find(entry => entry.name === note.category.title);
@@ -139,11 +144,10 @@ export class StatisticsPageComponent {
         });
       }
     });
-  
+
     return output.sort((a, b) => b.value - a.value).slice(0,5);
   }
-}
-    
+
   /**
    * Extracts and returns the data about users note creation
    *

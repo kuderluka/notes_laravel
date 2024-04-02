@@ -12,7 +12,7 @@ import { NoteService } from "../../../services/note.service";
   styleUrl: './edit-buttons.component.css'
 })
 export class EditButtonsComponent {
-  @Input() protected note: any;
+  @Input() public note: any;
 
   constructor(private noteService: NoteService, private router: Router) {}
 

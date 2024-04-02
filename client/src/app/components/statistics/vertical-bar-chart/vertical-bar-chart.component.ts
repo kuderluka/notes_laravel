@@ -12,10 +12,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   styleUrl: './vertical-bar-chart.component.css'
 })
 export class VerticalBarChartComponent {
-  @Input() protected data: any[] = [];
-  @Input() protected title: string = '';
-  @Input() protected xAxisLabel: string = 'xLabel';
-  @Input() protected yAxisLabel: string = 'yLabel';
+  @Input() public data: any[] = [];
+  @Input() public title: string = '';
+  @Input() public xAxisLabel: string = 'xLabel';
+  @Input() public yAxisLabel: string = 'yLabel';
   protected view: [number, number] = [550, 300];
 
   protected showXAxis = true;

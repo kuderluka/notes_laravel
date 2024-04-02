@@ -12,9 +12,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   styleUrl: './advanced-pie-chart.component.css'
 })
 export class AdvancedPieChartComponent {
-  @Input() protected data: any[] = [];
-  @Input() protected title: string = '';
-  
+  @Input() public data: any[] = [];
+  @Input() public title: string = '';
+
   protected view: [number, number] = [550, 200];
   protected gradient: boolean = true;
   protected showLegend: boolean = true;
