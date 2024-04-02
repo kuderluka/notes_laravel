@@ -22,10 +22,10 @@ import { EventTableComponent } from "../../events/event-table/event-table.compon
   styleUrl: './workspace.component.css'
 })
 export class WorkspaceComponent {
-  notes: Note[] = [];
-  user: User = this.authService.getUser();
-  id: string = this.user.id;
-  events: any;
+  protected notes: Note[] = [];
+  protected user: User = this.authService.getUser();
+  protected id: string = this.user.id;
+  protected events: any;
 
   constructor(private eventService: EventService, private noteService: NoteService, private authService: AuthService) {
     this.noteService.getUserDetails(this.id).subscribe((user: any) => {
