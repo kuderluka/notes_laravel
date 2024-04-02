@@ -1,6 +1,6 @@
 <div class="area">
     <div class="content">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2" *ngIf="data">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2" *ngIf="data && events">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <h3>This is {{ data.user.username }}'s profile:</h3>
                 <p>
@@ -15,10 +15,10 @@
                     <p><b>This user has no notes!</b></p>
                 </div>
 
-                <div *ngIf="data.events && data.events.length > 0">
-                    <notes-event-table [events]="data.events"></notes-event-table>
+                <div *ngIf="events && events.length > 0">
+                    <notes-event-table [events]="events"></notes-event-table>
                 </div>
-                <div *ngIf="!(data.events && data.events.length > 0)">
+                <div *ngIf="!(events && events.length > 0)">
                     <p><b>This user has no events!</b></p>
                 </div>
             </div>

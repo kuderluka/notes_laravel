@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { EventService } from "../../services/event.service";
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass, NgIf } from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
 
 @Component({

@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\UserController;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +28,10 @@ Route::get('/public', [NoteController::class, 'index']);
 Route::get('/public/users', [UserController::class, 'index']);
 Route::get('/public/users/{user}', [EventController::class, 'userEvents']);
 
+Route::get('/statistics', [StatisticsController::class, 'getStatisticsData']);
+
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
 
 Route::post('/tokens/authenticate', function (LoginRequest $request) {
     $request->authenticate();

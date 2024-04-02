@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule } from "@angular/common";
-import { AuthService } from "../../../services/auth.service";
-import { NotesService } from "../../../services/notes.service";
+import { NoteService } from "../../../services/note.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -16,7 +15,7 @@ export class CategoryFormComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private notesService: NotesService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private notesService: NoteService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({

@@ -3,8 +3,8 @@ import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import { EventService } from "../../services/event.service";
-import {NgIf} from "@angular/common";
-import {ErrorsComponent} from "../../components/subcomponents/errors/errors.component";
+import { NgIf } from "@angular/common";
+import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
 
 @Component({
   selector: 'notes-login',

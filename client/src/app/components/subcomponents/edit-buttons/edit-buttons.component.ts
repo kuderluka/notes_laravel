@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
-import { NotesService } from "../../../services/notes.service";
+import { NoteService } from "../../../services/note.service";
 
 @Component({
   selector: 'notes-edit-buttons',
@@ -12,15 +12,21 @@ import { NotesService } from "../../../services/notes.service";
   styleUrl: './edit-buttons.component.css'
 })
 export class EditButtonsComponent {
-  @Input() note: any;
+  @Input() protected note: any;
 
-  constructor(private noteService: NotesService, private router: Router) {}
+  constructor(private noteService: NoteService, private router: Router) {}
 
+  /**
+   * Updates a note and redirects
+   */
   edit() {
     this.noteService.setNote(this.note);
     this.router.navigate(['note', this.note.id]);
   }
 
+  /**
+   * Deletes a note and redirects
+   */
   destroyNote(): void {
     this.noteService.deleteNote(this.note.id).subscribe(() => {
       this.router.navigate(['/workspace']);
