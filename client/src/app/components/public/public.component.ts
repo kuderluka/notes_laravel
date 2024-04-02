@@ -20,11 +20,11 @@ import {NoteListComponent} from "../notes/note-list/note-list.component";
   styleUrl: './public.component.css'
 })
 export class PublicComponent {
-  notes: Note[] = [];
-  searchQuery: string = '';
-  currentPage = 1;
-  totalItems = 0;
-  itemsPerPage = 0;
+  protected notes: Note[] = [];
+  protected searchQuery: string = '';
+  protected currentPage: number = 1;
+  protected totalItems: number = 0;
+  protected itemsPerPage: number = 0;
 
   constructor(private notesService:NoteService) {}
 
