@@ -12,20 +12,16 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   styleUrl: './vertical-bar-chart.component.css'
 })
 export class VerticalBarChartComponent {
-  @Input() data: any[] = [];
-  @Input() title: string = '';
-  @Input() xAxisLabel: string = 'xLabel';
-  @Input() yAxisLabel: string = 'yLabel';
-  view: [number, number] = [550, 300];
+  @Input() protected data: any[] = [];
+  @Input() protected title: string = '';
+  @Input() protected xAxisLabel: string = 'xLabel';
+  @Input() protected yAxisLabel: string = 'yLabel';
+  protected view: [number, number] = [550, 300];
 
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = true;
-  showYAxisLabel = true;
-
-  constructor() {
-    Object.assign(this, { this: this.data })
-  }
+  protected showXAxis = true;
+  protected showYAxis = true;
+  protected gradient = false;
+  protected showLegend = true;
+  protected showXAxisLabel = true;
+  protected showYAxisLabel = true;
 }
