@@ -80,7 +80,33 @@ export class StatisticsPageComponent {
         });
       }
     });
-
+  
     return output.sort((a, b) => b.value - a.value).slice(0,5);
+  }
+}
+    
+  /**
+   * Extracts and returns the data about users note creation
+   *
+   * @protected
+   */
+  protected getNoteCreationData(): any {
+    let haveCreated: number = 0;
+    this.data.users.forEach((user: any) => {
+      if (user.notes.length != 0) {
+        haveCreated++;
+      }
+    });
+
+    return [
+      {
+        "name": "Have created",
+        "value": haveCreated
+      },
+      {
+        "name": "Have not created",
+        "value": this.data.users.length - haveCreated
+      }
+    ];
   }
 }
