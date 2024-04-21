@@ -1,3 +1,4 @@
+<script src="https://accounts.google.com/gsi/client" async></script>
 <div class="card">
   <div class="text-center">
     <h1>Login</h1>
@@ -15,6 +16,9 @@
     <div class="buttons mt-2">
       <button type="submit" class="btn btn-primary">Login</button>
       <a routerLink="/register">Not yet registered? Click here!</a>
+    </div>
+    <div id="google-btn">
+
     </div>
   </form>
   <notes-errors [errors]="errors"></notes-errors>

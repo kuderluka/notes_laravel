@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@abacritt/angularx-social-login": "^2.2.0",
         "@swimlane/ngx-charts": "^20.5.0"
     }
 }

@@ -1,3 +1,6 @@
+import {response} from "express";
+
+declare var google: any;
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
@@ -5,6 +8,7 @@ import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators
 import { EventService } from "../../services/event.service";
 import { NgIf } from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
+import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'notes-login',
@@ -13,7 +17,9 @@ import { ErrorsComponent } from "../../components/subcomponents/errors/errors.co
     RouterLink,
     ReactiveFormsModule,
     NgIf,
-    ErrorsComponent
+    ErrorsComponent,
+    SocialLoginModule,
+    GoogleLoginProvider,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -29,6 +35,17 @@ export class LoginComponent {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
+    });
+
+    google.accounts.id.initialize({
+      client_id: '218243125335-n1125dqjv0kc4q1gfk2rlf7f186s9sci.apps.googleusercontent.com',
+      callback: (res: any) => this.handleGoogleLogin(res)
+    });
+
+    google.accounts.id.renderButton(document.getElementById("google-btn"), {
+      theme: 'outline',
+      size: 'medium',
+      shape: 'rectangle'
     });
   }
 
@@ -73,5 +90,16 @@ export class LoginComponent {
           this.errors[1] = 'Server not responding';
         }
     );
+  }
+
+  private decodeToken(token: string) {
+    return JSON.parse(atob(token.split(".")[1]))
+  }
+
+  private handleGoogleLogin(res: any) {
+    if (res) {
+      const data = this.decodeToken(res.credential)
+      console.log(data);
+    }
   }
 }
