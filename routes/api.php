@@ -32,6 +32,7 @@ Route::get('/statistics', [StatisticsController::class, 'getStatisticsData']);
 
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
+Route::post('login/socials', [AuthenticatedSessionController::class, 'authenticateSocials']);
 
 Route::post('/tokens/authenticate', function (LoginRequest $request) {
     $request->authenticate();

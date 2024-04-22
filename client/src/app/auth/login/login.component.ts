@@ -1,12 +1,11 @@
-declare var google: any;
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { EventService } from "../../services/event.service";
 import { NgIf } from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
-import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
+import { SocialsAuthenticationComponent } from "../socials-authentication/socials-authentication.component";
 
 
 @Component({
@@ -17,33 +16,22 @@ import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 
     ReactiveFormsModule,
     NgIf,
     ErrorsComponent,
-    SocialLoginModule,
+    SocialsAuthenticationComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   protected errors: { [key: string]: string } = {};
   protected submitted: boolean = false;
 
-  constructor(private authService: AuthService,private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private authService: AuthService, private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
-    });
-
-    google.accounts.id.initialize({
-      client_id: '218243125335-n1125dqjv0kc4q1gfk2rlf7f186s9sci.apps.googleusercontent.com',
-      callback: (res: any) => this.handleGoogleLogin(res)
-    });
-
-    google.accounts.id.renderButton(document.getElementById("google-btn"), {
-      theme: 'outline',
-      size: 'medium',
-      shape: 'rectangle'
     });
   }
 
@@ -54,7 +42,7 @@ export class LoginComponent {
   /**
    * Authenticates an already existing user by fetching tokens from both my and Kristjan's server and storing them
    */
-  login(): void {
+  protected login(): void {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
@@ -88,16 +76,5 @@ export class LoginComponent {
           this.errors[1] = 'Server not responding';
         }
     );
-  }
-
-  private decodeToken(token: string) {
-    return JSON.parse(atob(token.split(".")[1]))
-  }
-
-  private handleGoogleLogin(res: any) {
-    if (res) {
-      const data = this.decodeToken(res.credential)
-      console.log(data);
-    }
   }
 }

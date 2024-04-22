@@ -32,6 +32,15 @@ export class AuthService {
   }
 
   /**
+   * Performs authentication by getting a token from the server
+   *
+   * @param data
+   */
+  authenticateSocials(data: any): any {
+    return this.http.post(this.url + '/login/socials', data);
+  }
+
+  /**
    * Sets the token
    *
    * @param token
