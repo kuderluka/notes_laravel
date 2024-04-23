@@ -5,7 +5,7 @@ import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { EventService } from "../../services/event.service";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
-import { FacebookLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login";
+import { FacebookLoginProvider, SocialAuthService, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'notes-socials-authentication',
@@ -13,6 +13,9 @@ import { FacebookLoginProvider, SocialAuthService } from "@abacritt/angularx-soc
   imports: [
     ErrorsComponent
   ],
+  // providers: [
+  //   SocialAuthService
+  // ],
   templateUrl: './socials-authentication.component.html',
   styleUrl: './socials-authentication.component.css'
 })
