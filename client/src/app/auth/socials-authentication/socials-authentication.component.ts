@@ -13,11 +13,9 @@ import { ErrorsComponent } from "../../components/subcomponents/errors/errors.co
   imports: [
     ErrorsComponent
   ],
-  templateUrl: './socials-authentication.component.html',
-  styleUrl: './socials-authentication.component.css'
+  templateUrl: './socials-authentication.component.html'
 })
 export class SocialsAuthenticationComponent implements AfterViewInit {
-  //public google: any;
   protected errors: { [key: string]: string } = {};
 
   constructor(private authService: AuthService, private eventService: EventService, private router: Router, private ngZone: NgZone) {}
@@ -41,7 +39,7 @@ export class SocialsAuthenticationComponent implements AfterViewInit {
    * @param token
    * @private
    */
-  private decodeToken(token: string) {
+  private decodeToken(token: string): string {
     return JSON.parse(atob(token.split(".")[1]))
   }
 
@@ -51,7 +49,7 @@ export class SocialsAuthenticationComponent implements AfterViewInit {
    * @param res
    * @private
    */
-  private handleGoogleLogin(res: any) {
+  private handleGoogleLogin(res: any): void {
     if (res) {
       const data = this.decodeToken(res.credential)
       this.authService.authenticateSocials(data).subscribe(
@@ -61,8 +59,8 @@ export class SocialsAuthenticationComponent implements AfterViewInit {
 
             this.eventService.authenticateSocials(data).subscribe(
               (res2: any) => {
-                if (res && res.data && res.data.token !== undefined) {
-                  this.eventService.setData(res.data);
+                if (res2 && res2.data && res2.data.token !== undefined) {
+                  this.eventService.setData(res2.data);
                   this.router.navigate(['dashboard']);
                 }
               },

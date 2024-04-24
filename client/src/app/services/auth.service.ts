@@ -36,7 +36,7 @@ export class AuthService {
    *
    * @param data
    */
-  authenticateSocials(data: any): any {
+  authenticateSocials(data: string): any {
     return this.http.post(this.url + '/login/socials', data);
   }
 
