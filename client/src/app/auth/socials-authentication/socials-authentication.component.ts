@@ -1,6 +1,5 @@
-import {EventService} from "../../services/event.service";
-
 declare var google: any;
+import {EventService} from "../../services/event.service";
 import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { AuthService } from "../../services/auth.service";
@@ -50,30 +49,33 @@ export class SocialsAuthenticationComponent implements AfterViewInit {
    * @private
    */
   private handleGoogleLogin(res: any): void {
-    if (res) {
-      const data = this.decodeToken(res.credential)
-      this.authService.authenticateSocials(data).subscribe(
-        (res: any) => {
-          if (res && res.data && res.data.token !== undefined) {
-            this.authService.setData(res.data);
+    const data = this.decodeToken(res.credential);
 
-            this.eventService.authenticateSocials(data).subscribe(
-              (res2: any) => {
-                if (res2 && res2.data && res2.data.token !== undefined) {
-                  this.eventService.setData(res2.data);
-                  this.router.navigate(['dashboard']);
-                }
-              },
-              (error2: any) => {
-                this.errors[1] = 'Server not responding';
-              }
-            );
+    this.authService.authenticateSocials(data).subscribe({
+      next: (res: any) => {
+        this.authService.setData(res.data);
+
+        this.eventService.authenticateSocials(data).subscribe({
+          next: (res2: any) => {
+              this.eventService.setData(res2.data);
+              this.router.navigate(['dashboard']);
+          },
+          error: (err2: any) => {
+            if (err2.status === 401) {
+              this.errors[1] = err2.message;
+            } else {
+              this.errors[1] = 'Events server not responding';
+            }
           }
-        },
-        (error: any) => {
-          this.errors[0] = 'Server not responding';
+        });
+      },
+      error: (err: any) => {
+        if (err.status === 401) {
+          this.errors[0] = err.message;
+        } else {
+          this.errors[0] = 'Notes server not responding';
         }
-      );
-    }
+      }
+    });
   }
 }

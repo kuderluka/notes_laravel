@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
             return response([
                 'message' => 'Invalid credentials',
                 'data' => false
-            ]);
+            ], 401);
         }
 
         $user = Auth::user();
@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
                 'user' => $user,
                 'token' => $user->createToken('token')->plainTextToken
             ]
-        ]);
+        ], 200);
     }
 
     /**
@@ -78,7 +78,7 @@ class AuthenticatedSessionController extends Controller
                 'user' => $user,
                 'token' => $user->createToken('token')->plainTextToken
             ]
-        ]);
+        ], 200);
     }
 
     /**
