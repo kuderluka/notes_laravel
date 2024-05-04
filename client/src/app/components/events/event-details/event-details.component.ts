@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {EventService} from "../../../services/event.service";
-import {NgForOf, NgIf} from "@angular/common";
-import {AttendButtonComponent} from "../../subcomponents/attend-button/attend-button.component";
+import { ActivatedRoute } from "@angular/router";
+import { EventService } from "../../../services/event.service";
+import { NgForOf, NgIf } from "@angular/common";
+import { AttendButtonComponent } from "../../subcomponents/attend-button/attend-button.component";
 
 @Component({
   selector: 'notes-event-details',
@@ -12,8 +12,7 @@ import {AttendButtonComponent} from "../../subcomponents/attend-button/attend-bu
     NgIf,
     AttendButtonComponent
   ],
-  templateUrl: './event-details.component.html',
-  styleUrl: './event-details.component.css'
+  templateUrl: './event-details.component.html'
 })
 export class EventDetailsComponent {
   id: string = '';

@@ -10,8 +10,7 @@ import { EventButtonComponent } from "../../subcomponents/event-button/event-but
     EventButtonComponent,
     NgIf
   ],
-  templateUrl: './event-table.component.html',
-  styleUrl: './event-table.component.css'
+  templateUrl: './event-table.component.html'
 })
 export class EventTableComponent {
   @Input() events: any;

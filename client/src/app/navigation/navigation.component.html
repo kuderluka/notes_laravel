@@ -1,25 +1,6 @@
-<div *ngIf="!isAuthenticated()">
-  <div class="navigation-bar">
-    <div class="navigation-element">
-      <a [routerLink]="['/public']" routerLinkActive="active-link"> Public notes </a>
-    </div>
-    <div class="navigation-element">
-      <a [routerLink]="['/users']" routerLinkActive="active-link"> Users </a>
-    </div>
-    <div class="navigation-element">
-      <a [routerLink]="['/statistics']" routerLinkActive="active-link"> Statistics </a>
-    </div>
-    <div class="navigation-element">
-      <a [routerLink]="['/login']" routerLinkActive="active-link"> Log in </a>
-    </div>
-    <div class="navigation-element">
-      <a [routerLink]="['/register']" routerLinkActive="active-link"> Register </a>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="isAuthenticated()">
-  <div class="navigation-bar">
+<div class="navigation-bar">
+  <div class="content">
+    <div *ngIf="!isAuthenticated()">
       <div class="navigation-element">
         <a [routerLink]="['/public']" routerLinkActive="active-link"> Public notes </a>
       </div>
@@ -27,16 +8,35 @@
         <a [routerLink]="['/users']" routerLinkActive="active-link"> Users </a>
       </div>
       <div class="navigation-element">
-        <a [routerLink]="['/workspace']" routerLinkActive="active-link"> My work </a>
-      </div>
-      <div class="navigation-element">
-        <a [routerLink]="['/events']" routerLinkActive="active-link"> Events </a>
-      </div>
-      <div class="navigation-element">
         <a [routerLink]="['/statistics']" routerLinkActive="active-link"> Statistics </a>
       </div>
       <div class="navigation-element">
-        <a [routerLink]="['/logout']" routerLinkActive="active-link" (click)="logout()"> Log out </a>
+        <a [routerLink]="['/login']" routerLinkActive="active-link"> Log in </a>
       </div>
+      <div class="navigation-element">
+        <a [routerLink]="['/register']" routerLinkActive="active-link"> Register </a>
+      </div>
+    </div>
+
+    <div *ngIf="isAuthenticated()">
+        <div class="navigation-element">
+          <a [routerLink]="['/public']" routerLinkActive="active-link"> Public notes </a>
+        </div>
+        <div class="navigation-element">
+          <a [routerLink]="['/users']" routerLinkActive="active-link"> Users </a>
+        </div>
+        <div class="navigation-element">
+          <a [routerLink]="['/workspace']" routerLinkActive="active-link"> My work </a>
+        </div>
+        <div class="navigation-element">
+          <a [routerLink]="['/events']" routerLinkActive="active-link"> Events </a>
+        </div>
+        <div class="navigation-element">
+          <a [routerLink]="['/statistics']" routerLinkActive="active-link"> Statistics </a>
+        </div>
+        <div class="navigation-element">
+          <a [routerLink]="['/logout']" routerLinkActive="active-link" (click)="logout()"> Log out </a>
+        </div>
+    </div>
   </div>
 </div>

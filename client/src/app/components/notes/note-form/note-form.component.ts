@@ -8,8 +8,7 @@ import { ActivatedRoute, Router } from "@angular/router";
   selector: 'notes-note-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './note-form.component.html',
-  styleUrl: './note-form.component.css'
+  templateUrl: './note-form.component.html'
 })
 export class NoteFormComponent implements OnInit {
   protected form!: FormGroup;
@@ -21,7 +20,6 @@ export class NoteFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.note = this.notesService.getNote();
-    //this.notesService.setNote([]);
 
     this.form = this.formBuilder.group({
       user_id: [this.notesService.getUser().id],

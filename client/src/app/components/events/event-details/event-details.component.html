@@ -1,35 +1,31 @@
-<div class="area">
-    <div class="content">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg" *ngIf="event">
-                <h3>{{ event.name }}'s information</h3>
-                <p>
-                    <b>Name:</b> {{ event.name }} <br>
-                    <b>Address:</b> {{ event.address }} <br>
-                    <b>Date:</b> {{ event.date }} <br>
-                    <b>Time:</b> {{ event.time }} <br>
-                    <b>Description:</b> {{ event.description }} <br>
-                    <b>Price:</b> {{ event.ticketPrice }}$ <br>
-                    <b>Musicians:</b>
-                </p>
-                <ul>
-                    <div *ngFor="let musician of event.musicians">
-                        <li>
-                            {{ musician.name }}
-                        </li>
-                    </div>
-                </ul>
-                <p><b>Participants:</b></p>
-                <ul>
-                    <div *ngFor="let participant of event.participants">
-                        <li>
-                            {{ participant.name }}
-                        </li>
-                    </div>
-                </ul>
-
-                <notes-attend-button [event_id]="event.id"></notes-attend-button>
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg" *ngIf="event">
+        <h3>{{ event.name }}'s information</h3>
+        <p>
+            <b>Name:</b> {{ event.name }} <br>
+            <b>Address:</b> {{ event.address }} <br>
+            <b>Date:</b> {{ event.date }} <br>
+            <b>Time:</b> {{ event.time }} <br>
+            <b>Description:</b> {{ event.description }} <br>
+            <b>Price:</b> {{ event.ticketPrice }}$ <br>
+            <b>Musicians:</b>
+        </p>
+        <ul>
+            <div *ngFor="let musician of event.musicians">
+                <li>
+                    {{ musician.name }}
+                </li>
             </div>
-        </div>
+        </ul>
+        <p><b>Participants:</b></p>
+        <ul>
+            <div *ngFor="let participant of event.participants">
+                <li>
+                    {{ participant.name }}
+                </li>
+            </div>
+        </ul>
+
+        <notes-attend-button [event_id]="event.id"></notes-attend-button>
     </div>
 </div>

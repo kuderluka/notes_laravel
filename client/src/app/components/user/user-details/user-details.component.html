@@ -1,27 +1,23 @@
-<div class="area">
-    <div class="content">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2" *ngIf="data && events">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <h3>This is {{ data.user.username }}'s profile:</h3>
-                <p>
-                    <b>Username:</b> {{ data.user.username }} <br>
-                    <b>Email:</b> {{ data.user.email }}
-                </p>
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2" *ngIf="data && events">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <h3>This is {{ data.user.username }}'s profile:</h3>
+        <p>
+            <b>Username:</b> {{ data.user.username }} <br>
+            <b>Email:</b> {{ data.user.email }}
+        </p>
 
-                <div *ngIf="data.notes && data.notes.length > 0">
-                    <notes-note-list [notes]="data.notes" [public]="true"></notes-note-list>
-                </div>
-                <div *ngIf="!(data.notes && data.notes.length > 0)">
-                    <p><b>This user has no notes!</b></p>
-                </div>
+        <div *ngIf="data.notes && data.notes.length > 0">
+            <notes-note-list [notes]="data.notes" [public]="true"></notes-note-list>
+        </div>
+        <div *ngIf="!(data.notes && data.notes.length > 0)">
+            <p><b>This user has no notes!</b></p>
+        </div>
 
-                <div *ngIf="events && events.length > 0">
-                    <notes-event-table [events]="events"></notes-event-table>
-                </div>
-                <div *ngIf="!(events && events.length > 0)">
-                    <p><b>This user has no events!</b></p>
-                </div>
-            </div>
+        <div *ngIf="events && events.length > 0">
+            <notes-event-table [events]="events"></notes-event-table>
+        </div>
+        <div *ngIf="!(events && events.length > 0)">
+            <p><b>This user has no events!</b></p>
         </div>
     </div>
 </div>

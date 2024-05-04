@@ -1,14 +1,10 @@
-<div class="area">
-  <div class="content">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
-      <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-        <div *ngIf="isAuthenticated()">
-          <h3>Welcome!</h3>
-        </div>
-        <div *ngIf="!isAuthenticated()">
-          <h3>Please log in to manage your profile</h3>
-        </div>
-      </div>
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
+  <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+    <div *ngIf="isAuthenticated()">
+      <h3>Welcome!</h3>
+    </div>
+    <div *ngIf="!isAuthenticated()">
+      <h3>Please log in to manage your profile</h3>
     </div>
   </div>
 </div>

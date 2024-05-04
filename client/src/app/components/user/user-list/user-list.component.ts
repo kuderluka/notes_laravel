@@ -9,8 +9,7 @@ import { UserList } from "../../../interfaces/user-list";
   selector: 'notes-user-list',
   standalone: true,
   imports: [RouterLink, NgForOf],
-  templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.css'
+  templateUrl: './user-list.component.html'
 })
 export class UserListComponent {
   protected userList: User[] = [];
