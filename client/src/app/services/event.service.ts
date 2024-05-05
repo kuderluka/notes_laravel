@@ -10,6 +10,7 @@ import { environment } from "../../environments/environment";
 export class EventService {
   private url = environment.eventsUrl;
   private token: string = '';
+  private user: any;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -93,6 +94,10 @@ export class EventService {
     return this.token;
   }
 
+  getUser() {
+    return this.user;
+  }
+
   /**
    * Performs logout
    */
@@ -106,6 +111,7 @@ export class EventService {
    * @param data
    */
   setData(data: any) {
+    this.user = data.user;
     this.token = data.token;
   }
 

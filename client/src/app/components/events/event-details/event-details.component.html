@@ -1,3 +1,10 @@
+<ng-container *ngIf="user && disabled">
+  <notes-notification-primary
+    [text]="'Please verify your email in order to attend an event'"
+    [button]="{text: 'Verify email', path: '/profile'}"
+  ></notes-notification-primary>
+</ng-container>
+
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg" *ngIf="event">
         <h3>{{ event.name }}'s information</h3>
@@ -26,6 +33,6 @@
             </div>
         </ul>
 
-        <notes-attend-button [event_id]="event.id"></notes-attend-button>
+        <notes-attend-button [event_id]="event.id" [disabled]="disabled"></notes-attend-button>
     </div>
 </div>
