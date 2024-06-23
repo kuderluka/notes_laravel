@@ -7,7 +7,11 @@ import { NavigationComponent } from "./navigation/navigation.component";
 @Component({
     selector: 'notes-root',
     standalone: true,
-    imports: [RouterOutlet, NavigationComponent, HttpClientModule],
+    imports: [
+      RouterOutlet,
+      NavigationComponent,
+      HttpClientModule
+    ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })
