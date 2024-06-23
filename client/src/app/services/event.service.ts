@@ -123,7 +123,7 @@ export class EventService {
    *
    * @param data
    */
-  register(data: any):any {
+  register(data: any): any {
     return this.httpClient.post(this.url + '/register', data);
   }
 
@@ -132,7 +132,7 @@ export class EventService {
    *
    * @param data
    */
-  authenticateSocials(data: any): any {
+  authenticateSocials(data: string): any {
     return this.httpClient.post(this.url + '/login/socials', data);
   }
 }

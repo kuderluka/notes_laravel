@@ -43,13 +43,11 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        $token = $user->createToken('token')->plainTextToken;
-
         return response()->json([
             'message' => 'Success',
             'data' => [
                 'user' => $user,
-                'token' => $token
+                'token' => $user->createToken('token')->plainTextToken
             ]
         ]);
     }
@@ -74,13 +72,11 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
-        $token = $user->createToken('token')->plainTextToken;
-
         return response()->json([
             'message' => 'Success',
             'data' => [
                 'user' => $user,
-                'token' => $token
+                'token' => $user->createToken('token')->plainTextToken
             ]
         ]);
     }

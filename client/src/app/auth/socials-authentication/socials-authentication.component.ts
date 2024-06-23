@@ -13,14 +13,10 @@ import { FacebookLoginProvider, SocialAuthService, SocialAuthServiceConfig } fro
   imports: [
     ErrorsComponent
   ],
-  // providers: [
-  //   SocialAuthService
-  // ],
   templateUrl: './socials-authentication.component.html',
   styleUrl: './socials-authentication.component.css'
 })
 export class SocialsAuthenticationComponent implements OnInit {
-  //public google: any;
   protected errors: { [key: string]: string } = {};
 
   constructor(
@@ -48,14 +44,13 @@ export class SocialsAuthenticationComponent implements OnInit {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
-
   /**
    * Decodes the JWT request and extracts the data
    *
    * @param token
    * @private
    */
-  private decodeToken(token: string) {
+  private decodeToken(token: string): string {
     return JSON.parse(atob(token.split(".")[1]))
   }
 
@@ -65,7 +60,7 @@ export class SocialsAuthenticationComponent implements OnInit {
    * @param res
    * @private
    */
-  private handleGoogleLogin(res: any) {
+  private handleGoogleLogin(res: any): void {
     if (res) {
       const data = this.decodeToken(res.credential)
       this.authService.authenticateSocials(data).subscribe(
@@ -75,8 +70,8 @@ export class SocialsAuthenticationComponent implements OnInit {
 
             this.eventService.authenticateSocials(data).subscribe(
               (res2: any) => {
-                if (res && res.data && res.data.token !== undefined) {
-                  this.eventService.setData(res.data);
+                if (res2 && res2.data && res2.data.token !== undefined) {
+                  this.eventService.setData(res2.data);
                   this.router.navigate(['dashboard']);
                 }
               },
