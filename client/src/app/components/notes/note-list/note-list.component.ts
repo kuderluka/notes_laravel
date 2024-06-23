@@ -11,8 +11,7 @@ import { EditButtonsComponent } from "../../subcomponents/edit-buttons/edit-butt
         NgIf,
         EditButtonsComponent
     ],
-  templateUrl: './note-list.component.html',
-  styleUrl: './note-list.component.css'
+  templateUrl: './note-list.component.html'
 })
 export class NoteListComponent {
     @Input() notes!: Note[];

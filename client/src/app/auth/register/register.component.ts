@@ -52,30 +52,32 @@ export class RegisterComponent {
     }
 
     this.errors = {};
-    this.authService.register(this.registerForm.value).subscribe(
-      (res: any) => {
-        if (res && res.data && res.data.token !== undefined) {
-          this.authService.setData(res.data);
+    this.authService.register(this.registerForm.value).subscribe({
+      next: (res: any) => {
+        this.authService.setData(res.data);
 
-          if (Object.keys(this.errors).length === 0) {
-            this.eventService.register(this.registerForm.value).subscribe(
-              (res2: any) => {
-                if (res2 && res2.data && res2.data.token !== undefined) {
-                  this.registerForm.reset();
-                  this.eventService.setData(res2.data);
-                  this.router.navigate(['dashboard']);
-                }
-              },
-              (error2: any) => {
-                this.errors = {server: 'Server not responding'};
-              }
-            );
+        this.eventService.register(this.registerForm.value).subscribe({
+          next: (res2: any) => {
+            this.registerForm.reset();
+            this.eventService.setData(res2.data);
+            this.router.navigate(['dashboard']);
+          },
+          error: (err2: any) => {
+            if (err2.status === 401) {
+              this.errors[1] = err2.message;
+            } else {
+              this.errors[1] = 'Events server not responding';
+            }
           }
-        }
+        });
       },
-      (error: any) => {
-        this.errors = error.error.data.errors;
+      error: (err: any) => {
+        if (err.status === 401) {
+          this.errors[0] = err.message;
+        } else {
+          this.errors[0] = 'Notes server not responding';
+        }
       }
-    );
+    });
   }
 }

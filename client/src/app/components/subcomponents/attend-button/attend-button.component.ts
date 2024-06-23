@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 })
 export class AttendButtonComponent {
   @Input() event_id: string = '';
+  @Input() disabled: boolean = false;
   private user: User = this.authService.getUser();
   private event: any;
 
@@ -59,13 +60,23 @@ export class AttendButtonComponent {
    * Adds the user as an attendee of an event
    */
   addAttendee(): void {
-    this.eventService.addAttendee(this.event_id, this.user.email).subscribe((res: any) => {
-      if (res.message) {
-        //Vem da to ni pravi nacin ampak za angular 17 nisem nasl vredu dokumentacijo kak spremenit route reuse zato sm kr to uporabu
-        this.router.navigate(['/']).then(() => { this.router.navigate(['/events', this.event_id]) })
-      } else {
-        console.error('Failed to add attendee:' + res);
+    this.eventService.addAttendee(this.event_id, this.user.email).subscribe(
+      {
+        next: (res: any) => {
+
+        }
       }
-    })
+
+
+
+
+      // (res: any) => {
+      // if (res.message) {
+      //   //Vem da to ni pravi nacin ampak za angular 17 nisem nasl vredu dokumentacijo kak spremenit route reuse zato sm kr to uporabu
+      //   this.router.navigate(['/']).then(() => { this.router.navigate(['/events', this.event_id]) })
+      // } else {
+      //   console.error('Failed to add attendee:' + res);
+      // }
+    )
   }
 }

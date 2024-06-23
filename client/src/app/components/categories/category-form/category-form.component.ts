@@ -8,8 +8,7 @@ import { Router } from "@angular/router";
   selector: 'notes-category-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './category-form.component.html',
-  styleUrl: './category-form.component.css'
+  templateUrl: './category-form.component.html'
 })
 export class CategoryFormComponent implements OnInit {
   form!: FormGroup;

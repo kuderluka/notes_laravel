@@ -48,33 +48,34 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.errors = {};
-    this.authService.login(this.loginForm.value).subscribe(
-        (res: any) => {
-          if (res && res.data && res.data.token !== undefined) {
-            this.authService.setData(res.data);
 
-            this.eventService.login(this.loginForm.value).subscribe(
-              (res2: any) => {
-                if (res && res.data && res.data.token !== undefined) {
-                  this.loginForm.reset();
-                  this.eventService.setData(res.data);
-                  this.router.navigate(['dashboard']);
-                } else {
-                  this.errors[0] = (res.message);
-                }
-              },
-              (error2: any) => {
-                this.errors[1] = 'Server not responding';
-              }
-            );
-          } else {
-            this.errors[0] = (res.message);
+    this.errors = {};
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res: any) => {
+        this.authService.setData(res.data);
+
+        this.eventService.login(this.loginForm.value).subscribe({
+          next: (res2: any) => {
+            this.loginForm.reset();
+            this.eventService.setData(res2.data);
+            this.router.navigate(['dashboard']);
+          },
+          error: (err2: any) => {
+            if (err2.status === 401) {
+              this.errors[1] = err2.message;
+            } else {
+              this.errors[1] = 'Events server not responding';
+            }
           }
-        },
-        (error: any) => {
-          this.errors[1] = 'Server not responding';
+        });
+      },
+      error: (err: any) => {
+        if (err.status === 401) {
+          this.errors[0] = err.message;
+        } else {
+          this.errors[0] = 'Notes server not responding';
         }
-    );
+      }
+    });
   }
 }

@@ -1,21 +1,17 @@
-<div class="area">
-    <div class="content">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div *ngIf="events && events.length > 0">
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 my-2">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div *ngIf="events && events.length > 0">
 
-                  <notes-event-table [events]="events"></notes-event-table>
+          <notes-event-table [events]="events"></notes-event-table>
 
-                  <div *ngIf="totalItems > itemsPerPage">
-                    <ngb-pagination
-                      [collectionSize]="totalItems"
-                      [(page)]="currentPage"
-                      [pageSize]="itemsPerPage"
-                      (pageChange)="onPageChange($event)">
-                    </ngb-pagination>
-                  </div>
-                </div>
-            </div>
+          <div *ngIf="totalItems > itemsPerPage">
+            <ngb-pagination
+              [collectionSize]="totalItems"
+              [(page)]="currentPage"
+              [pageSize]="itemsPerPage"
+              (pageChange)="onPageChange($event)">
+            </ngb-pagination>
+          </div>
         </div>
     </div>
 </div>

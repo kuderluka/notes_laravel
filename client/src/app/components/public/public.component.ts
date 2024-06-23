@@ -4,7 +4,7 @@ import { Note } from "../../interfaces/note";
 import { NgForOf, NgIf } from "@angular/common";
 import { SearchComponent } from "../subcomponents/search/search.component";
 import { NgbPagination } from "@ng-bootstrap/ng-bootstrap";
-import {NoteListComponent} from "../notes/note-list/note-list.component";
+import { NoteListComponent } from "../notes/note-list/note-list.component";
 
 @Component({
   selector: 'notes-public',
@@ -16,8 +16,7 @@ import {NoteListComponent} from "../notes/note-list/note-list.component";
     NgbPagination,
     NoteListComponent
   ],
-  templateUrl: './public.component.html',
-  styleUrl: './public.component.css'
+  templateUrl: './public.component.html'
 })
 export class PublicComponent {
   protected notes: Note[] = [];
@@ -26,7 +25,7 @@ export class PublicComponent {
   protected totalItems: number = 0;
   protected itemsPerPage: number = 0;
 
-  constructor(private notesService:NoteService) {}
+  constructor(private notesService: NoteService) {}
 
   ngOnInit() {
     this.loadNotes();
@@ -58,7 +57,6 @@ export class PublicComponent {
    *
    * @param pageNumber
    */
-
   onPageChange(pageNumber: number): void {
     this.currentPage = pageNumber;
     this.loadNotes();

@@ -12,6 +12,7 @@ import { EventDetailsComponent } from "./components/events/event-details/event-d
 import { CategoryFormComponent } from "./components/categories/category-form/category-form.component";
 import { NoteFormComponent } from "./components/notes/note-form/note-form.component";
 import {StatisticsPageComponent} from "./components/statistics/statistics-page/statistics-page.component";
+import {ProfileComponent} from "./components/profile/profile.component";
 
 export const routes: Routes = [
   {
@@ -80,6 +81,12 @@ export const routes: Routes = [
         title: 'Event details'
       }
     ]
+  },
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    component: ProfileComponent,
+    title: 'Your profile',
   },
   {
     path: 'category/create',

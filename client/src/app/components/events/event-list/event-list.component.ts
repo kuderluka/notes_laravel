@@ -16,8 +16,7 @@ import { EventTableComponent } from "../event-table/event-table.component";
     NgbPagination,
     EventTableComponent
   ],
-  templateUrl: './event-list.component.html',
-  styleUrl: './event-list.component.css'
+  templateUrl: './event-list.component.html'
 })
 export class EventListComponent {
     @Input() events!: Event[];

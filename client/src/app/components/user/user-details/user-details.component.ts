@@ -1,9 +1,7 @@
-import { Component, inject } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoteService } from "../../../services/note.service";
 import { NgForOf, NgIf } from "@angular/common";
-import { UserDetails } from "../../../interfaces/user-details";
 import { EventTableComponent } from "../../events/event-table/event-table.component";
 import { NoteListComponent } from "../../notes/note-list/note-list.component";
 import { EventService } from "../../../services/event.service";
@@ -17,8 +15,7 @@ import { EventService } from "../../../services/event.service";
     EventTableComponent,
     NoteListComponent
   ],
-  templateUrl: './user-details.component.html',
-  styleUrl: './user-details.component.css'
+  templateUrl: './user-details.component.html'
 })
 export class UserDetailsComponent {
     protected data: any;
