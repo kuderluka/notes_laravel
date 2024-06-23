@@ -57,8 +57,6 @@ class RegisteredUserController extends Controller
 
             $token = $user->createToken('token')->plainTextToken;
 
-            $this->eventsAppService->register();
-
             return response()->json([
                 'message' => 'Registration successful!',
                 'data' => [

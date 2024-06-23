@@ -123,7 +123,16 @@ export class EventService {
    *
    * @param data
    */
-  register(data: any):any {
+  register(data: any): any {
     return this.httpClient.post(this.url + '/register', data);
+  }
+
+  /**
+   * Performs authentication by getting a token from the server
+   *
+   * @param data
+   */
+  authenticateSocials(data: string): any {
+    return this.httpClient.post(this.url + '/login/socials', data);
   }
 }

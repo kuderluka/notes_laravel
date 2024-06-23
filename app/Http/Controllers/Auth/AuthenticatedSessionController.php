@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\EventsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Nette\Utils\Random;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -39,13 +43,40 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        $token = $user->createToken('token')->plainTextToken;
+        return response()->json([
+            'message' => 'Success',
+            'data' => [
+                'user' => $user,
+                'token' => $user->createToken('token')->plainTextToken
+            ]
+        ]);
+    }
+
+    /**
+     * Handles user authentication for socials
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function authenticateSocials(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'id' => (string) Str::orderedUuid(),
+                'username' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make(Random::generate(20)),
+                'image' => $request->picture
+            ]);
+        }
 
         return response()->json([
             'message' => 'Success',
             'data' => [
                 'user' => $user,
-                'token' => $token
+                'token' => $user->createToken('token')->plainTextToken
             ]
         ]);
     }
@@ -56,8 +87,6 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): JsonResponse
     {
         try {
-            $this->eventsAppService->logout();
-
             auth()->user()->tokens()->delete();
 
             return response()->json([

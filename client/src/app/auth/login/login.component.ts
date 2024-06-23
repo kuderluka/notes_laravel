@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router, RouterLink } from "@angular/router";
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { EventService } from "../../services/event.service";
 import { NgIf } from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
+import { SocialsAuthenticationComponent } from "../socials-authentication/socials-authentication.component";
+
 
 @Component({
   selector: 'notes-login',
@@ -13,17 +15,18 @@ import { ErrorsComponent } from "../../components/subcomponents/errors/errors.co
     RouterLink,
     ReactiveFormsModule,
     NgIf,
-    ErrorsComponent
+    ErrorsComponent,
+    SocialsAuthenticationComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   protected errors: { [key: string]: string } = {};
   protected submitted: boolean = false;
 
-  constructor(private authService: AuthService,private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private authService: AuthService, private eventService: EventService, private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -39,7 +42,7 @@ export class LoginComponent {
   /**
    * Authenticates an already existing user by fetching tokens from both my and Kristjan's server and storing them
    */
-  login(): void {
+  protected login(): void {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
