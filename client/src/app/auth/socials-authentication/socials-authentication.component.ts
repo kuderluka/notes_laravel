@@ -1,11 +1,11 @@
-import {EventService} from "../../services/event.service";
-
 declare var google: any;
-import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+import { EventService } from "../../services/event.service";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
+import { FacebookLoginProvider, SocialAuthService, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'notes-socials-authentication',
@@ -13,14 +13,21 @@ import { ErrorsComponent } from "../../components/subcomponents/errors/errors.co
   imports: [
     ErrorsComponent
   ],
-  templateUrl: './socials-authentication.component.html'
+  templateUrl: './socials-authentication.component.html',
+  styleUrl: './socials-authentication.component.css'
 })
-export class SocialsAuthenticationComponent implements AfterViewInit {
+export class SocialsAuthenticationComponent implements OnInit {
   protected errors: { [key: string]: string } = {};
 
-  constructor(private authService: AuthService, private eventService: EventService, private router: Router, private ngZone: NgZone) {}
+  constructor(
+    private socialAuthService: SocialAuthService,
+    private authService: AuthService,
+    private eventService: EventService,
+    private router: Router,
+    private ngZone: NgZone
+  ) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     google.accounts.id.initialize({
       client_id: environment.google_client_id,
       callback: (res: any) => this.ngZone.run(() => this.handleGoogleLogin(res))
@@ -31,6 +38,10 @@ export class SocialsAuthenticationComponent implements AfterViewInit {
       size: 'medium',
       shape: 'rectangle'
     });
+  }
+
+  signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   /**
