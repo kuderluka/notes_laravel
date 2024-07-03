@@ -5,7 +5,7 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validator
 import { EventService } from "../../services/event.service";
 import { NgIf } from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
-import { SocialsAuthenticationComponent } from "../socials-authentication/socials-authentication.component";
+//import { SocialsAuthenticationComponent } from "../socials-authentication/socials-authentication.component";
 
 
 @Component({
@@ -16,7 +16,7 @@ import { SocialsAuthenticationComponent } from "../socials-authentication/social
     ReactiveFormsModule,
     NgIf,
     ErrorsComponent,
-    SocialsAuthenticationComponent,
+    //SocialsAuthenticationComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

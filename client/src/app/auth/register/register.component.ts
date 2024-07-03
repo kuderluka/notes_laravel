@@ -5,7 +5,7 @@ import { AuthService } from "../../services/auth.service";
 import { EventService } from "../../services/event.service";
 import { NgClass, NgIf } from "@angular/common";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
-import { SocialsAuthenticationComponent } from "../socials-authentication/socials-authentication.component";
+//import { SocialsAuthenticationComponent } from "../socials-authentication/socials-authentication.component";
 
 @Component({
   selector: 'notes-register',
@@ -16,7 +16,7 @@ import { SocialsAuthenticationComponent } from "../socials-authentication/social
     NgIf,
     ErrorsComponent,
     NgClass,
-    SocialsAuthenticationComponent
+    //SocialsAuthenticationComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

@@ -5,7 +5,11 @@ import { environment } from "../../../environments/environment";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
-import { FacebookLoginProvider, SocialAuthService, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
+// import {
+//   FacebookLoginProvider,
+//   SocialAuthService,
+//   SocialAuthServiceConfig
+// } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: 'notes-socials-authentication',
@@ -19,7 +23,7 @@ export class SocialsAuthenticationComponent implements OnInit {
   protected errors: { [key: string]: string } = {};
 
   constructor(
-    private socialAuthService: SocialAuthService,
+    //private socialAuthService: SocialAuthService,
     private authService: AuthService,
     private eventService: EventService,
     private router: Router,
@@ -39,9 +43,9 @@ export class SocialsAuthenticationComponent implements OnInit {
     });
   }
 
-  signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
+  // signInWithFB(): void {
+  //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
 
   /**
    * Decodes the JWT request and extracts the data
