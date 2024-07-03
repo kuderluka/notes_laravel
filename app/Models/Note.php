@@ -37,9 +37,12 @@ class Note extends Model
         'public'
     ];
 
-    protected $casts = [
-        'deadline' => 'datetime:d-m-Y H:i:s',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'deadline' => 'datetime:d-m-Y H:i:s'
+        ];
+    }
 
     public function getDeadlineAttribute()
     {
