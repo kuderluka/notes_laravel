@@ -9,7 +9,7 @@
         "guzzlehttp/guzzle": "^7.8.1",
         "kyslik/column-sortable": "^6.6.0",
         "laravel/framework": "^11.11.1",
-        "laravel/sanctum": "^4.0.2",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9.0"
     },
     "require-dev": {

@@ -1,10 +1,9 @@
 declare var google: any;
-import {EventService} from "../../services/event.service";
-import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
+import { EventService } from "../../services/event.service";
+import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { EventService } from "../../services/event.service";
 import { ErrorsComponent } from "../../components/subcomponents/errors/errors.component";
 import { FacebookLoginProvider, SocialAuthService, SocialAuthServiceConfig } from "@abacritt/angularx-social-login";
 
@@ -14,8 +13,7 @@ import { FacebookLoginProvider, SocialAuthService, SocialAuthServiceConfig } fro
   imports: [
     ErrorsComponent
   ],
-  templateUrl: './socials-authentication.component.html',
-  styleUrl: './socials-authentication.component.css'
+  templateUrl: './socials-authentication.component.html'
 })
 export class SocialsAuthenticationComponent implements OnInit {
   protected errors: { [key: string]: string } = {};
