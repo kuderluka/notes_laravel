@@ -1,0 +1,7 @@
+<div class="form-group">
+  <div *ngIf="title">
+    <label class="mt-2" for="{{ name }}"> {{ title }} </label>
+  </div>
+
+  <input formControlName="{{ name }}" type="{{ type }}" class="form-control" id="{{ id }}" placeholder="{{ placeholder }}">
+</div>
